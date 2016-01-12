@@ -30,5 +30,6 @@ namespace Core.Transcoder.DataAccess
         public virtual DbSet<TASK> TASK { get; set; }
         public virtual DbSet<TRACE> TRACE { get; set; }
         public virtual DbSet<USER> USER { get; set; }
+        public virtual DbSet<PARAM_TASK_STATUS> PARAM_TASK_STATUS { get; set; }
     }
 }

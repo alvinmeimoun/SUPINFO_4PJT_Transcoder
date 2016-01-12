@@ -13,8 +13,12 @@ namespace Core.Transcoder.Repository
         private TRANSCODEREntities context = new TRANSCODEREntities();
         private TRACE_Repository traceRepository;
         private TASK_Repository taskRepository;
-       
-        public TRACE_Repository TraceRepository
+        private PARAM_TASK_STATUS_Repository paramTaskRepository;
+        private FORMAT_Repository formatRepository;
+        private USER_Repository userRepository;
+
+
+        public TRACE_Repository TRACE_Repository
         {
             get
             {
@@ -25,11 +29,10 @@ namespace Core.Transcoder.Repository
                 return traceRepository;
             }
         }
-        public TASK_Repository TaskRepository
+        public TASK_Repository TASK_Repository
         {
             get
             {
-
                 if (this.taskRepository == null)
                 {
                     this.taskRepository = new TASK_Repository(context);
@@ -37,18 +40,44 @@ namespace Core.Transcoder.Repository
                 return taskRepository;
             }
         }
-        //public GenericRepository<Course> CourseRepository
-        //{
-        //    get
-        //    {
+        public PARAM_TASK_STATUS_Repository PARAM_TASK_STATUS_Repository
+        {
+            get
+            {
+                if (this.paramTaskRepository == null)
+                {
+                    this.paramTaskRepository = new PARAM_TASK_STATUS_Repository(context);
+                }
+                return paramTaskRepository;
+            }
+        }
+        public FORMAT_Repository FORMAT_Repository
+        {
+            get
+            {
+                if (this.formatRepository == null)
+                {
+                    this.formatRepository = new FORMAT_Repository(context);
+                }
+                return formatRepository;
+            }
+        }
+        public USER_Repository USER_Repository
+        {
+            get
+            {
+                if (this.userRepository == null)
+                {
+                    this.userRepository = new USER_Repository(context);
+                }
+                return userRepository;
+            }
+        }
 
-        //        if (this.courseRepository == null)
-        //        {
-        //            this.courseRepository = new GenericRepository<Course>(context);
-        //        }
-        //        return courseRepository;
-        //    }
-        //}
+
+
+
+
 
         public void Save()
         {

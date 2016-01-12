@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Transcoder.Service
+namespace Core.Transcoder.Service.Services
 {
-    public class PARAM_SPLIT_Service
+    public class PARAM_TASK_STATUS_Service
     {
         public UnitOfWork UoW = new UnitOfWork();
+
+
     }
 }

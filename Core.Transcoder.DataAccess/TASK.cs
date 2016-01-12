@@ -26,5 +26,7 @@ namespace Core.Transcoder.DataAccess
         public Nullable<System.DateTime> DATE_BEGIN_CONVERSION { get; set; }
         public Nullable<System.DateTime> DATE_END_CONVERSION { get; set; }
         public Nullable<int> FK_ID_PARENT_TASK { get; set; }
+        public string FILE_URL_TEMP { get; set; }
+        public string FILE_URL_DESTINATION { get; set; }
     }
 }

@@ -104,7 +104,7 @@ namespace Core.Transcoder.FFmpegWrapper
                 {
                     Arguments = parameters.ToString(),
                     WorkingDirectory = Path.GetDirectoryName(FFMPEGExecutableFilePath),
-                    FileName = @"C:\Users\Antonin\Documents\Visual Studio 2013\Projects\ConsoleApplication2\libs\FFmpeg\bin\ffmpeg.exe",
+                    FileName = @"D:\Projets\TestsAssetsTranscoder\FFmpeg\bin\ffmpeg.exe",
                     UseShellExecute = false,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,

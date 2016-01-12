@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="TRANSCODERModel.TASK" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TRANSCODERModel.TRACE" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TRANSCODERModel.USER" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRANSCODERModel.PARAM_TASK_STATUS" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

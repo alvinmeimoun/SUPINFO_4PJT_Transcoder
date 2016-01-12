@@ -14,7 +14,7 @@ namespace Core.Transcoder.Service
 
         public bool AddTrace(TRACE trace)
         {
-            if(UoW.TraceRepository.Insert(trace))
+            if(UoW.TRACE_Repository.Insert(trace))
             {
                 UoW.Save();
                 return true;
@@ -27,7 +27,7 @@ namespace Core.Transcoder.Service
         }
         public IEnumerable<TRACE> GetAllTraces()
         {
-            return UoW.TraceRepository.GetAll();
+            return UoW.TRACE_Repository.GetAll();
         }
 
 
