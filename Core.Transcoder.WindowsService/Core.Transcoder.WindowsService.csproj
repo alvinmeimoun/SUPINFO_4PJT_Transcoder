@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,9 +57,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Transcoder.DataAccess\Core.Transcoder.DataAccess.csproj">
+      <Project>{09f05577-8d7c-4526-a15b-dd9dc9dbcf79}</Project>
+      <Name>Core.Transcoder.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Transcoder.FFmpegWrapper\Core.Transcoder.FFmpegWrapper.csproj">
       <Project>{4bb1c4f5-6f36-4f8d-a24d-b4dda3d3c910}</Project>
       <Name>Core.Transcoder.FFmpegWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Transcoder.Service\Core.Transcoder.Service.csproj">
+      <Project>{25b43747-b65c-46bb-8ebf-0b12546480c9}</Project>
+      <Name>Core.Transcoder.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

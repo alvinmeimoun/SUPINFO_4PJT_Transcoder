@@ -14,19 +14,17 @@ namespace WindowsServiceConsoleApplicationTest
 {
     public static class TranscoderService
     {
-        private static string rootFolder = ConfigurationSettings.AppSettings["TranscoderTempRoot"];
-        private static string sourceFolder = ConfigurationSettings.AppSettings["TranscoderTempRootSource"];
-        private static string destinationFolder = ConfigurationSettings.AppSettings["TranscoderTempRootDestination"];
+        private static string rootFolder = ConfigurationManager.AppSettings["TranscoderTempRoot"];
+        private static string sourceFolder = ConfigurationManager.AppSettings["TranscoderTempRootSource"];
+        private static string destinationFolder = ConfigurationManager.AppSettings["TranscoderTempRootDestination"];
 
         public static bool DoFFmpegConvertion(TASK Task)
         {
-            
-                InitWorkspace();
-
-                // "-vcodec mpeg4 -acodec ac3 -ar 48000 -ab 192k"
+            InitWorkspace();
 
                 FORMAT formatToConvert = new FORMAT_Service().GetFormatById((int)Task.FK_ID_FORMAT_TO_CONVERT);
                 CopyFilesInFolder(Task, formatToConvert);
+
             try
             {
 
@@ -50,14 +48,17 @@ namespace WindowsServiceConsoleApplicationTest
                 return false;
             }
         }
+
         public static void InitWorkspace()
         {
             CreateWorkDirectories(rootFolder);
             CreateWorkDirectories(sourceFolder);
             CreateWorkDirectories(destinationFolder);
         }
+
         public static bool CopyFilesInFolder(TASK Task , FORMAT Format)
         {
+           // TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DESCRIPTION = e.Message, METHOD = "CONVERSION FFMPEG", TYPE = "ERROR" };
             string fileUrl = Task.FILE_URL;
             // voir traitement
             int count = (fileUrl.LastIndexOf(@"\") + 1);
@@ -69,20 +70,23 @@ namespace WindowsServiceConsoleApplicationTest
             Task.FILE_URL_DESTINATION = destinationFolder + @"\" + fileName + Format.FORMAT_NAME;
             new TASK_Service().AddOrUpdateTask(Task);
 
+
             if (File.Exists(fileUrl))
             {
                 if(File.Exists(Task.FILE_URL_TEMP))
                 {
                     File.Delete(Task.FILE_URL_TEMP);
                 }
+
                 File.Copy(fileUrl, Task.FILE_URL_TEMP);
+
                 return true;
             }
             return false;
         }
 
         public static void CreateWorkDirectories(string folder)
-        {
+        {      
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);

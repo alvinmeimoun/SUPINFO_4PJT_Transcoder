@@ -16,7 +16,7 @@ namespace Core.Transcoder.FFmpegWrapper
     public static class FFMpegService
     {
         public static string FFMPEGExecutableFilePath;
-
+        public static string FullPath = @"D:\Projets\TestsAssetsTranscoder\FFmpeg\bin\ffmpeg.exe";
         private const int MaximumBuffers = 25;
 
         public static Queue<string> PreviousBuffers = new Queue<string>();
@@ -104,7 +104,7 @@ namespace Core.Transcoder.FFmpegWrapper
                 {
                     Arguments = parameters.ToString(),
                     WorkingDirectory = Path.GetDirectoryName(FFMPEGExecutableFilePath),
-                    FileName = @"D:\Projets\TestsAssetsTranscoder\FFmpeg\bin\ffmpeg.exe",
+                    FileName = FullPath,
                     UseShellExecute = false,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
@@ -123,7 +123,6 @@ namespace Core.Transcoder.FFmpegWrapper
                     {
                         PreviousBuffers.Dequeue();
                     }
-
                 }
 
                 return processOutput;

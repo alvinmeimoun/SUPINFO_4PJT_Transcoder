@@ -21,5 +21,6 @@ namespace Core.Transcoder.WindowsService
             };
             ServiceBase.Run(ServicesToRun);
         }
+
     }
 }
