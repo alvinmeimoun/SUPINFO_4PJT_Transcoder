@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using Core.Transcoder.FFmpegWrapper.Videos;
 using Core.Transcoder.FFmpegWrapper.Filters;
 using Core.Transcoder.FFmpegWrapper.Audio;
+using System.Threading.Tasks;
 
 namespace Core.Transcoder.FFmpegWrapper
 {
@@ -163,15 +164,16 @@ namespace Core.Transcoder.FFmpegWrapper
             return previewImage;
         }
 
-        public string ExtractVideoSegment(long ticksToExtract, long ticksTimeLapse, VideoFormat type)
+        public string ExtractVideoSegment(string FileDestination, long ticksToExtract, long ticksTimeLapse, VideoFormat type)
         {
-            return ExtractVideoSegment(ticksToExtract, ticksTimeLapse, type, Size.Empty);
+            return ExtractVideoSegment(FileDestination, ticksToExtract, ticksTimeLapse, type, Size.Empty);
+            
         }
 
-        public string ExtractVideoSegment(long ticksToExtract, long ticksTimeLapse, VideoFormat type, Size dimensions)
+        public string ExtractVideoSegment(string FileDestination, long ticksToExtract, long ticksTimeLapse, VideoFormat type, Size dimensions)
         {
-            
-            string tempFile = Path.GetTempPath() + Guid.NewGuid() + "." + type.ToString();
+            string tempFile = FileDestination;
+           // string tempFile = Path.GetTempPath() + Guid.NewGuid() + "." + type.ToString();
             var span = TimeSpan.FromTicks(ticksToExtract);
             var spanTo = TimeSpan.FromTicks(ticksTimeLapse - ticksToExtract);
 
@@ -193,8 +195,35 @@ namespace Core.Transcoder.FFmpegWrapper
             {
                 throw new Exception("Could not create single frame image from video clip");
             }
-
+          
             return tempFile;
+        }
+
+
+        public static string MergeVideoSegment(List<string> listVideoSegments, string outputFilePath)
+        {
+
+            string Instruction = "-i concat:";
+
+            foreach(string item in listVideoSegments)
+            {
+                string ins = String.Format(@"""{0}""", item);
+                Instruction += ins + "|";
+            }
+
+            Instruction = Instruction.TrimEnd('|');
+            Instruction = Instruction + " -c copy ";
+
+            FFMPEGParameters parameters = new FFMPEGParameters()
+            {
+                DisableAudio = false,
+                OutputOptions = Instruction,
+                OutputFilePath = outputFilePath
+            };
+
+            string output = FFMpegService.Execute(parameters);
+
+            return outputFilePath;
         }
 
         public string MergeAudioSegment(string audioFile, VideoFormat type)
@@ -312,7 +341,7 @@ namespace Core.Transcoder.FFmpegWrapper
 
 
 
-        protected void GetVideoInfo()
+        public void GetVideoInfo()
         {
             string output = FFMpegService.Execute(FilePath);
 

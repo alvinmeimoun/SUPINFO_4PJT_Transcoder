@@ -14,9 +14,11 @@ namespace Core.Transcoder.Repository
         private TRACE_Repository traceRepository;
         private TASK_Repository taskRepository;
         private PARAM_TASK_STATUS_Repository paramTaskRepository;
+        private PARAM_SPLIT_Repository paramSplitRepository;
         private FORMAT_Repository formatRepository;
+        private FORMAT_TYPE_Repository formatTypeRepository;
         private USER_Repository userRepository;
-
+        private CONFIG_Repository configRepository;
 
         public TRACE_Repository TRACE_Repository
         {
@@ -51,6 +53,17 @@ namespace Core.Transcoder.Repository
                 return paramTaskRepository;
             }
         }
+        public PARAM_SPLIT_Repository PARAM_SPLIT_Repository
+        {
+            get
+            {
+                if (this.paramSplitRepository == null)
+                {
+                    this.paramSplitRepository = new PARAM_SPLIT_Repository(context);
+                }
+                return paramSplitRepository;
+            }
+        }
         public FORMAT_Repository FORMAT_Repository
         {
             get
@@ -60,6 +73,17 @@ namespace Core.Transcoder.Repository
                     this.formatRepository = new FORMAT_Repository(context);
                 }
                 return formatRepository;
+            }
+        }
+        public FORMAT_TYPE_Repository FORMAT_TYPE_Repository
+        {
+            get
+            {
+                if (this.formatTypeRepository == null)
+                {
+                    this.formatTypeRepository = new FORMAT_TYPE_Repository(context);
+                }
+                return formatTypeRepository;
             }
         }
         public USER_Repository USER_Repository
@@ -73,10 +97,17 @@ namespace Core.Transcoder.Repository
                 return userRepository;
             }
         }
-
-
-
-
+        public CONFIG_Repository CONFIG_Repository
+        {
+            get
+            {
+                if (this.configRepository == null)
+                {
+                    this.configRepository = new CONFIG_Repository(context);
+                }
+                return configRepository;
+            }
+        }
 
 
         public void Save()

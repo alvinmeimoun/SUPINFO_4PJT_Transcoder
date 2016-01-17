@@ -15,7 +15,7 @@ namespace Core.Transcoder.DataAccess
     public partial class PARAM_SPLIT
     {
         public int PK_ID_PARAM_SPLIT { get; set; }
-        public Nullable<System.DateTime> BEGIN_PARAM_SPLIT { get; set; }
-        public Nullable<System.DateTime> END_PARAM_SPLIT { get; set; }
+        public string BEGIN_PARAM_SPLIT { get; set; }
+        public string END_PARAM_SPLIT { get; set; }
     }
 }

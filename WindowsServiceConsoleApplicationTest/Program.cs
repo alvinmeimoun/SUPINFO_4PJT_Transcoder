@@ -64,15 +64,16 @@ namespace WindowsServiceConsoleApplicationTest
                 Trace.TraceInformation("Working");
                 TASK_Service taskService = new TASK_Service();
 
-                List<TASK> listOfTasks = taskService.GetListOfTaskByStatus(EnumManager.PARAM_TASK_STATUS.A_FAIRE);
+                List<TASK> listOfTasks = taskService.GetListOfTaskByStatusToDoOrToMerge();
+
                 if (listOfTasks.Count() > 0)
                 {
                     TASK task = listOfTasks.First();
-                    task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EN_COURS;
+                
                     task.DATE_BEGIN_CONVERSION = DateTime.Now;
                     taskService.AddOrUpdateTask(task);
                     new TRACE_Service().AddTrace(new TRACE() { FK_ID_TASK = task.PK_ID_TASK, FK_ID_SERVER = 1, METHOD = "INITIALISATION TASK", DESCRIPTION = "Récupération de la tache à effectuer" });
-                    TranscoderService.DoFFmpegConvertion(task);
+                    TranscoderService.DoFFmpegConversion(task);
                 }
 
                 await Task.Delay(60000);

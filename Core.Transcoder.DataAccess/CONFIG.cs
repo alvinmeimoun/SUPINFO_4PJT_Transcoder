@@ -12,12 +12,10 @@ namespace Core.Transcoder.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class FORMAT
+    public partial class CONFIG
     {
-        public int PK_ID_FORMAT { get; set; }
-        public string FORMAT_NAME { get; set; }
-        public string FORMAT_FFMPEG_VALUE { get; set; }
-        public bool IS_ENABLED { get; set; }
-        public Nullable<int> FK_ID_FORMAT_TYPE { get; set; }
+        public int PK_ID_CONFIG { get; set; }
+        public string CONFIG_NAME { get; set; }
+        public string CONFIG_VALUE { get; set; }
     }
 }

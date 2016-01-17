@@ -14,9 +14,14 @@ namespace Core.Transcoder.Service.Enums
             A_FAIRE = 1,
             EN_COURS = 2,
             EFFECTUE = 3,
-            ERREUR = 4
+            ERREUR = 4,
+            DECOUPE = 5,
+            A_REASSEMBLER = 6
         }
-
+        public enum CONFIG
+        {
+            MAXLENGTHWITHOUTSPLIT = 1
+        }
 
     }
 }

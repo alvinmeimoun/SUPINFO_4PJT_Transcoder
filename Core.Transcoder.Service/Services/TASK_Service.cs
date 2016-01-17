@@ -37,5 +37,23 @@ namespace Core.Transcoder.Service
             return listTasks;
         }
 
+        public List<TASK> GetListOfTaskByStatusToDoOrToMerge()
+        {
+
+            List<TASK> listTasks = UoW.TASK_Repository.Get(x => x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE 
+            || x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER, 
+            q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
+            return listTasks;
+        }
+
+        public List<TASK> GetSubTaskByMotherTask(int motherTaskId)
+        {
+            return UoW.TASK_Repository.Get(x => x.FK_ID_PARENT_TASK == motherTaskId, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
+        }
+
+        public TASK GetTaskById(int Id)
+        {
+            return UoW.TASK_Repository.GetByID(Id);
+        }
     }
 }

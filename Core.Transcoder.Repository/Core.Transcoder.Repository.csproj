@@ -48,7 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\CONFIG_Repository.cs" />
     <Compile Include="Repositories\FORMAT_Repository.cs" />
+    <Compile Include="Repositories\FORMAT_TYPE_Repository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\PARAM_SPLIT_Repository.cs" />
@@ -62,10 +64,6 @@
     <ProjectReference Include="..\Core.Transcoder.DataAccess\Core.Transcoder.DataAccess.csproj">
       <Project>{09f05577-8d7c-4526-a15b-dd9dc9dbcf79}</Project>
       <Name>Core.Transcoder.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Transcoder.Entities\Core.Transcoder.Entities.csproj">
-      <Project>{c5de1584-c30b-4ae1-acc4-fe47c3f52bc8}</Project>
-      <Name>Core.Transcoder.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

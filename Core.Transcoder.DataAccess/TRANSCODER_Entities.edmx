@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TRANSCODERModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONFIG">
+          <Key>
+            <PropertyRef Name="PK_ID_CONFIG" />
+          </Key>
+          <Property Name="PK_ID_CONFIG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CONFIG_NAME" Type="nvarchar(max)" />
+          <Property Name="CONFIG_VALUE" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="FORMAT">
           <Key>
             <PropertyRef Name="PK_ID_FORMAT" />
@@ -13,14 +21,22 @@
           <Property Name="FORMAT_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="FORMAT_FFMPEG_VALUE" Type="nvarchar(max)" />
           <Property Name="IS_ENABLED" Type="bit" Nullable="false" />
+          <Property Name="FK_ID_FORMAT_TYPE" Type="int" />
+        </EntityType>
+        <EntityType Name="FORMAT_TYPE">
+          <Key>
+            <PropertyRef Name="PK_ID_FORMAT_TYPE" />
+          </Key>
+          <Property Name="PK_ID_FORMAT_TYPE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FORMAT_TYPE_NAME" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PARAM_SPLIT">
           <Key>
             <PropertyRef Name="PK_ID_PARAM_SPLIT" />
           </Key>
           <Property Name="PK_ID_PARAM_SPLIT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BEGIN_PARAM_SPLIT" Type="datetime" />
-          <Property Name="END_PARAM_SPLIT" Type="datetime" />
+          <Property Name="BEGIN_PARAM_SPLIT" Type="nvarchar(max)" />
+          <Property Name="END_PARAM_SPLIT" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PARAM_TASK_STATUS">
           <Key>
@@ -48,6 +64,8 @@
           <Property Name="DATE_BEGIN_CONVERSION" Type="datetime" />
           <Property Name="DATE_END_CONVERSION" Type="datetime" />
           <Property Name="FK_ID_PARENT_TASK" Type="int" />
+          <Property Name="LENGTH" Type="int" />
+          <Property Name="FK_ID_PARAM_SPLIT" Type="int" />
         </EntityType>
         <EntityType Name="TRACE">
           <Key>
@@ -75,7 +93,9 @@
           <Property Name="GOOGLEID" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="TRANSCODERModelStoreContainer">
+          <EntitySet Name="CONFIG" EntityType="Self.CONFIG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMAT" EntityType="Self.FORMAT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FORMAT_TYPE" EntityType="Self.FORMAT_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARAM_SPLIT" EntityType="Self.PARAM_SPLIT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARAM_TASK_STATUS" EntityType="Self.PARAM_TASK_STATUS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TASK" EntityType="Self.TASK" Schema="dbo" store:Type="Tables" />
@@ -94,14 +114,7 @@
           <Property Name="FORMAT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FORMAT_FFMPEG_VALUE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IS_ENABLED" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PARAM_SPLIT">
-          <Key>
-            <PropertyRef Name="PK_ID_PARAM_SPLIT" />
-          </Key>
-          <Property Name="PK_ID_PARAM_SPLIT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BEGIN_PARAM_SPLIT" Type="DateTime" Precision="3" />
-          <Property Name="END_PARAM_SPLIT" Type="DateTime" Precision="3" />
+          <Property Name="FK_ID_FORMAT_TYPE" Type="Int32" />
         </EntityType>
         <EntityType Name="TASK">
           <Key>
@@ -121,6 +134,8 @@
           <Property Name="FK_ID_PARENT_TASK" Type="Int32" />
           <Property Name="FILE_URL_TEMP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FILE_URL_DESTINATION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LENGTH" Type="Int32" />
+          <Property Name="FK_ID_PARAM_SPLIT" Type="Int32" />
         </EntityType>
         <EntityType Name="TRACE">
           <Key>
@@ -149,11 +164,13 @@
         </EntityType>
         <EntityContainer Name="TRANSCODEREntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="FORMAT" EntityType="Self.FORMAT" />
-          <EntitySet Name="PARAM_SPLIT" EntityType="Self.PARAM_SPLIT" />
           <EntitySet Name="TASK" EntityType="Self.TASK" />
           <EntitySet Name="TRACE" EntityType="Self.TRACE" />
           <EntitySet Name="USER" EntityType="Self.USER" />
           <EntitySet Name="PARAM_TASK_STATUS" EntityType="TRANSCODERModel.PARAM_TASK_STATUS" />
+          <EntitySet Name="FORMAT_TYPE" EntityType="TRANSCODERModel.FORMAT_TYPE" />
+          <EntitySet Name="CONFIG" EntityType="TRANSCODERModel.CONFIG" />
+          <EntitySet Name="PARAM_SPLIT" EntityType="TRANSCODERModel.PARAM_SPLIT" />
         </EntityContainer>
         <EntityType Name="PARAM_TASK_STATUS">
           <Key>
@@ -162,6 +179,29 @@
           <Property Name="PK_ID_STATUS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LIBELLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IS_ACTIVE" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FORMAT_TYPE">
+          <Key>
+            <PropertyRef Name="PK_ID_FORMAT_TYPE" />
+          </Key>
+          <Property Name="PK_ID_FORMAT_TYPE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FORMAT_TYPE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CONFIG">
+          <Key>
+            <PropertyRef Name="PK_ID_CONFIG" />
+          </Key>
+          <Property Name="PK_ID_CONFIG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CONFIG_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CONFIG_VALUE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PARAM_SPLIT">
+          <Key>
+            <PropertyRef Name="PK_ID_PARAM_SPLIT" />
+          </Key>
+          <Property Name="PK_ID_PARAM_SPLIT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BEGIN_PARAM_SPLIT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="END_PARAM_SPLIT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -172,6 +212,7 @@
           <EntitySetMapping Name="FORMAT">
             <EntityTypeMapping TypeName="TRANSCODERModel.FORMAT">
               <MappingFragment StoreEntitySet="FORMAT">
+                <ScalarProperty Name="FK_ID_FORMAT_TYPE" ColumnName="FK_ID_FORMAT_TYPE" />
                 <ScalarProperty Name="PK_ID_FORMAT" ColumnName="PK_ID_FORMAT" />
                 <ScalarProperty Name="FORMAT_NAME" ColumnName="FORMAT_NAME" />
                 <ScalarProperty Name="FORMAT_FFMPEG_VALUE" ColumnName="FORMAT_FFMPEG_VALUE" />
@@ -179,18 +220,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PARAM_SPLIT">
-            <EntityTypeMapping TypeName="TRANSCODERModel.PARAM_SPLIT">
-              <MappingFragment StoreEntitySet="PARAM_SPLIT">
-                <ScalarProperty Name="PK_ID_PARAM_SPLIT" ColumnName="PK_ID_PARAM_SPLIT" />
-                <ScalarProperty Name="BEGIN_PARAM_SPLIT" ColumnName="BEGIN_PARAM_SPLIT" />
-                <ScalarProperty Name="END_PARAM_SPLIT" ColumnName="END_PARAM_SPLIT" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TASK">
             <EntityTypeMapping TypeName="TRANSCODERModel.TASK">
               <MappingFragment StoreEntitySet="TASK">
+                <ScalarProperty Name="FK_ID_PARAM_SPLIT" ColumnName="FK_ID_PARAM_SPLIT" />
+                <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
                 <ScalarProperty Name="FILE_URL_DESTINATION" ColumnName="FILE_URL_DESTINATION" />
                 <ScalarProperty Name="FILE_URL_TEMP" ColumnName="FILE_URL_TEMP" />
                 <ScalarProperty Name="PK_ID_TASK" ColumnName="PK_ID_TASK" />
@@ -241,6 +275,32 @@
                 <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
                 <ScalarProperty Name="LIBELLE" ColumnName="LIBELLE" />
                 <ScalarProperty Name="PK_ID_STATUS" ColumnName="PK_ID_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORMAT_TYPE">
+            <EntityTypeMapping TypeName="TRANSCODERModel.FORMAT_TYPE">
+              <MappingFragment StoreEntitySet="FORMAT_TYPE">
+                <ScalarProperty Name="FORMAT_TYPE_NAME" ColumnName="FORMAT_TYPE_NAME" />
+                <ScalarProperty Name="PK_ID_FORMAT_TYPE" ColumnName="PK_ID_FORMAT_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONFIG">
+            <EntityTypeMapping TypeName="TRANSCODERModel.CONFIG">
+              <MappingFragment StoreEntitySet="CONFIG">
+                <ScalarProperty Name="CONFIG_VALUE" ColumnName="CONFIG_VALUE" />
+                <ScalarProperty Name="CONFIG_NAME" ColumnName="CONFIG_NAME" />
+                <ScalarProperty Name="PK_ID_CONFIG" ColumnName="PK_ID_CONFIG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PARAM_SPLIT">
+            <EntityTypeMapping TypeName="TRANSCODERModel.PARAM_SPLIT">
+              <MappingFragment StoreEntitySet="PARAM_SPLIT">
+                <ScalarProperty Name="END_PARAM_SPLIT" ColumnName="END_PARAM_SPLIT" />
+                <ScalarProperty Name="BEGIN_PARAM_SPLIT" ColumnName="BEGIN_PARAM_SPLIT" />
+                <ScalarProperty Name="PK_ID_PARAM_SPLIT" ColumnName="PK_ID_PARAM_SPLIT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
