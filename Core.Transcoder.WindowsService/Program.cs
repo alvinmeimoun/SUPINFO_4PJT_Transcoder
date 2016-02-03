@@ -14,12 +14,16 @@ namespace Core.Transcoder.WindowsService
         /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new Service1() 
-            };
-            ServiceBase.Run(ServicesToRun);
+            //ServiceBase[] ServicesToRun;
+            //ServicesToRun = new ServiceBase[] 
+            //{ 
+            //    new TranscoderWindowsService() 
+            //};
+            //ServiceBase.Run(ServicesToRun);
+
+            // POUR DEBUG
+            TranscoderWindowsService transcoder = new TranscoderWindowsService();
+            transcoder.StartDebug();
         }
 
     }

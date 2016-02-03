@@ -20,5 +20,7 @@ namespace Core.Transcoder.DataAccess
         public string METHOD { get; set; }
         public string DESCRIPTION { get; set; }
         public string TYPE { get; set; }
+        public Nullable<System.DateTime> DATE_TRACE { get; set; }
+        public string NOM_SERVER { get; set; }
     }
 }

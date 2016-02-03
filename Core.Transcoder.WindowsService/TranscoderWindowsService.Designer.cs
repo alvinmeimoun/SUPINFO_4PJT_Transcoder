@@ -1,6 +1,6 @@
 ﻿namespace Core.Transcoder.WindowsService
 {
-    partial class Service1
+    partial class TranscoderWindowsService
     {
         /// <summary> 
         /// Variable nécessaire au concepteur.

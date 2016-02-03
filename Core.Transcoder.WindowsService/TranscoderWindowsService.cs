@@ -14,11 +14,19 @@ using Core.Transcoder.DataAccess;
 
 namespace Core.Transcoder.WindowsService
 {
-    public partial class Service1 : ServiceBase
+    public partial class TranscoderWindowsService : ServiceBase
     {
-        public Service1()
+        public TranscoderWindowsService()
         {
             InitializeComponent();
+            // DEBUG
+          
+        }
+
+        public void StartDebug()
+        {
+            RunTask runTask = new RunTask();
+            runTask.Run();
         }
 
         protected override void OnStart(string[] args)
@@ -67,7 +75,7 @@ namespace Core.Transcoder.WindowsService
 
                     task.DATE_BEGIN_CONVERSION = DateTime.Now;
                     taskService.AddOrUpdateTask(task);
-                    new TRACE_Service().AddTrace(new TRACE() { FK_ID_TASK = task.PK_ID_TASK, FK_ID_SERVER = 1, METHOD = "INITIALISATION TASK", DESCRIPTION = "Récupération de la tache à effectuer" });
+                    new TRACE_Service().AddTrace(new TRACE() { FK_ID_TASK = task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, METHOD = "INITIALISATION TASK", DESCRIPTION = "Récupération de la tache à effectuer" });
                     TranscoderService.DoFFmpegConversion(task);
                 }
 

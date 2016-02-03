@@ -14,6 +14,12 @@ namespace Core.Transcoder.DataAccess
     
     public partial class USER
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public USER()
+        {
+            this.TASK = new HashSet<TASK>();
+        }
+    
         public int PK_ID_USER { get; set; }
         public string USERNAME { get; set; }
         public string PASSWORD { get; set; }
@@ -23,5 +29,8 @@ namespace Core.Transcoder.DataAccess
         public string EMAIL { get; set; }
         public string FACEBOOKID { get; set; }
         public string GOOGLEID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TASK> TASK { get; set; }
     }
 }

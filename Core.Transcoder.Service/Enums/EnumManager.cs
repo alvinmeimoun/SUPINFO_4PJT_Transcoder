@@ -16,7 +16,8 @@ namespace Core.Transcoder.Service.Enums
             EFFECTUE = 3,
             ERREUR = 4,
             DECOUPE = 5,
-            A_REASSEMBLER = 6
+            A_REASSEMBLER = 6,
+            SPLIT_EN_COURS = 7
         }
         public enum CONFIG
         {

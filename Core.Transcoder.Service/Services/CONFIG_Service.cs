@@ -14,5 +14,10 @@ namespace Core.Transcoder.Service
         {
             return UoW.CONFIG_Repository.GetByID(id).CONFIG_VALUE;
         }
+
+        public string GetConfigValueByName(string configName)
+        {
+            return UoW.CONFIG_Repository.Get(x => x.CONFIG_NAME == configName).FirstOrDefault().CONFIG_VALUE;
+        }
     }
 }

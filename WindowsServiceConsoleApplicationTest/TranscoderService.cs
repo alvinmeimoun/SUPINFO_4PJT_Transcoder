@@ -72,7 +72,7 @@ namespace WindowsServiceConsoleApplicationTest
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
                 new TASK_Service().AddOrUpdateTask(Task);
 
-                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DESCRIPTION = e.Message, METHOD = "CONVERSION FFMPEG", TYPE = "ERROR" };
+                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message, METHOD = "CONVERSION FFMPEG", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
                 return false;
             }
@@ -90,7 +90,7 @@ namespace WindowsServiceConsoleApplicationTest
             bool result = false;
             try
             {
-                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, METHOD = "CREATION DES FICHIERS TEMPORAIRES", TYPE = "INFO" };
+                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, METHOD = "CREATION DES FICHIERS TEMPORAIRES", TYPE = "INFO" };
                 new TRACE_Service().AddTrace(Trace);
 
                 string fileUrl = Task.FILE_URL;
@@ -129,7 +129,7 @@ namespace WindowsServiceConsoleApplicationTest
             }
             catch (Exception e)
             {
-                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DESCRIPTION = e.Message, METHOD = "CREATION DES FICHIERS TEMPORAIRES", TYPE = "ERROR" };
+                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message, METHOD = "CREATION DES FICHIERS TEMPORAIRES", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
                 return false;
             }
@@ -146,7 +146,7 @@ namespace WindowsServiceConsoleApplicationTest
             }
             catch (Exception e)
             {
-                TRACE Trace = new TRACE { FK_ID_SERVER = 1, DESCRIPTION = e.Message, METHOD = "CREATION DES REPERTOIRES " + folder, TYPE = "ERROR" };
+                TRACE Trace = new TRACE { FK_ID_SERVER = 1, DESCRIPTION = e.Message, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, METHOD = "CREATION DES REPERTOIRES " + folder, TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
             }
         }

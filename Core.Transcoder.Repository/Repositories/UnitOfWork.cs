@@ -10,7 +10,21 @@ namespace Core.Transcoder.Repository
 {
     public class UnitOfWork : IDisposable
     {
-        private TRANSCODEREntities context = new TRANSCODEREntities();
+
+        private static TRANSCODEREntities _context;
+
+        public static TRANSCODEREntities context
+        {
+            get
+            {
+                if (_context == null)
+                {
+                    _context = new TRANSCODEREntities();
+                }
+                return _context;
+            }
+        }
+
         private TRACE_Repository traceRepository;
         private TASK_Repository taskRepository;
         private PARAM_TASK_STATUS_Repository paramTaskRepository;

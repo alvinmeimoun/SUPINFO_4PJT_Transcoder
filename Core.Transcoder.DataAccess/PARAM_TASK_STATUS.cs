@@ -14,8 +14,17 @@ namespace Core.Transcoder.DataAccess
     
     public partial class PARAM_TASK_STATUS
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PARAM_TASK_STATUS()
+        {
+            this.TASK = new HashSet<TASK>();
+        }
+    
         public int PK_ID_STATUS { get; set; }
         public string LIBELLE { get; set; }
         public bool IS_ACTIVE { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TASK> TASK { get; set; }
     }
 }

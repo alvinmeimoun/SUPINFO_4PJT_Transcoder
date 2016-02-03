@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.Reflection;
+using Core.Transcoder.Service;
 
 namespace Core.Transcoder.FFmpegWrapper
 {
@@ -16,7 +17,8 @@ namespace Core.Transcoder.FFmpegWrapper
     public static class FFMpegService
     {
         public static string FFMPEGExecutableFilePath;
-        public static string FullPath = @"D:\Projets\TestsAssetsTranscoder\FFmpeg\bin\ffmpeg.exe";
+        public static string FullPath = ConfigurationManager.AppSettings["FullFFMPEGExecutableFilePath"];
+        //@"D:\Projets\TestsAssetsTranscoder\FFmpeg\bin\ffmpeg.exe";
         private const int MaximumBuffers = 25;
 
         public static Queue<string> PreviousBuffers = new Queue<string>();
@@ -27,8 +29,9 @@ namespace Core.Transcoder.FFmpegWrapper
             var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
             if (currentDirectory == null)
                 return;
-            
-            FFMPEGExecutableFilePath = currentDirectory + ConfigurationManager.AppSettings["FFMPEGExecutableFilePath"];
+
+            FFMPEGExecutableFilePath = new CONFIG_Service().GetConfigValueByName("FFMPEGExecutableFilePath");
+                //currentDirectory + ConfigurationManager.AppSettings["FullFFMPEGExecutableFilePath"];
         }
 
 
@@ -104,7 +107,7 @@ namespace Core.Transcoder.FFmpegWrapper
                 {
                     Arguments = parameters.ToString(),
                     WorkingDirectory = Path.GetDirectoryName(FFMPEGExecutableFilePath),
-                    FileName = FullPath,
+                    FileName = FFMPEGExecutableFilePath,
                     UseShellExecute = false,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,

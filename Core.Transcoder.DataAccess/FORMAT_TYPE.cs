@@ -14,7 +14,19 @@ namespace Core.Transcoder.DataAccess
     
     public partial class FORMAT_TYPE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public FORMAT_TYPE()
+        {
+            this.FORMAT = new HashSet<FORMAT>();
+            this.TASK = new HashSet<TASK>();
+        }
+    
         public int PK_ID_FORMAT_TYPE { get; set; }
         public string FORMAT_TYPE_NAME { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FORMAT> FORMAT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TASK> TASK { get; set; }
     }
 }
