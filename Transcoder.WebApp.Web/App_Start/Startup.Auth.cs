@@ -55,9 +55,9 @@ namespace Transcoder.WebApp.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: ConfigurationManager.AppSettings["api_facebook_clientid"],
+               appSecret: ConfigurationManager.AppSettings["api_facebook_clientsecret"]);
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
