@@ -53,6 +53,7 @@
     <Compile Include="CONFIG.cs">
       <DependentUpon>TRANSCODER_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extends\USER.cs" />
     <Compile Include="FORMAT.cs">
       <DependentUpon>TRANSCODER_Entities.tt</DependentUpon>
     </Compile>

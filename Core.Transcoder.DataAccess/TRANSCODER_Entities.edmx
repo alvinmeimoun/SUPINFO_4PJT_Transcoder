@@ -205,9 +205,9 @@
           <Property Name="LENGTH" Type="Int32" />
           <Property Name="FK_ID_PARAM_SPLIT" Type="Int32" />
           <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_TASK_FORMAT" FromRole="TASK" ToRole="FORMAT" />
-          <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="TASK" ToRole="USER" />
           <NavigationProperty Name="FORMAT_TYPE" Relationship="TRANSCODERModel.FK_TASK_FORMAT_TYPE" FromRole="TASK" ToRole="FORMAT_TYPE" />
           <NavigationProperty Name="PARAM_TASK_STATUS" Relationship="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS" FromRole="TASK" ToRole="PARAM_TASK_STATUS" />
+          <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="TASK" ToRole="USER" />
         </EntityType>
         <EntityType Name="TRACE">
           <Key>
@@ -222,26 +222,10 @@
           <Property Name="DATE_TRACE" Type="DateTime" Precision="3" />
           <Property Name="NOM_SERVER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="USER">
-          <Key>
-            <PropertyRef Name="PK_ID_USER" />
-          </Key>
-          <Property Name="PK_ID_USER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FIRSTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BIRTHDATE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FACEBOOKID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GOOGLEID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TASK" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="USER" ToRole="TASK" />
-        </EntityType>
         <EntityContainer Name="TRANSCODEREntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="FORMAT" EntityType="Self.FORMAT" />
           <EntitySet Name="TASK" EntityType="Self.TASK" />
           <EntitySet Name="TRACE" EntityType="Self.TRACE" />
-          <EntitySet Name="USER" EntityType="Self.USER" />
           <EntitySet Name="FORMAT_TYPE" EntityType="TRANSCODERModel.FORMAT_TYPE" />
           <EntitySet Name="CONFIG" EntityType="TRANSCODERModel.CONFIG" />
           <AssociationSet Name="FK_FORMAT_FORMAT_TYPE" Association="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE">
@@ -250,10 +234,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_TASK_FORMAT" Association="TRANSCODERModel.FK_TASK_FORMAT">
             <End Role="FORMAT" EntitySet="FORMAT" />
-            <End Role="TASK" EntitySet="TASK" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TASK_USER" Association="TRANSCODERModel.FK_TASK_USER">
-            <End Role="USER" EntitySet="USER" />
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
           <EntitySet Name="PARAM_SPLIT" EntityType="TRANSCODERModel.PARAM_SPLIT" />
@@ -266,7 +246,12 @@
             <End Role="PARAM_TASK_STATUS" EntitySet="PARAM_TASK_STATUS" />
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="USER" EntityType="TRANSCODERModel.USER" />
+          <AssociationSet Name="FK_TASK_USER" Association="TRANSCODERModel.FK_TASK_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="TASK" EntitySet="TASK" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="FORMAT_TYPE">
           <Key>
             <PropertyRef Name="PK_ID_FORMAT_TYPE" />
@@ -305,18 +290,6 @@
             </Principal>
             <Dependent Role="TASK">
               <PropertyRef Name="FK_ID_FORMAT_TO_CONVERT" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TASK_USER">
-          <End Type="TRANSCODERModel.USER" Role="USER" Multiplicity="0..1" />
-          <End Type="TRANSCODERModel.TASK" Role="TASK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USER">
-              <PropertyRef Name="PK_ID_USER" />
-            </Principal>
-            <Dependent Role="TASK">
-              <PropertyRef Name="FK_ID_USER" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -361,7 +334,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="PK_ID_USER" />
+          </Key>
+          <Property Name="PK_ID_USER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BIRTHDATE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FACEBOOKID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GOOGLEID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TASK" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="USER" ToRole="TASK" />
+        </EntityType>
+        <Association Name="FK_TASK_USER">
+          <End Type="TRANSCODERModel.USER" Role="USER" Multiplicity="0..1" />
+          <End Type="TRANSCODERModel.TASK" Role="TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="PK_ID_USER" />
+            </Principal>
+            <Dependent Role="TASK">
+              <PropertyRef Name="FK_ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -414,21 +414,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="USER">
-            <EntityTypeMapping TypeName="TRANSCODERModel.USER">
-              <MappingFragment StoreEntitySet="USER">
-                <ScalarProperty Name="PK_ID_USER" ColumnName="PK_ID_USER" />
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
-                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
-                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
-                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="FACEBOOKID" ColumnName="FACEBOOKID" />
-                <ScalarProperty Name="GOOGLEID" ColumnName="GOOGLEID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FORMAT_TYPE">
             <EntityTypeMapping TypeName="TRANSCODERModel.FORMAT_TYPE">
               <MappingFragment StoreEntitySet="FORMAT_TYPE">
@@ -464,7 +449,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="USER">
+            <EntityTypeMapping TypeName="TRANSCODERModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="GOOGLEID" ColumnName="GOOGLEID" />
+                <ScalarProperty Name="FACEBOOKID" ColumnName="FACEBOOKID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PK_ID_USER" ColumnName="PK_ID_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

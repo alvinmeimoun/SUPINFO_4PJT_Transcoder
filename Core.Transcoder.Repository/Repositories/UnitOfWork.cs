@@ -10,7 +10,7 @@ namespace Core.Transcoder.Repository
 {
     public class UnitOfWork : IDisposable
     {
-
+        
         private static TRANSCODEREntities _context;
 
         public static TRANSCODEREntities context
