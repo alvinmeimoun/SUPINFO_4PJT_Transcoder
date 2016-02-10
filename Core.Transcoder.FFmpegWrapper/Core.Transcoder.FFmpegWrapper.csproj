@@ -57,13 +57,13 @@
     <Compile Include="Videos\VideoFormat.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Core.Transcoder.Service\Core.Transcoder.Service.csproj">
       <Project>{25b43747-b65c-46bb-8ebf-0b12546480c9}</Project>
       <Name>Core.Transcoder.Service</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
