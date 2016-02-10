@@ -14,11 +14,7 @@ namespace Transcoder.WebApp.Web.Controllers
             return View();
         }
 
-        // GET: Conversion
-        public ActionResult Index()
-        {
-            return View();
-        }
+      
 
     }
 }

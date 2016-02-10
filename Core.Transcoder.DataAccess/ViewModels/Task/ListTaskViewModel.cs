@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Transcoder.WebApp.Web.Models.Task
+namespace Core.Transcoder.DataAccess.ViewModels
 {
-    public class EditTaskViewModel
+    public class ListTaskViewModel
     {
     }
 }

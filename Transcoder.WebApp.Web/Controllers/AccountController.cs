@@ -8,13 +8,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Transcoder.WebApp.Web.Models;
 using System.Security.Cryptography;
 using System.Text;
 using Core.Transcoder.Service;
 using System.Web.Security;
 using Core.Transcoder.Service.Utils;
-using Transcoder.WebApp.Models;
+using Core.Transcoder.DataAccess.ViewModels;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -149,164 +148,7 @@ namespace Transcoder.WebApp.Web.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                //var user = await UserManager.FindByNameAsync(model.Email);
-                //if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                //{
-                //    // Ne révélez pas que l'utilisateur n'existe pas ou qu'il n'est pas confirmé
-                //    return View("ForgotPasswordConfirmation");
-                //}
-
-                // Pour plus d'informations sur l'activation de la confirmation du compte et la réinitialisation du mot de passe, consultez http://go.microsoft.com/fwlink/?LinkID=320771
-                // Envoyer un message électronique avec ce lien
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Réinitialiser le mot de passe", "Réinitialisez votre mot de passe en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-            }
-
-            // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
-            return View(model);
-        }
-
-        //
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-        //
-        // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
-        {
-            return code == null ? View("Error") : View();
-        }
-
-        //
-        // POST: /Account/ResetPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            //var user = await UserManager.FindByNameAsync(model.Email);
-            //if (user == null)
-            //{
-            //    // Ne révélez pas que l'utilisateur n'existe pas
-            //    return RedirectToAction("ResetPasswordConfirmation", "Account");
-            //}
-            //var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            //if (result.Succeeded)
-            //{
-            //    return RedirectToAction("ResetPasswordConfirmation", "Account");
-            //}
-            //AddErrors(result);
-            return View();
-        }
-
-        //
-        // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/ExternalLogin
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
-        {
-            // Demandez une redirection vers le fournisseur de connexions externe
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
-        }
-
-
-        //
-        // GET: /Account/ExternalLoginCallback
-        [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
-        {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-            {
-                return RedirectToAction("Login");
-            }
-
-            // Connecter cet utilisateur à ce fournisseur de connexion externe si l'utilisateur possède déjà une connexion
-            //var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            //switch (result)
-            //{
-            //    case SignInStatus.Success:
-            //        return RedirectToLocal(returnUrl);
-            //    case SignInStatus.LockedOut:
-            //        return View("Lockout");
-            //    case SignInStatus.RequiresVerification:
-            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-            //    case SignInStatus.Failure:
-            //    default:
-            //        // Si l'utilisateur n'a pas de compte, invitez alors celui-ci à créer un compte
-            //        ViewBag.ReturnUrl = returnUrl;
-            //        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-            //        return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
-            //}
-            return RedirectToAction("Login");
-        }
-
-        //
-        // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // Obtenez des informations sur l’utilisateur auprès du fournisseur de connexions externe
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    return View("ExternalLoginFailure");
-                }
-                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                //var result = await UserManager.CreateAsync(user);
-                //if (result.Succeeded)
-                //{
-                //    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                //    if (result.Succeeded)
-                //    {
-                //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                //        return RedirectToLocal(returnUrl);
-                //    }
-                //}
-                //AddErrors(result);
-            }
-
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
+       
 
         //
         // POST: /Account/LogOff

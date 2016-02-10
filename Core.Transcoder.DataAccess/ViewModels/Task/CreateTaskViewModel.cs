@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Transcoder.WebApp.Web.Models.Format;
 
-namespace Transcoder.WebApp.Web.Models.Task
+namespace Core.Transcoder.DataAccess.ViewModels
 {
     public class CreateTaskViewModel
     {

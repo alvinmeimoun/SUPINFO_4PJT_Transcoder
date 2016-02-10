@@ -1,10 +1,10 @@
-﻿using Core.Transcoder.Service;
+﻿using Core.Transcoder.DataAccess.ViewModels;
+using Core.Transcoder.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Transcoder.WebApp.Web.Models.User;
 
 namespace Transcoder.WebApp.Web.Controllers
 {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Transcoder.WebApp.Web.Models.User
+namespace Core.Transcoder.DataAccess.ViewModels
 {
     public class EditUserViewModel
     {
