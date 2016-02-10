@@ -14,8 +14,7 @@ using System.Text;
 using Core.Transcoder.Service;
 using System.Web.Security;
 using Core.Transcoder.Service.Utils;
-using Core.Transcoder.ViewModels;
-
+using Transcoder.WebApp.Models;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
