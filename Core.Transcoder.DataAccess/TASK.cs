@@ -18,6 +18,8 @@ namespace Core.Transcoder.DataAccess
         public Nullable<int> FK_ID_USER { get; set; }
         public Nullable<int> STATUS { get; set; }
         public string FILE_URL { get; set; }
+        public string FILE_URL_TEMP { get; set; }
+        public string FILE_URL_DESTINATION { get; set; }
         public Nullable<int> FK_ID_FORMAT_BASE { get; set; }
         public Nullable<int> FK_ID_FORMAT_TO_CONVERT { get; set; }
         public Nullable<bool> IS_PAID { get; set; }
@@ -26,12 +28,9 @@ namespace Core.Transcoder.DataAccess
         public Nullable<System.DateTime> DATE_BEGIN_CONVERSION { get; set; }
         public Nullable<System.DateTime> DATE_END_CONVERSION { get; set; }
         public Nullable<int> FK_ID_PARENT_TASK { get; set; }
-        public string FILE_URL_TEMP { get; set; }
-        public string FILE_URL_DESTINATION { get; set; }
         public Nullable<int> LENGTH { get; set; }
         public Nullable<int> FK_ID_PARAM_SPLIT { get; set; }
     
-        public virtual FORMAT FORMAT { get; set; }
         public virtual FORMAT_TYPE FORMAT_TYPE { get; set; }
         public virtual PARAM_TASK_STATUS PARAM_TASK_STATUS { get; set; }
         public virtual USER USER { get; set; }

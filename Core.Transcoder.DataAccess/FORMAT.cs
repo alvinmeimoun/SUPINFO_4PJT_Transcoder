@@ -14,12 +14,6 @@ namespace Core.Transcoder.DataAccess
     
     public partial class FORMAT
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FORMAT()
-        {
-            this.TASK = new HashSet<TASK>();
-        }
-    
         public int PK_ID_FORMAT { get; set; }
         public string FORMAT_NAME { get; set; }
         public string FORMAT_FFMPEG_VALUE { get; set; }
@@ -27,7 +21,5 @@ namespace Core.Transcoder.DataAccess
         public Nullable<int> FK_ID_FORMAT_TYPE { get; set; }
     
         public virtual FORMAT_TYPE FORMAT_TYPE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TASK> TASK { get; set; }
     }
 }

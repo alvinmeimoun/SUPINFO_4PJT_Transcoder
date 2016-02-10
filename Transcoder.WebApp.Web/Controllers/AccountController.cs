@@ -87,7 +87,6 @@ namespace Transcoder.WebApp.Web.Controllers
         }
 
 
-
         //
         // GET: /Account/Register
         [AllowAnonymous]
