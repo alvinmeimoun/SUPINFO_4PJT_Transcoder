@@ -6,7 +6,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using Transcoder.WebApp.Web.Models;
 
 namespace Transcoder.WebApp.Web
 {

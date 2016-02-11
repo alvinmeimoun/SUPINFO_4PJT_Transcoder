@@ -43,6 +43,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\Transcoder.WebApp.Web\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,6 +95,13 @@
     <Compile Include="USER.cs">
       <DependentUpon>TRANSCODER_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Format\ListFormatViewModel.cs" />
+    <Compile Include="ViewModels\Task\CreateTaskViewModel.cs" />
+    <Compile Include="ViewModels\Task\EditTaskViewModel.cs" />
+    <Compile Include="ViewModels\Task\ListTaskViewModel.cs" />
+    <Compile Include="ViewModels\User\EditUserViewModel.cs" />
+    <Compile Include="ViewModels\User\LoginViewModel.cs" />
+    <Compile Include="ViewModels\User\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -118,6 +129,7 @@
       <LastGenOutput>TRANSCODER_Entities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

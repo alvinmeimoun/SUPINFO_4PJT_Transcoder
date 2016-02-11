@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Core.Transcoder.DataAccess;
 
-namespace Transcoder.WebApp.Models
+namespace Core.Transcoder.DataAccess.ViewModels
 {
     public class LoginViewModel
     {

@@ -7,7 +7,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Core.Transcoder.DataAccess;
 
-namespace Transcoder.WebApp.Models
+namespace Core.Transcoder.DataAccess.ViewModels
 {
     public class RegisterViewModel
     {
@@ -36,14 +36,6 @@ namespace Transcoder.WebApp.Models
 
         }
 
-        public USER CreateFromModel()
-        {
-            var user = new USER();
-            user.USERNAME = this.Username;
-            user.EMAIL = this.Email;
-            user.PASSWORD = this.Password;
-
-            return user;
-        }
+       
     }
 }
