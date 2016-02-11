@@ -31,7 +31,7 @@ namespace Core.Transcoder.DataAccess
         public Nullable<int> LENGTH { get; set; }
         public Nullable<int> FK_ID_PARAM_SPLIT { get; set; }
     
-        public virtual FORMAT_TYPE FORMAT_TYPE { get; set; }
+        public virtual FORMAT FORMAT { get; set; }
         public virtual PARAM_TASK_STATUS PARAM_TASK_STATUS { get; set; }
         public virtual USER USER { get; set; }
     }

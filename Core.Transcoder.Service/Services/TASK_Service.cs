@@ -74,14 +74,16 @@ namespace Core.Transcoder.Service
         public CreateTaskViewModel InitCreateTaskViewModel(int userId)
         {
             var listFormatTypes = UoW.FORMAT_TYPE_Repository.Get(null, q => q.OrderBy(s => s.PK_ID_FORMAT_TYPE), "").ToList();
-            return new CreateTaskViewModel(userId,listFormatTypes);
+            var listFormat = new FORMAT_Service().GetAll();
+            return new CreateTaskViewModel(userId,listFormatTypes,listFormat);
         }
 
         public bool AddTaskByViewModel(CreateTaskViewModel model)
         {
             var task = new TASK();
-            task.UpdateFromModel(model);
+            task.CreateFromModel(model);
 
+            return AddOrUpdateTask(task);
         }
 
     }

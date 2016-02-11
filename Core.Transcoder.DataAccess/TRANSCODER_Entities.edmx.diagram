@@ -5,16 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9163c34a89d14fc59b021c66ba06f27e" Name="Diagram1">
-        <EntityTypeShape EntityType="TRANSCODERModel.FORMAT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TRANSCODERModel.TRACE" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TRANSCODERModel.FORMAT_TYPE" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="TRANSCODERModel.CONFIG" Width="1.5" PointX="7.375" PointY="3.75" />
-        <AssociationConnector Association="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE" />
         <EntityTypeShape EntityType="TRANSCODERModel.PARAM_SPLIT" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="TRANSCODERModel.PARAM_TASK_STATUS" Width="1.5" PointX="3.375" PointY="7.75" />
-        <EntityTypeShape EntityType="TRANSCODERModel.USER" Width="1.5" PointX="9.375" PointY="1" />
-        <EntityTypeShape EntityType="TRANSCODERModel.TASK" Width="1.5" PointX="11.625" PointY="2.75" />
-        <AssociationConnector Association="TRANSCODERModel.FK_TASK_FORMAT_TYPE" />
+        <EntityTypeShape EntityType="TRANSCODERModel.USER" Width="1.5" PointX="14.375" PointY="4.75" />
+        <EntityTypeShape EntityType="TRANSCODERModel.FORMAT" Width="1.5" PointX="7.625" PointY="11.125" />
+        <EntityTypeShape EntityType="TRANSCODERModel.FORMAT_TYPE" Width="1.5" PointX="5.375" PointY="11.625" />
+        <EntityTypeShape EntityType="TRANSCODERModel.TASK" Width="1.5" PointX="16.625" PointY="6.875" />
+        <AssociationConnector Association="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE" />
+        <AssociationConnector Association="TRANSCODERModel.FK_TASK_FORMAT" />
         <AssociationConnector Association="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS" />
         <AssociationConnector Association="TRANSCODERModel.FK_TASK_USER" />
       </Diagram>

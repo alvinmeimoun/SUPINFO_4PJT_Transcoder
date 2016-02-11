@@ -63,10 +63,11 @@ namespace Core.Transcoder.DataAccess.ViewModels
         {
 
         }
-        public CreateTaskViewModel(int userId,List<FORMAT_TYPE> listFormatsTypes)
+        public CreateTaskViewModel(int userId,List<FORMAT_TYPE> listFormatsTypes, List<FORMAT> listFormats)
         {
             this.FK_ID_USER = userId;
             this.ListAvailableFormatTypes = listFormatsTypes;
+            this.ListAvailableFormats = listFormats;
         }
 
     }

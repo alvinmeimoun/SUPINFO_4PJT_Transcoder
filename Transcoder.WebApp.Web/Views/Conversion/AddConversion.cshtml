@@ -1,0 +1,108 @@
+﻿@model Core.Transcoder.DataAccess.ViewModels.CreateTaskViewModel
+@*@{
+    ViewBag.Title = "AddConversion";
+}*@
+
+<h2>AddConversion</h2>
+@using (Html.BeginForm("Add", "Conversion" ,FormMethod.Post))
+{
+<div class="row">
+    <div class="col-md-4">
+        <h2>Download a file</h2>
+        <p>
+            <input type="file" name="file" id="FileToUpload"/>
+            <img src="~/Content/Images/loader.gif" style="display:none;" id="loader"/>
+            @Html.HiddenFor(m => m.FILE_URL, new { @id = "fileUrl" })
+            @Html.HiddenFor(m => m.LENGTH, new { @id = "fileLength" })
+            @Html.HiddenFor(m => m.FK_ID_FORMAT_BASE, new { @id = "fileFormatBase" })
+            <span class="input-validation-error" id="fileError" style="display:none;">L'élément téléchargé ne peut pas être converti, veuillez en choisir un autre.</span>
+        </p>
+     
+    </div>
+   
+    <div class="col-md-4">
+        <h2>Select Format To convert</h2>
+        @Html.DropDownListFor(x => Model.FK_ID_FORMAT_TYPE, Model.slAvailableFormatsTypes, new { @id="ddlFormatTypes", @class="form-control", @style="display:none;"})
+
+        @Html.DropDownListFor(x => Model.FK_ID_FORMAT_TO_CONVERT, Model.slAvailableFormats, new { @id = "ddlFormats", @class = "form-control", @style = "display:none;" })
+    </div>
+    <div class="col-md-4">
+        <h2>Select Email</h2>
+        <p></p>
+    </div>
+</div>
+
+    <input type="submit" value="submit" class="btn btn-primary"/>
+}
+
+
+@section Scripts {
+    
+    <script>
+        $('#FileToUpload').on("change", function () {
+
+            $("#loader").css("display", "block");
+            var formData = new FormData($('form')[0]);
+            //$('#FileToUpload').addEventListener("load", function (evt) { URL.revokeObjectURL(docURL); } 
+            $.ajax({
+                url: "@Url.Action("Upload")",
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $("#loader").css("display", "none");
+                    if(data.success == "true")
+                    {
+                        console.log(data)
+                        $("#fileUrl").val(data.fileUrl);
+                        $("#fileLength").val(data.fileLength);
+                        $("#fileFormatBase").val(data.fileFormatBase);
+                        $('#ddlFormatTypes').empty();
+                        for (var x = 0; x < data.listFormatType.length; x++) {
+                            $("#ddlFormatTypes").append('<option value="' + data.listFormatType[x].Value + '">' +
+                                    data.listFormatType[x].Text + '</option>');
+                        }
+                        $("#ddlFormatTypes").show('slow');
+                    }
+                    else
+                    {
+                        $("#fileError").css("display", "block");
+                        $('#FileToUpload').val('');
+                    }
+                }
+            });
+        });
+        $("#ddlFormatTypes").change(function () {
+
+            var value = $("#ddlFormatTypes").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetFormatByFormatTypeAndFormatBase")',
+                dataType: 'json',
+                data: { formatTypeId: value, fileFormatBase: $("#fileFormatBase").val() },
+
+                success: function (result) {
+                    $('#ddlFormats').empty();
+                    for (var x = 0; x < result.listFormats.length; x++) {
+                        $("#ddlFormats").append('<option value="' + result.listFormats[x].Value + '">' +
+                                result.listFormats[x].Text + '</option>');
+                    }
+                    $("#ddlFormats").show("slow");
+
+             
+                },
+                error: function (ex) {
+                    alert('Error' + ex);
+                }
+            });
+        });
+
+
+
+    </script>
+    
+}

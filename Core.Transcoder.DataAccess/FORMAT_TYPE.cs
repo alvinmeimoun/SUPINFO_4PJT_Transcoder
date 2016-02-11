@@ -18,7 +18,6 @@ namespace Core.Transcoder.DataAccess
         public FORMAT_TYPE()
         {
             this.FORMAT = new HashSet<FORMAT>();
-            this.TASK = new HashSet<TASK>();
         }
     
         public int PK_ID_FORMAT_TYPE { get; set; }
@@ -26,7 +25,5 @@ namespace Core.Transcoder.DataAccess
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FORMAT> FORMAT { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TASK> TASK { get; set; }
     }
 }
