@@ -18,5 +18,7 @@ namespace Core.Transcoder.DataAccess
             EMAIL = model.Email;
             PASSWORD = model.Password;
         }
+
+
     }
 }

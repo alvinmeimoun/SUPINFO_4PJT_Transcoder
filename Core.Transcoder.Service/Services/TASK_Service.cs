@@ -1,4 +1,5 @@
 ﻿using Core.Transcoder.DataAccess;
+using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.Repository;
 using Core.Transcoder.Service.Enums;
 using System;
@@ -70,7 +71,18 @@ namespace Core.Transcoder.Service
 
 
 
+        public CreateTaskViewModel InitCreateTaskViewModel(int userId)
+        {
+            var listFormatTypes = UoW.FORMAT_TYPE_Repository.Get(null, q => q.OrderBy(s => s.PK_ID_FORMAT_TYPE), "").ToList();
+            return new CreateTaskViewModel(userId,listFormatTypes);
+        }
 
+        public bool AddTaskByViewModel(CreateTaskViewModel model)
+        {
+            var task = new TASK();
+            task.UpdateFromModel(model);
+
+        }
 
     }
 }

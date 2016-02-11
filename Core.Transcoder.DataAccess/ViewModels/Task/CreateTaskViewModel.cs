@@ -17,6 +17,9 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Display(Name = "Utilisateur")]
         public int FK_ID_USER { get; set; }
         [Required]
+        [Display(Name = "Type de conversion")]
+        public int FK_ID_FORMAT_TYPE { get; set; }
+        [Required]
         [Display(Name = "Format de base")]
         public int FK_ID_FORMAT_BASE { get; set; }
         [Required]
@@ -28,8 +31,7 @@ namespace Core.Transcoder.DataAccess.ViewModels
         public int LENGTH { get; set; }
 
 
-
-        public List<ListFormatViewModel> ListAvailableFormats { get; set; }
+        public List<FORMAT> ListAvailableFormats { get; set; }
 
         public IEnumerable<SelectListItem> slAvailableFormats
         {
@@ -43,9 +45,29 @@ namespace Core.Transcoder.DataAccess.ViewModels
             }
         }
 
+        public List<FORMAT_TYPE> ListAvailableFormatTypes { get; set; }
+
+        public IEnumerable<SelectListItem> slAvailableFormatsTypes
+        {
+            get
+            {
+                return ListAvailableFormatTypes.Select(x => new SelectListItem()
+                {
+                    Text = x.FORMAT_TYPE_NAME,
+                    Value = x.PK_ID_FORMAT_TYPE.ToString()
+                });
+            }
+        }
+
         public CreateTaskViewModel()
         {
 
         }
+        public CreateTaskViewModel(int userId,List<FORMAT_TYPE> listFormatsTypes)
+        {
+            this.FK_ID_USER = userId;
+            this.ListAvailableFormatTypes = listFormatsTypes;
+        }
+
     }
 }
