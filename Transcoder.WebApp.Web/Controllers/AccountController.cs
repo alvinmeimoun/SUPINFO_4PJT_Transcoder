@@ -70,7 +70,7 @@ namespace Transcoder.WebApp.Web.Controllers
                   
             if(user != null)
             {
-                SetCurrentUser(model.Username);
+                SetCurrentUser(user.USERNAME, user.PK_ID_USER);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -79,11 +79,17 @@ namespace Transcoder.WebApp.Web.Controllers
                 return View(model);
             }
         }
-        public void SetCurrentUser(string Username)
+        public void SetCurrentUser(string Username, int PK_ID_USER)
         {
             HttpCookie Cookie = Request.Cookies["User"] ?? new HttpCookie("User");
             Cookie.Value = Username;
+            
             Response.SetCookie(Cookie);
+
+            HttpCookie CookieID = Request.Cookies["UserID"] ?? new HttpCookie("UserID");
+            CookieID.Value = PK_ID_USER.ToString();
+
+            Response.SetCookie(CookieID);
         }
 
 
@@ -118,7 +124,7 @@ namespace Transcoder.WebApp.Web.Controllers
 
                 if (isRegistered)
                 {
-                    SetCurrentUser(model.Username);
+                    SetCurrentUser(user.USERNAME, user.PK_ID_USER);
                     return RedirectToAction("Index", "Home");
                 }
                
