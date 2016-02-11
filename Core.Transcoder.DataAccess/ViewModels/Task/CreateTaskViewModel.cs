@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace Core.Transcoder.DataAccess.ViewModels
 {
@@ -27,7 +26,7 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Display(Name = "Taille du fichier")]
         public int LENGTH { get; set; }
 
-        
+
 
         public List<ListFormatViewModel> ListAvailableFormats { get; set; }
 
@@ -35,7 +34,7 @@ namespace Core.Transcoder.DataAccess.ViewModels
         {
             get
             {
-               return ListAvailableFormats.Select(x => new SelectListItem()
+                return ListAvailableFormats.Select(x => new SelectListItem()
                 {
                     Text = x.FORMAT_NAME,
                     Value = x.PK_ID_FORMAT.ToString()
