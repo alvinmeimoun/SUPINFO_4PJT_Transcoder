@@ -36,14 +36,6 @@ namespace Core.Transcoder.DataAccess.ViewModels
 
         }
 
-        public USER CreateFromModel()
-        {
-            var user = new USER();
-            user.USERNAME = this.Username;
-            user.EMAIL = this.Email;
-            user.PASSWORD = this.Password;
-
-            return user;
-        }
+       
     }
 }

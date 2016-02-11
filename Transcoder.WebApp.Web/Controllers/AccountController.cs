@@ -14,6 +14,7 @@ using Core.Transcoder.Service;
 using System.Web.Security;
 using Core.Transcoder.Service.Utils;
 using Core.Transcoder.DataAccess.ViewModels;
+using Core.Transcoder.DataAccess;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -111,7 +112,8 @@ namespace Transcoder.WebApp.Web.Controllers
                 }
                    
                 model.Password = EncryptionUtil.Encrypt(model.Password);
-                var user = model.CreateFromModel();
+                var user = new USER();
+                user.CreateFromModel(model);
                 bool isRegistered = new USER_Service().AddOrUpdateUser(user);
 
                 if (isRegistered)

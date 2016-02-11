@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Transcoder.DataAccess.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,12 @@ namespace Core.Transcoder.DataAccess
     {
 
         //public USER CreateFromModel()
-        
+
+        public void CreateFromModel(RegisterViewModel model)
+        {
+            USERNAME = model.Username;
+            EMAIL = model.Email;
+            PASSWORD = model.Password;
+        }
     }
 }
