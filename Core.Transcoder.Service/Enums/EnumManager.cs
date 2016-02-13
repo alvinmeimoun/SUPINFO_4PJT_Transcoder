@@ -24,5 +24,11 @@ namespace Core.Transcoder.Service.Enums
             MAXLENGTHWITHOUTSPLIT = 1
         }
 
+        public enum FORMAT_TYPE
+        {
+            AUDIO = 1,
+            VIDEO = 2,
+            VIDEOTOAUDIO = 3
+        }
     }
 }

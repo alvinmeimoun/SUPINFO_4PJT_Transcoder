@@ -1,0 +1,31 @@
+﻿@model Core.Transcoder.DataAccess.ViewModels.ShortEditUserViewModel
+<div class="heading">
+    <div style="height:320px;">
+        <div class="head-3">
+            <img class="img-heading" src="~/Content/Images/validate.ico" />
+            <h4 class="head-1-title" style="">Verifier vos informations</h4>
+        </div>
+        <div class="contentWrap" style="margin-top:8%">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.PK_ID_USER, new { Name = "ShortEditUserViewModel.PK_ID_USER" })
+
+            <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", Name = "ShortEditUserViewModel.Email" , @style= "width: 80%; display: inline-block;"})
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                    @Html.LabelFor(model => model.Firstname, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Firstname, new { @class = "form-control", Name = "ShortEditUserViewModel.Firstname", @style = "width: 80%; display: inline-block;" })
+                    @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                    @Html.LabelFor(model => model.Lastname, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Lastname, new { @class = "form-control", Name = "ShortEditUserViewModel.Lastname", @style = "width: 80%; display: inline-block;" })
+                    @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,8 +14,18 @@ namespace Core.Transcoder.DataAccess
 
         }
 
+        public void CreateFromModel(CreateTaskViewModel model)
+        {
+            FILE_URL = model.FILE_URL;
+            FK_ID_USER = model.FK_ID_USER;
+            FK_ID_FORMAT_BASE = model.FK_ID_FORMAT_BASE;
+            FK_ID_FORMAT_TO_CONVERT = model.FK_ID_FORMAT_TO_CONVERT;
+            LENGTH = model.LENGTH;
+
+        }
         public void UpdateFromModel(CreateTaskViewModel model)
         {
+            
             FILE_URL = model.FILE_URL;
             FK_ID_USER = model.FK_ID_USER;
             FK_ID_FORMAT_BASE = model.FK_ID_FORMAT_BASE;

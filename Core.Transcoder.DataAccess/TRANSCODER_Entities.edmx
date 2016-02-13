@@ -22,6 +22,7 @@
           <Property Name="FORMAT_FFMPEG_VALUE" Type="nvarchar(max)" />
           <Property Name="IS_ENABLED" Type="bit" Nullable="false" />
           <Property Name="FK_ID_FORMAT_TYPE" Type="int" />
+          <Property Name="FK_ID_FORMAT_BASE" Type="int" />
         </EntityType>
         <EntityType Name="FORMAT_TYPE">
           <Key>
@@ -106,12 +107,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TASK_FORMAT_TYPE">
-          <End Role="FORMAT_TYPE" Type="Self.FORMAT_TYPE" Multiplicity="0..1" />
+        <Association Name="FK_TASK_FORMAT">
+          <End Role="FORMAT" Type="Self.FORMAT" Multiplicity="0..1" />
           <End Role="TASK" Type="Self.TASK" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="FORMAT_TYPE">
-              <PropertyRef Name="PK_ID_FORMAT_TYPE" />
+            <Principal Role="FORMAT">
+              <PropertyRef Name="PK_ID_FORMAT" />
             </Principal>
             <Dependent Role="TASK">
               <PropertyRef Name="FK_ID_FORMAT_TO_CONVERT" />
@@ -155,8 +156,8 @@
             <End Role="FORMAT_TYPE" EntitySet="FORMAT_TYPE" />
             <End Role="FORMAT" EntitySet="FORMAT" />
           </AssociationSet>
-          <AssociationSet Name="FK_TASK_FORMAT_TYPE" Association="Self.FK_TASK_FORMAT_TYPE">
-            <End Role="FORMAT_TYPE" EntitySet="FORMAT_TYPE" />
+          <AssociationSet Name="FK_TASK_FORMAT" Association="Self.FK_TASK_FORMAT">
+            <End Role="FORMAT" EntitySet="FORMAT" />
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
           <AssociationSet Name="FK_TASK_PARAM_TASK_STATUS" Association="Self.FK_TASK_PARAM_TASK_STATUS">
@@ -172,17 +173,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TRANSCODERModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="FORMAT">
-          <Key>
-            <PropertyRef Name="PK_ID_FORMAT" />
-          </Key>
-          <Property Name="PK_ID_FORMAT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FORMAT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FORMAT_FFMPEG_VALUE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IS_ENABLED" Type="Boolean" Nullable="false" />
-          <Property Name="FK_ID_FORMAT_TYPE" Type="Int32" />
-          <NavigationProperty Name="FORMAT_TYPE" Relationship="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE" FromRole="FORMAT" ToRole="FORMAT_TYPE" />
-        </EntityType>
         <EntityType Name="TRACE">
           <Key>
             <PropertyRef Name="PK_ID_TRACE" />
@@ -197,20 +187,20 @@
           <Property Name="NOM_SERVER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="TRANSCODEREntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="FORMAT" EntityType="Self.FORMAT" />
           <EntitySet Name="TRACE" EntityType="Self.TRACE" />
-          <EntitySet Name="FORMAT_TYPE" EntityType="TRANSCODERModel.FORMAT_TYPE" />
           <EntitySet Name="CONFIG" EntityType="TRANSCODERModel.CONFIG" />
+          <EntitySet Name="PARAM_SPLIT" EntityType="TRANSCODERModel.PARAM_SPLIT" />
+          <EntitySet Name="PARAM_TASK_STATUS" EntityType="TRANSCODERModel.PARAM_TASK_STATUS" />
+          <EntitySet Name="USER" EntityType="TRANSCODERModel.USER" />
+          <EntitySet Name="FORMAT" EntityType="TRANSCODERModel.FORMAT" />
+          <EntitySet Name="FORMAT_TYPE" EntityType="TRANSCODERModel.FORMAT_TYPE" />
+          <EntitySet Name="TASK" EntityType="TRANSCODERModel.TASK" />
           <AssociationSet Name="FK_FORMAT_FORMAT_TYPE" Association="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE">
             <End Role="FORMAT_TYPE" EntitySet="FORMAT_TYPE" />
             <End Role="FORMAT" EntitySet="FORMAT" />
           </AssociationSet>
-          <EntitySet Name="PARAM_SPLIT" EntityType="TRANSCODERModel.PARAM_SPLIT" />
-          <EntitySet Name="PARAM_TASK_STATUS" EntityType="TRANSCODERModel.PARAM_TASK_STATUS" />
-          <EntitySet Name="USER" EntityType="TRANSCODERModel.USER" />
-          <EntitySet Name="TASK" EntityType="TRANSCODERModel.TASK" />
-          <AssociationSet Name="FK_TASK_FORMAT_TYPE" Association="TRANSCODERModel.FK_TASK_FORMAT_TYPE">
-            <End Role="FORMAT_TYPE" EntitySet="FORMAT_TYPE" />
+          <AssociationSet Name="FK_TASK_FORMAT" Association="TRANSCODERModel.FK_TASK_FORMAT">
+            <End Role="FORMAT" EntitySet="FORMAT" />
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
           <AssociationSet Name="FK_TASK_PARAM_TASK_STATUS" Association="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS">
@@ -222,15 +212,6 @@
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
           </EntityContainer>
-        <EntityType Name="FORMAT_TYPE">
-          <Key>
-            <PropertyRef Name="PK_ID_FORMAT_TYPE" />
-          </Key>
-          <Property Name="PK_ID_FORMAT_TYPE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FORMAT_TYPE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE" FromRole="FORMAT_TYPE" ToRole="FORMAT" />
-          <NavigationProperty Name="TASK" Relationship="TRANSCODERModel.FK_TASK_FORMAT_TYPE" FromRole="FORMAT_TYPE" ToRole="TASK" />
-        </EntityType>
         <EntityType Name="CONFIG">
           <Key>
             <PropertyRef Name="PK_ID_CONFIG" />
@@ -239,18 +220,6 @@
           <Property Name="CONFIG_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CONFIG_VALUE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_FORMAT_FORMAT_TYPE">
-          <End Type="TRANSCODERModel.FORMAT_TYPE" Role="FORMAT_TYPE" Multiplicity="0..1" />
-          <End Type="TRANSCODERModel.FORMAT" Role="FORMAT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORMAT_TYPE">
-              <PropertyRef Name="PK_ID_FORMAT_TYPE" />
-            </Principal>
-            <Dependent Role="FORMAT">
-              <PropertyRef Name="FK_ID_FORMAT_TYPE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="PARAM_SPLIT">
           <Key>
             <PropertyRef Name="PK_ID_PARAM_SPLIT" />
@@ -283,6 +252,27 @@
           <Property Name="GOOGLEID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TASK" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="USER" ToRole="TASK" />
         </EntityType>
+        <EntityType Name="FORMAT">
+          <Key>
+            <PropertyRef Name="PK_ID_FORMAT" />
+          </Key>
+          <Property Name="PK_ID_FORMAT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FORMAT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FORMAT_FFMPEG_VALUE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ENABLED" Type="Boolean" Nullable="false" />
+          <Property Name="FK_ID_FORMAT_TYPE" Type="Int32" />
+          <Property Name="FK_ID_FORMAT_BASE" Type="Int32" />
+          <NavigationProperty Name="FORMAT_TYPE" Relationship="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE" FromRole="FORMAT" ToRole="FORMAT_TYPE" />
+          <NavigationProperty Name="TASK" Relationship="TRANSCODERModel.FK_TASK_FORMAT" FromRole="FORMAT" ToRole="TASK" />
+        </EntityType>
+        <EntityType Name="FORMAT_TYPE">
+          <Key>
+            <PropertyRef Name="PK_ID_FORMAT_TYPE" />
+          </Key>
+          <Property Name="PK_ID_FORMAT_TYPE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FORMAT_TYPE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE" FromRole="FORMAT_TYPE" ToRole="FORMAT" />
+        </EntityType>
         <EntityType Name="TASK">
           <Key>
             <PropertyRef Name="PK_ID_TASK" />
@@ -303,16 +293,28 @@
           <Property Name="FK_ID_PARENT_TASK" Type="Int32" />
           <Property Name="LENGTH" Type="Int32" />
           <Property Name="FK_ID_PARAM_SPLIT" Type="Int32" />
-          <NavigationProperty Name="FORMAT_TYPE" Relationship="TRANSCODERModel.FK_TASK_FORMAT_TYPE" FromRole="TASK" ToRole="FORMAT_TYPE" />
+          <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_TASK_FORMAT" FromRole="TASK" ToRole="FORMAT" />
           <NavigationProperty Name="PARAM_TASK_STATUS" Relationship="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS" FromRole="TASK" ToRole="PARAM_TASK_STATUS" />
           <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="TASK" ToRole="USER" />
         </EntityType>
-        <Association Name="FK_TASK_FORMAT_TYPE">
+        <Association Name="FK_FORMAT_FORMAT_TYPE">
           <End Type="TRANSCODERModel.FORMAT_TYPE" Role="FORMAT_TYPE" Multiplicity="0..1" />
-          <End Type="TRANSCODERModel.TASK" Role="TASK" Multiplicity="*" />
+          <End Type="TRANSCODERModel.FORMAT" Role="FORMAT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FORMAT_TYPE">
               <PropertyRef Name="PK_ID_FORMAT_TYPE" />
+            </Principal>
+            <Dependent Role="FORMAT">
+              <PropertyRef Name="FK_ID_FORMAT_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TASK_FORMAT">
+          <End Type="TRANSCODERModel.FORMAT" Role="FORMAT" Multiplicity="0..1" />
+          <End Type="TRANSCODERModel.TASK" Role="TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMAT">
+              <PropertyRef Name="PK_ID_FORMAT" />
             </Principal>
             <Dependent Role="TASK">
               <PropertyRef Name="FK_ID_FORMAT_TO_CONVERT" />
@@ -349,17 +351,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TRANSCODERModelStoreContainer" CdmEntityContainer="TRANSCODEREntities">
-          <EntitySetMapping Name="FORMAT">
-            <EntityTypeMapping TypeName="TRANSCODERModel.FORMAT">
-              <MappingFragment StoreEntitySet="FORMAT">
-                <ScalarProperty Name="FK_ID_FORMAT_TYPE" ColumnName="FK_ID_FORMAT_TYPE" />
-                <ScalarProperty Name="PK_ID_FORMAT" ColumnName="PK_ID_FORMAT" />
-                <ScalarProperty Name="FORMAT_NAME" ColumnName="FORMAT_NAME" />
-                <ScalarProperty Name="FORMAT_FFMPEG_VALUE" ColumnName="FORMAT_FFMPEG_VALUE" />
-                <ScalarProperty Name="IS_ENABLED" ColumnName="IS_ENABLED" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TRACE">
             <EntityTypeMapping TypeName="TRANSCODERModel.TRACE">
               <MappingFragment StoreEntitySet="TRACE">
@@ -371,14 +362,6 @@
                 <ScalarProperty Name="METHOD" ColumnName="METHOD" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
                 <ScalarProperty Name="TYPE" ColumnName="TYPE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FORMAT_TYPE">
-            <EntityTypeMapping TypeName="TRANSCODERModel.FORMAT_TYPE">
-              <MappingFragment StoreEntitySet="FORMAT_TYPE">
-                <ScalarProperty Name="FORMAT_TYPE_NAME" ColumnName="FORMAT_TYPE_NAME" />
-                <ScalarProperty Name="PK_ID_FORMAT_TYPE" ColumnName="PK_ID_FORMAT_TYPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -421,6 +404,26 @@
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="PK_ID_USER" ColumnName="PK_ID_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORMAT">
+            <EntityTypeMapping TypeName="TRANSCODERModel.FORMAT">
+              <MappingFragment StoreEntitySet="FORMAT">
+                <ScalarProperty Name="FK_ID_FORMAT_BASE" ColumnName="FK_ID_FORMAT_BASE" />
+                <ScalarProperty Name="FK_ID_FORMAT_TYPE" ColumnName="FK_ID_FORMAT_TYPE" />
+                <ScalarProperty Name="IS_ENABLED" ColumnName="IS_ENABLED" />
+                <ScalarProperty Name="FORMAT_FFMPEG_VALUE" ColumnName="FORMAT_FFMPEG_VALUE" />
+                <ScalarProperty Name="FORMAT_NAME" ColumnName="FORMAT_NAME" />
+                <ScalarProperty Name="PK_ID_FORMAT" ColumnName="PK_ID_FORMAT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORMAT_TYPE">
+            <EntityTypeMapping TypeName="TRANSCODERModel.FORMAT_TYPE">
+              <MappingFragment StoreEntitySet="FORMAT_TYPE">
+                <ScalarProperty Name="FORMAT_TYPE_NAME" ColumnName="FORMAT_TYPE_NAME" />
+                <ScalarProperty Name="PK_ID_FORMAT_TYPE" ColumnName="PK_ID_FORMAT_TYPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

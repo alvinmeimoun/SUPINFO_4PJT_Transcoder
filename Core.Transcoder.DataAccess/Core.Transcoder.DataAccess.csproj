@@ -44,6 +44,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\System.Web.Mvc.dll</HintPath>
     <Reference Include="System.Web.Mvc">
       <HintPath>libs\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -96,6 +99,7 @@
     <Compile Include="USER.cs">
       <DependentUpon>TRANSCODER_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\FormatType\ListFormatTypeViewModel.cs" />
     <Compile Include="ViewModels\Format\ListFormatViewModel.cs" />
     <Compile Include="ViewModels\Task\CreateTaskViewModel.cs" />
     <Compile Include="ViewModels\Task\EditTaskViewModel.cs" />
@@ -103,6 +107,7 @@
     <Compile Include="ViewModels\User\EditUserViewModel.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\User\ShortEditUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
