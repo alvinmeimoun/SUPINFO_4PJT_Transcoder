@@ -79,7 +79,7 @@ namespace Transcoder.WebApp.Web.Controllers
                 return View(model);
             }
         }
-        public void SetCurrentUser(string Username, int PK_ID_USER)
+        public void SetCurrentUser(string Username, int Pk_id_user)
         {
             HttpCookie Cookie = Request.Cookies["User"] ?? new HttpCookie("User");
             Cookie.Value = Username;
@@ -87,7 +87,7 @@ namespace Transcoder.WebApp.Web.Controllers
             Response.SetCookie(Cookie);
 
             HttpCookie CookieID = Request.Cookies["UserID"] ?? new HttpCookie("UserID");
-            CookieID.Value = PK_ID_USER.ToString();
+            CookieID.Value = Pk_id_user.ToString();
 
             Response.SetCookie(CookieID);
         }

@@ -1,4 +1,5 @@
 ﻿using Core.Transcoder.DataAccess;
+using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.Repository;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,10 @@ namespace Core.Transcoder.Service
         {
             return UoW.USER_Repository.Get(x => x.USERNAME == Username).FirstOrDefault() != null ? true : false;
         }
+        public USER FindUserByID(int UserID)
+        {
+            return UoW.USER_Repository.GetByID(UserID);
+        }
         public bool AddOrUpdateUser(USER user)
         {
             if (user.PK_ID_USER != 0)
@@ -50,5 +55,14 @@ namespace Core.Transcoder.Service
                 return true;
             }
         }
+
+        public EditUserViewModel GetEditUserViewModelByID(int UserID)
+        {
+            var user = FindUserByID(UserID);
+            EditUserViewModel model = new EditUserViewModel(user);
+
+            return model;
+        }
+
     }
 }

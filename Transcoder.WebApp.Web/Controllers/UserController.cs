@@ -1,4 +1,5 @@
-﻿using Core.Transcoder.DataAccess.ViewModels;
+﻿using Core.Transcoder.DataAccess;
+using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.Service;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,10 @@ namespace Transcoder.WebApp.Web.Controllers
 
         public ActionResult Edit()
         {
-            return View();
+            int UserID = int.Parse(Request.Cookies["UserID"].Value);
+            var model = new USER_Service().GetEditUserViewModelByID(UserID);
+           
+            return View(model);
         }
 
         [HttpPost]
@@ -27,16 +31,15 @@ namespace Transcoder.WebApp.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                bool usernameAlreadyExist = new USER_Service().FindUserByUserName(model.Username);
-                if (usernameAlreadyExist)
-                {
-                    ModelState.AddModelError("", "Le pseudo " + model.Username + " existe déjà, veuillez en choisir un autre.");
-                    return View(model);
-                }
 
-                var edit = model.EditFromModel();
+                int UserID = int.Parse(Request.Cookies["UserID"].Value);
+               
+                var user = new USER_Service().FindUserByID(UserID);
+                
+                user.EditFromModel(model);
+                //user.PK_ID_USER = UserID;
 
-                bool isEdited = new USER_Service().AddOrUpdateUser(edit);
+                bool isEdited = new USER_Service().AddOrUpdateUser(user);
 
                 if (isEdited)
                 {

@@ -19,6 +19,17 @@ namespace Core.Transcoder.DataAccess
             PASSWORD = model.Password;
         }
 
+        public void EditFromModel(EditUserViewModel model)
+        {
+       
+            PK_ID_USER = model.Pk_id_user;
+            USERNAME = model.Username;
+            EMAIL = model.Email;
+            PASSWORD = model.Password;
+            FIRSTNAME = model.Firstname;
+            LASTNAME = model.Lastname;
+
+        }
 
     }
 }

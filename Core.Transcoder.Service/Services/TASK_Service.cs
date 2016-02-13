@@ -77,12 +77,7 @@ namespace Core.Transcoder.Service
             return new CreateTaskViewModel(userId,listFormatTypes);
         }
 
-        public bool AddTaskByViewModel(CreateTaskViewModel model)
-        {
-            var task = new TASK();
-            task.UpdateFromModel(model);
-
-        }
+        
 
     }
 }

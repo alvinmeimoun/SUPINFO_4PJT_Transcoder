@@ -9,10 +9,9 @@ namespace Core.Transcoder.DataAccess.ViewModels
 {
     public class EditUserViewModel
     {
-        [Required]
-        public int PK_ID_USER { get; set; }
-
-        [Required]
+      
+        public int Pk_id_user { get; set; }
+        
         [Display(Name = "Username")]
         public string Username { get; set; }
 
@@ -20,8 +19,7 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [EmailAddress]
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }
-
-        [Required]
+        
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -38,17 +36,14 @@ namespace Core.Transcoder.DataAccess.ViewModels
 
         }
 
-        public USER EditFromModel()
+        public EditUserViewModel(USER user)
         {
-            var user = new USER();
-            user.PK_ID_USER = this.PK_ID_USER;
-            user.USERNAME = this.Username;
-            user.EMAIL = this.Email;
-            user.PASSWORD = this.Password;
-            user.FIRSTNAME = this.Firstname;
-            user.LASTNAME = this.Lastname;
-
-            return user;
+            Pk_id_user = user.PK_ID_USER;
+            Username = user.USERNAME;
+            Email = user.EMAIL;
+            Password = user.PASSWORD;
+            Firstname = user.FIRSTNAME;
+            Lastname = user.LASTNAME;
         }
 
     }
