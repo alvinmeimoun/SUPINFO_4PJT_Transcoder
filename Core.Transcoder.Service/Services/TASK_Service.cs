@@ -2,6 +2,7 @@
 using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.Repository;
 using Core.Transcoder.Service.Enums;
+using Core.Transcoder.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,15 +76,58 @@ namespace Core.Transcoder.Service
         {
             var listFormatTypes = UoW.FORMAT_TYPE_Repository.Get(null, q => q.OrderBy(s => s.PK_ID_FORMAT_TYPE), "").ToList();
             var listFormat = new FORMAT_Service().GetAll();
-            return new CreateTaskViewModel(userId,listFormatTypes,listFormat);
+            var user = UoW.USER_Repository.GetByID(userId);
+            var shortEditUserViewModel = new ShortEditUserViewModel(user);
+
+            return new CreateTaskViewModel(userId,listFormatTypes,listFormat, shortEditUserViewModel);
         }
 
+       
         public bool AddTaskByViewModel(CreateTaskViewModel model)
         {
+            // On update les infos user
+            var user = UoW.USER_Repository.GetByID(model.FK_ID_USER);
+            user.LASTNAME = model.ShortEditUserViewModel.Lastname;
+            user.FIRSTNAME = model.ShortEditUserViewModel.Firstname;
+            user.EMAIL = model.ShortEditUserViewModel.Email;
+
+            bool userEdited = new USER_Service().AddOrUpdateUser(user);
+            // on créé la tache
             var task = new TASK();
+            task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE;
             task.CreateFromModel(model);
 
+
             return AddOrUpdateTask(task);
+        }
+
+        public List<TASK> GetListOfTaskByUserId(int userId)
+        {
+            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
+        }
+
+        public List<ListTaskViewModel> GetListTaskViewModelByUserId(int userId)
+        {
+            var listOfFormat = new FORMAT_Service().GetAll();
+
+            var query = (from task in GetListOfTaskByUserId(userId)
+                         join status in new PARAM_TASK_STATUS_Service().GetAll() on task.STATUS equals status.PK_ID_STATUS
+                         select new ListTaskViewModel
+                         {
+                             PK_ID_TASK = task.PK_ID_TASK,
+                             FILE_URL_ACCESS = task.FILE_URL_DESTINATION,
+                             FK_ID_USER = (int)task.FK_ID_USER,
+                             FORMAT_BASE = listOfFormat.Find(x => x.PK_ID_FORMAT == task.FK_ID_FORMAT_BASE).FORMAT_NAME,
+                             FORMAT_CONVERT = listOfFormat.Find(x => x.PK_ID_FORMAT == task.FK_ID_FORMAT_TO_CONVERT).FORMAT_NAME,
+                             LENGTH = (int)task.LENGTH,
+                             STATUS = status.LIBELLE
+
+                         });
+
+            var listOfTasks = query.ToList();
+
+            return listOfTasks;
+
         }
 
     }

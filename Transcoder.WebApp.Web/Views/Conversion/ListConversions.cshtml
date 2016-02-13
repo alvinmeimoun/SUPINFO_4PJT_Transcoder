@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Core.Transcoder.DataAccess.ViewModels.ListTaskViewModel>
+
+@{
+    ViewBag.Title = "Mes conversions";
+}
+
+<div class="header" style="height:100px;">
+    <h2 class="title">Mes conversions</h2>
+</div>
+<h2>Mes conversions</h2>
+
+<p>
+    @Html.ActionLink("Nouvelle Conversion", "AddConversion", new { @class="btn btn-primary" })
+</p>
+
+<table class="table table-striped table-condensed table-no-bordered" data-toggle="table" data-pagination="true" data-filter-control="true">
+    <thead>
+        <tr>
+            <th data-field="PK_ID_TASK" data-sortable="true" data-filter-control="input">
+                @Html.DisplayNameFor(model => model.PK_ID_TASK)
+            </th>
+            <th data-field="FILE_URL_ACCESS" data-sortable="true" data-filter-control="input">
+              @Html.DisplayNameFor(model => model.FILE_URL_ACCESS)
+            </th>
+            @*<th data-field="FORMAT_TYPE" data-sortable="true" data-filter-control="input">
+                @Html.DisplayNameFor(model => model.FORMAT_TYPE)
+            </th>*@
+            <th data-field="FORMAT_BASE" data-sortable="true" data-filter-control="input">
+                @Html.DisplayNameFor(model => model.FORMAT_BASE)
+            </th>
+            <th data-field="FORMAT_CONVERT" data-sortable="true" data-filter-control="input">
+                @Html.DisplayNameFor(model => model.FORMAT_CONVERT)
+            </th>
+            <th data-field="LENGTH" data-sortable="true" data-filter-control="input">
+                @Html.DisplayNameFor(model => model.LENGTH)
+            </th>
+            <th data-field="STATUS" data-sortable="true" data-filter-control="input">
+                @Html.DisplayNameFor(model => model.STATUS)
+            </th>
+            <th data-width="1px"></th>
+            <th data-width="1px"></th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var item in Model)
+       {
+        <tr>
+            @Html.HiddenFor(modelItem => item.FK_ID_USER)
+            <td>
+                @Html.DisplayFor(modelItem => item.PK_ID_TASK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FILE_URL_ACCESS)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.FORMAT_TYPE)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.FORMAT_BASE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FORMAT_CONVERT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LENGTH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STATUS)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
+       }
+    </tbody>
+</table>
+
+
+@section Scripts
+{
+    <script>
+
+
+    </script>
+}

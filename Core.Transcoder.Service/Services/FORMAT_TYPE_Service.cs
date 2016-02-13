@@ -20,7 +20,7 @@ namespace Core.Transcoder.Service
             var listFormat = new List<FORMAT_TYPE>();
             if (fkFormatId == (int)EnumManager.FORMAT_TYPE.VIDEO)
             {
-                listFormat = UoW.FORMAT_TYPE_Repository.Get(x => x.PK_ID_FORMAT_TYPE == fkFormatId && x.PK_ID_FORMAT_TYPE == (int)EnumManager.FORMAT_TYPE.VIDEOTOAUDIO).ToList();
+                listFormat = UoW.FORMAT_TYPE_Repository.Get(x => x.PK_ID_FORMAT_TYPE == fkFormatId || x.PK_ID_FORMAT_TYPE == (int)EnumManager.FORMAT_TYPE.VIDEOTOAUDIO).ToList();
             }
             else
             {

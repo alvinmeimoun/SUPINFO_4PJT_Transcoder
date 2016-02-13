@@ -1,4 +1,5 @@
-﻿using Core.Transcoder.Repository;
+﻿using Core.Transcoder.DataAccess;
+using Core.Transcoder.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,10 @@ namespace Core.Transcoder.Service.Services
     {
         public UnitOfWork UoW = new UnitOfWork();
 
+        public List<PARAM_TASK_STATUS> GetAll()
+        {
+            return UoW.PARAM_TASK_STATUS_Repository.Get(null, q => q.OrderBy(s => s.PK_ID_STATUS), "").ToList();
+        }
 
     }
 }

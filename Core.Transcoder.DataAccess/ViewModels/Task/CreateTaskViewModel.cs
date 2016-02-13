@@ -30,6 +30,7 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Display(Name = "Taille du fichier")]
         public int LENGTH { get; set; }
 
+        public ShortEditUserViewModel ShortEditUserViewModel { get; set; }
 
         public List<FORMAT> ListAvailableFormats { get; set; }
 
@@ -63,11 +64,12 @@ namespace Core.Transcoder.DataAccess.ViewModels
         {
 
         }
-        public CreateTaskViewModel(int userId,List<FORMAT_TYPE> listFormatsTypes, List<FORMAT> listFormats)
+        public CreateTaskViewModel(int userId,List<FORMAT_TYPE> listFormatsTypes, List<FORMAT> listFormats, ShortEditUserViewModel userModel)
         {
             this.FK_ID_USER = userId;
             this.ListAvailableFormatTypes = listFormatsTypes;
             this.ListAvailableFormats = listFormats;
+            this.ShortEditUserViewModel = userModel;
         }
 
     }

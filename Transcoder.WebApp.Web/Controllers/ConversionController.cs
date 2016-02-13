@@ -14,16 +14,32 @@ namespace Transcoder.WebApp.Web.Controllers
         // GET: Conversion
         public ActionResult Index()
         {
-            return View();
+            int UserId = CookieUtil.GetUserId(this);
+            if (UserId == 0)
+                return RedirectToAction("Index", "Home");
+            
+            var listOfConversions = new TASK_Service().GetListTaskViewModelByUserId(UserId);
+
+            return View("ListConversions",listOfConversions);
         }
 
 
         public ActionResult AddConversion()
         {
-            int userId = 0;
-            int.TryParse(Request.Cookies["UserID"].Value, out userId);
-            CreateTaskViewModel model = new TASK_Service().InitCreateTaskViewModel(userId);
+            int UserId = CookieUtil.GetUserId(this);
+            if (UserId == 0)
+                return RedirectToAction("Index", "Home");
+            CreateTaskViewModel model = new TASK_Service().InitCreateTaskViewModel(UserId);
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddConversion(CreateTaskViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            bool isEdited =  new TASK_Service().AddTaskByViewModel(model);
+            return RedirectToAction("Index");
         }
 
 
@@ -43,10 +59,11 @@ namespace Transcoder.WebApp.Web.Controllers
                 int indexOf = file.FileName.IndexOf('.') + 1;
                 string format = file.FileName.Substring(indexOf);
                 var formatBase = new FORMAT_Service().GetFormatByName(format);
-                var listFormatTypes = new FORMAT_TYPE_Service().GetSelectListFormatTypeByFormat((int)formatBase.FK_ID_FORMAT_TYPE);
                 if (formatBase != null)
                 {
-                    return Json(new { success = "true", fileUrl = path, fileLength = file.ContentLength, fileFormatBase = formatBase.PK_ID_FORMAT,
+                    var listFormatTypes = new FORMAT_TYPE_Service().GetSelectListFormatTypeByFormat((int)formatBase.FK_ID_FORMAT_TYPE);
+
+                    return Json(new { success = "true", fileUrl = path, fileLength = file.ContentLength, fileName = file.FileName, fileFormatBase = formatBase.PK_ID_FORMAT,
                         listFormatType = new SelectList(listFormatTypes, "Value", "Text")
                     });
                 }

@@ -105,6 +105,7 @@
     <Compile Include="ViewModels\User\EditUserViewModel.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\User\ShortEditUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

@@ -21,6 +21,7 @@ namespace Core.Transcoder.DataAccess
             FK_ID_FORMAT_BASE = model.FK_ID_FORMAT_BASE;
             FK_ID_FORMAT_TO_CONVERT = model.FK_ID_FORMAT_TO_CONVERT;
             LENGTH = model.LENGTH;
+
         }
         public void UpdateFromModel(CreateTaskViewModel model)
         {
