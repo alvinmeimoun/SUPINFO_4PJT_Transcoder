@@ -39,6 +39,8 @@
                     @Html.HiddenFor(m => m.LENGTH, new { @id = "fileLength" })
                     @Html.HiddenFor(m => m.FK_ID_FORMAT_BASE, new { @id = "fileFormatBase" })
                     
+                    @Html.HiddenFor(m => m.DURATION, new { @id = "fileDuration" })
+                    @Html.HiddenFor(m => m.PRICE, new { @id = "filePrice" })
 
                     <div class="progress" id="progress" style="display:none;">
                         <div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; ">
@@ -58,20 +60,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" id="FormatConversion" style="display:none;">
+        <div class="col-md-3" id="FormatConversion" style="display:none;">
             <div class="heading">
             <div style="height:320px;">
                 <div class="head-2">
                     <img class="img-heading" src="~/Content/Images/choose.png" />
-                    <h4 class="head-1-title" style="">Selectionner le format de conversion</h4>
+                    <h4 class="head-1-title" style="">Choisir le format de conversion</h4>
                 </div>
                 <div class="contentWrap">
                     <div class="form-group">
-                        @Html.DropDownListFor(m => m.FK_ID_FORMAT_TYPE, Model.slAvailableFormatsTypes, "Selectionner un type de conversion :", new { @id = "ddlFormatTypes", @class = "form-control", @style = "display:none;" })
+                        @Html.DropDownListFor(m => m.FK_ID_FORMAT_TYPE, Model.slAvailableFormatsTypes, "Selectionner un type de conversion :", new { @id = "ddlFormatTypes", @class = "form-control", @style = "display:none; width:87%;" })
                         @Html.ValidationMessageFor(m => m.FK_ID_FORMAT_TYPE)
                     </div>
                     <div class="form-group">
-                        @Html.DropDownListFor(m => m.FK_ID_FORMAT_TO_CONVERT, Model.slAvailableFormats, "Selectionner un format :", new { @id = "ddlFormats", @class = "form-control", @style = "display:none;" })
+                        @Html.DropDownListFor(m => m.FK_ID_FORMAT_TO_CONVERT, Model.slAvailableFormats, "Selectionner un format :", new { @id = "ddlFormats", @class = "form-control", @style = "display:none;width:87%;" })
                         @Html.ValidationMessageFor(m => m.FK_ID_FORMAT_TO_CONVERT)
                     </div>
                 </div>
@@ -131,6 +133,8 @@
                         $("#fileUrl").val(data.fileUrl);
                         $("#fileLength").val(data.fileLength);
                         $("#fileFormatBase").val(data.fileFormatBase);
+                        $("#fileDuration").val(data.fileDuration);
+                        $("#filePrice").val(data.filePrice);
                         $('#ddlFormatTypes').empty();
 
                         $("#ddlFormatTypes").append('<option value="0">Type de conversion :</option>');

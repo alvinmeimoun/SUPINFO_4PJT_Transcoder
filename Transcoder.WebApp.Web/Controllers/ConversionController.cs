@@ -1,4 +1,5 @@
 ﻿using Core.Transcoder.DataAccess.ViewModels;
+using Core.Transcoder.FFmpegWrapper;
 using Core.Transcoder.Service;
 using System;
 using System.Collections.Generic;
@@ -59,12 +60,18 @@ namespace Transcoder.WebApp.Web.Controllers
                 int indexOf = file.FileName.IndexOf('.') + 1;
                 string format = file.FileName.Substring(indexOf);
                 var formatBase = new FORMAT_Service().GetFormatByName(format);
+                VideoFile videoFile = new VideoFile(path);
+                //VideoFile.GetVideoInfo();
+                double VideoDuration = videoFile.Duration.TotalMinutes;
+                double price = VideoDuration / 60;
+
+
                 if (formatBase != null)
                 {
                     var listFormatTypes = new FORMAT_TYPE_Service().GetSelectListFormatTypeByFormat((int)formatBase.FK_ID_FORMAT_TYPE);
 
                     return Json(new { success = "true", fileUrl = path, fileLength = file.ContentLength, fileName = file.FileName, fileFormatBase = formatBase.PK_ID_FORMAT,
-                        listFormatType = new SelectList(listFormatTypes, "Value", "Text")
+                        listFormatType = new SelectList(listFormatTypes, "Value", "Text"), fileDuration = VideoDuration, filePrice = price
                     });
                 }
                 else

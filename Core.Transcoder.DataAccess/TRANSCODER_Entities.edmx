@@ -67,6 +67,8 @@
           <Property Name="FK_ID_PARENT_TASK" Type="int" />
           <Property Name="LENGTH" Type="int" />
           <Property Name="FK_ID_PARAM_SPLIT" Type="int" />
+          <Property Name="DURATION" Type="nvarchar(max)" />
+          <Property Name="PRICE" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="TRACE">
           <Key>
@@ -296,6 +298,8 @@
           <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_TASK_FORMAT" FromRole="TASK" ToRole="FORMAT" />
           <NavigationProperty Name="PARAM_TASK_STATUS" Relationship="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS" FromRole="TASK" ToRole="PARAM_TASK_STATUS" />
           <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="TASK" ToRole="USER" />
+          <Property Name="DURATION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PRICE" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <Association Name="FK_FORMAT_FORMAT_TYPE">
           <End Type="TRANSCODERModel.FORMAT_TYPE" Role="FORMAT_TYPE" Multiplicity="0..1" />
@@ -430,6 +434,8 @@
           <EntitySetMapping Name="TASK">
             <EntityTypeMapping TypeName="TRANSCODERModel.TASK">
               <MappingFragment StoreEntitySet="TASK">
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="DURATION" ColumnName="DURATION" />
                 <ScalarProperty Name="FK_ID_PARAM_SPLIT" ColumnName="FK_ID_PARAM_SPLIT" />
                 <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
                 <ScalarProperty Name="FK_ID_PARENT_TASK" ColumnName="FK_ID_PARENT_TASK" />
