@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using Core.Transcoder.Service.Enums;
+using Core.Transcoder.Service.Utils;
 
 namespace Core.Transcoder.WindowsService
 {
@@ -287,19 +288,38 @@ namespace Core.Transcoder.WindowsService
 
         public static int GetNumberOfSplits(TASK task)
         {
-            if (task.LENGTH >= 1000)
+            var listParam = new PARAM_LENGTH_Service().GetAll();
+            try
             {
-                return 5;
+                double megabytes = ConverterUtil.ConvertBytesToMegabytes((double)task.LENGTH);  
+                foreach(var param in listParam)
+                {
+                    if(megabytes >= param.LENGTH)
+                    {
+                        return (int)param.NB_OF_SPLITS;
+                    }
+                }
+                return 1;
             }
-            if (task.LENGTH >= 600)
+            catch (Exception e)
             {
-                return 4;
+                task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
+                new TASK_Service().AddOrUpdateTask(task);
+
+                TRACE trace = new TRACE()
+                {
+                    FK_ID_TASK = task.PK_ID_TASK,
+                    FK_ID_SERVER = 1,
+                    METHOD = "GetNumberOfSplits problème lors de la recupération de la length",
+                    TYPE = "ERROR",
+                    DESCRIPTION = e.Message,
+                    DATE_TRACE = DateTime.Now,
+                    NOM_SERVER = System.Environment.MachineName
+
+                };
+                new TRACE_Service().AddTrace(trace);
+                return 0;
             }
-            if (task.LENGTH >= 300)
-            {
-                return 2;
-            }
-            return 1;
         }
 
         public static bool FFmpegMergeSplits(TASK Task, List<TASK> ListSubTasks)
@@ -344,6 +364,7 @@ namespace Core.Transcoder.WindowsService
                 return false;
             }
         }
+
 
     }
 }

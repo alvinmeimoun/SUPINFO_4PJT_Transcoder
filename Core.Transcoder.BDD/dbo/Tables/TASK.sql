@@ -13,7 +13,7 @@
     [DATE_BEGIN_CONVERSION]   DATETIME       NULL,
     [DATE_END_CONVERSION]     DATETIME       NULL,
     [FK_ID_PARENT_TASK]       INT            NULL,
-    [LENGTH]                  INT            NULL,
+    [LENGTH]                  FLOAT (53)     NULL,
     [FK_ID_PARAM_SPLIT]       INT            NULL,
     [DURATION]                NVARCHAR (MAX) NULL,
     [PRICE]                   DECIMAL (18)   NULL,
@@ -22,6 +22,8 @@
     CONSTRAINT [FK_TASK_PARAM_TASK_STATUS] FOREIGN KEY ([STATUS]) REFERENCES [dbo].[PARAM_TASK_STATUS] ([PK_ID_STATUS]),
     CONSTRAINT [FK_TASK_USER] FOREIGN KEY ([FK_ID_USER]) REFERENCES [dbo].[USER] ([PK_ID_USER])
 );
+
+
 
 
 

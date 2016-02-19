@@ -28,11 +28,19 @@ namespace WindowsServiceConsoleApplicationTest
             // FFMpegService.Execute("D:\\Projets\\TestsAssetsTranscoder\\ConvertedVideo\\bbb.mp4", "-vcodec mpeg4 -acodec ac3 -ar 48000 -ab 192k", "D:\\Projets\\TestsAssetsTranscoder\\Video\\bbb.avi");
 
 
-            RunTask runTask = new RunTask();
-            runTask.Run();
+            //RunTask runTask = new RunTask();
+            //runTask.Run();
+            //double test = ConvertBytesToMegabytes(220514438);
+            //Console.WriteLine(test);
 
+            //qConsole.Read();
         }
 
+
+        public static double ConvertBytesToMegabytes(int bytes)
+        {
+            return (bytes / 1024f) / 1024f;
+        }
     }
 }
 

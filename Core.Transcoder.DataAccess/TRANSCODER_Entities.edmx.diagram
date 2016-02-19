@@ -12,11 +12,12 @@
         <EntityTypeShape EntityType="TRANSCODERModel.USER" Width="1.5" PointX="14.375" PointY="4.75" />
         <EntityTypeShape EntityType="TRANSCODERModel.FORMAT" Width="1.5" PointX="7.625" PointY="11.125" />
         <EntityTypeShape EntityType="TRANSCODERModel.FORMAT_TYPE" Width="1.5" PointX="5.375" PointY="11.625" />
-        <EntityTypeShape EntityType="TRANSCODERModel.TASK" Width="1.5" PointX="16.625" PointY="6.875" />
         <AssociationConnector Association="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE" />
+        <EntityTypeShape EntityType="TRANSCODERModel.TASK" Width="1.5" PointX="16.625" PointY="6.75" />
         <AssociationConnector Association="TRANSCODERModel.FK_TASK_FORMAT" />
         <AssociationConnector Association="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS" />
         <AssociationConnector Association="TRANSCODERModel.FK_TASK_USER" />
+        <EntityTypeShape EntityType="TRANSCODERModel.PARAM_LENGTH" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

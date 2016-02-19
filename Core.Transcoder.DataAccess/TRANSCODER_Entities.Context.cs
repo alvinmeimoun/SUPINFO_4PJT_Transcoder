@@ -33,5 +33,6 @@ namespace Core.Transcoder.DataAccess
         public virtual DbSet<FORMAT> FORMAT { get; set; }
         public virtual DbSet<FORMAT_TYPE> FORMAT_TYPE { get; set; }
         public virtual DbSet<TASK> TASK { get; set; }
+        public virtual DbSet<PARAM_LENGTH> PARAM_LENGTH { get; set; }
     }
 }

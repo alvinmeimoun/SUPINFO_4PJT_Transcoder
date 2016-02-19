@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Transcoder.Repository.Repositories;
 
 namespace Core.Transcoder.Repository
 {
@@ -29,6 +30,7 @@ namespace Core.Transcoder.Repository
         private TASK_Repository taskRepository;
         private PARAM_TASK_STATUS_Repository paramTaskRepository;
         private PARAM_SPLIT_Repository paramSplitRepository;
+        private PARAM_LENGTH_Repository paramLengthRepository;
         private FORMAT_Repository formatRepository;
         private FORMAT_TYPE_Repository formatTypeRepository;
         private USER_Repository userRepository;
@@ -76,6 +78,17 @@ namespace Core.Transcoder.Repository
                     this.paramSplitRepository = new PARAM_SPLIT_Repository(context);
                 }
                 return paramSplitRepository;
+            }
+        }
+        public PARAM_LENGTH_Repository PARAM_LENGTH_Repository
+        {
+            get
+            {
+                if (this.paramLengthRepository == null)
+                {
+                    this.paramLengthRepository = new PARAM_LENGTH_Repository(context);
+                }
+                return paramLengthRepository;
             }
         }
         public FORMAT_Repository FORMAT_Repository

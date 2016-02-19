@@ -31,6 +31,14 @@
           <Property Name="PK_ID_FORMAT_TYPE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FORMAT_TYPE_NAME" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="PARAM_LENGTH">
+          <Key>
+            <PropertyRef Name="PK_ID_PARAM_LENGTH" />
+          </Key>
+          <Property Name="PK_ID_PARAM_LENGTH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LENGTH" Type="float" />
+          <Property Name="NB_OF_SPLITS" Type="int" />
+        </EntityType>
         <EntityType Name="PARAM_SPLIT">
           <Key>
             <PropertyRef Name="PK_ID_PARAM_SPLIT" />
@@ -65,7 +73,7 @@
           <Property Name="DATE_BEGIN_CONVERSION" Type="datetime" />
           <Property Name="DATE_END_CONVERSION" Type="datetime" />
           <Property Name="FK_ID_PARENT_TASK" Type="int" />
-          <Property Name="LENGTH" Type="int" />
+          <Property Name="LENGTH" Type="float" />
           <Property Name="FK_ID_PARAM_SPLIT" Type="int" />
           <Property Name="DURATION" Type="nvarchar(max)" />
           <Property Name="PRICE" Type="decimal" Precision="18" Scale="0" />
@@ -149,6 +157,7 @@
           <EntitySet Name="CONFIG" EntityType="Self.CONFIG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMAT" EntityType="Self.FORMAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMAT_TYPE" EntityType="Self.FORMAT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PARAM_LENGTH" EntityType="Self.PARAM_LENGTH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARAM_SPLIT" EntityType="Self.PARAM_SPLIT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARAM_TASK_STATUS" EntityType="Self.PARAM_TASK_STATUS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TASK" EntityType="Self.TASK" Schema="dbo" store:Type="Tables" />
@@ -196,11 +205,11 @@
           <EntitySet Name="USER" EntityType="TRANSCODERModel.USER" />
           <EntitySet Name="FORMAT" EntityType="TRANSCODERModel.FORMAT" />
           <EntitySet Name="FORMAT_TYPE" EntityType="TRANSCODERModel.FORMAT_TYPE" />
-          <EntitySet Name="TASK" EntityType="TRANSCODERModel.TASK" />
           <AssociationSet Name="FK_FORMAT_FORMAT_TYPE" Association="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE">
             <End Role="FORMAT_TYPE" EntitySet="FORMAT_TYPE" />
             <End Role="FORMAT" EntitySet="FORMAT" />
           </AssociationSet>
+          <EntitySet Name="TASK" EntityType="TRANSCODERModel.TASK" />
           <AssociationSet Name="FK_TASK_FORMAT" Association="TRANSCODERModel.FK_TASK_FORMAT">
             <End Role="FORMAT" EntitySet="FORMAT" />
             <End Role="TASK" EntitySet="TASK" />
@@ -213,6 +222,7 @@
             <End Role="USER" EntitySet="USER" />
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
+          <EntitySet Name="PARAM_LENGTH" EntityType="TRANSCODERModel.PARAM_LENGTH" />
           </EntityContainer>
         <EntityType Name="CONFIG">
           <Key>
@@ -275,6 +285,18 @@
           <Property Name="FORMAT_TYPE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_FORMAT_FORMAT_TYPE" FromRole="FORMAT_TYPE" ToRole="FORMAT" />
         </EntityType>
+        <Association Name="FK_FORMAT_FORMAT_TYPE">
+          <End Type="TRANSCODERModel.FORMAT_TYPE" Role="FORMAT_TYPE" Multiplicity="0..1" />
+          <End Type="TRANSCODERModel.FORMAT" Role="FORMAT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMAT_TYPE">
+              <PropertyRef Name="PK_ID_FORMAT_TYPE" />
+            </Principal>
+            <Dependent Role="FORMAT">
+              <PropertyRef Name="FK_ID_FORMAT_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="TASK">
           <Key>
             <PropertyRef Name="PK_ID_TASK" />
@@ -293,26 +315,14 @@
           <Property Name="DATE_BEGIN_CONVERSION" Type="DateTime" Precision="3" />
           <Property Name="DATE_END_CONVERSION" Type="DateTime" Precision="3" />
           <Property Name="FK_ID_PARENT_TASK" Type="Int32" />
-          <Property Name="LENGTH" Type="Int32" />
+          <Property Name="LENGTH" Type="Double" />
           <Property Name="FK_ID_PARAM_SPLIT" Type="Int32" />
+          <Property Name="DURATION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PRICE" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_TASK_FORMAT" FromRole="TASK" ToRole="FORMAT" />
           <NavigationProperty Name="PARAM_TASK_STATUS" Relationship="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS" FromRole="TASK" ToRole="PARAM_TASK_STATUS" />
           <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="TASK" ToRole="USER" />
-          <Property Name="DURATION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PRICE" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
-        <Association Name="FK_FORMAT_FORMAT_TYPE">
-          <End Type="TRANSCODERModel.FORMAT_TYPE" Role="FORMAT_TYPE" Multiplicity="0..1" />
-          <End Type="TRANSCODERModel.FORMAT" Role="FORMAT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORMAT_TYPE">
-              <PropertyRef Name="PK_ID_FORMAT_TYPE" />
-            </Principal>
-            <Dependent Role="FORMAT">
-              <PropertyRef Name="FK_ID_FORMAT_TYPE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TASK_FORMAT">
           <End Type="TRANSCODERModel.FORMAT" Role="FORMAT" Multiplicity="0..1" />
           <End Type="TRANSCODERModel.TASK" Role="TASK" Multiplicity="*" />
@@ -349,6 +359,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PARAM_LENGTH">
+          <Key>
+            <PropertyRef Name="PK_ID_PARAM_LENGTH" />
+          </Key>
+          <Property Name="PK_ID_PARAM_LENGTH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LENGTH" Type="Double" />
+          <Property Name="NB_OF_SPLITS" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -452,6 +470,15 @@
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="FK_ID_USER" ColumnName="FK_ID_USER" />
                 <ScalarProperty Name="PK_ID_TASK" ColumnName="PK_ID_TASK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PARAM_LENGTH">
+            <EntityTypeMapping TypeName="TRANSCODERModel.PARAM_LENGTH">
+              <MappingFragment StoreEntitySet="PARAM_LENGTH">
+                <ScalarProperty Name="NB_OF_SPLITS" ColumnName="NB_OF_SPLITS" />
+                <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
+                <ScalarProperty Name="PK_ID_PARAM_LENGTH" ColumnName="PK_ID_PARAM_LENGTH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
