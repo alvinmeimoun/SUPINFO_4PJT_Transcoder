@@ -34,5 +34,10 @@ namespace Core.Transcoder.Service
 
             return slFormat;
         }
+
+        public FORMAT_TYPE findById(int formatTypeId)
+        {
+            return UoW.FORMAT_TYPE_Repository.GetByID(formatTypeId);
+        }
     }
 }

@@ -26,9 +26,9 @@ namespace Core.Transcoder.FFmpegWrapper
         static FFMpegService()
         {
             var currentAssembly = Assembly.GetEntryAssembly();
-            //var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
-            //if (currentDirectory == null)
-            //    return;
+            var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
+            if (currentDirectory == null)
+                return;
 
             FFMPEGExecutableFilePath = new CONFIG_Service().GetConfigValueByName("FFMPEGExecutableFilePath");
                 //currentDirectory + ConfigurationManager.AppSettings["FullFFMPEGExecutableFilePath"];
