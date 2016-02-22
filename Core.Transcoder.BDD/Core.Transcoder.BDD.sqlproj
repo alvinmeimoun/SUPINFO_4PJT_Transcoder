@@ -73,5 +73,6 @@
     <Build Include="dbo\Tables\TASK.sql" />
     <Build Include="dbo\Tables\FORMAT_TYPE.sql" />
     <Build Include="dbo\Tables\CONFIG.sql" />
+    <Build Include="dbo\Tables\PARAM_LENGTH.sql" />
   </ItemGroup>
 </Project>

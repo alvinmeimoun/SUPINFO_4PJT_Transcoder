@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using Core.Transcoder.Service.Enums;
+using Core.Transcoder.Service.Utils;
 
 namespace Core.Transcoder.WindowsService
 {
@@ -23,6 +24,15 @@ namespace Core.Transcoder.WindowsService
             InitWorkspace();
             // on récupère le format de conversion de la tache
             FORMAT formatToConvert = new FORMAT_Service().GetFormatById((int)Task.FK_ID_FORMAT_TO_CONVERT);
+            FORMAT formatBase = new FORMAT_Service().GetFormatById((int)Task.FK_ID_FORMAT_BASE);
+            var formatTypeBase = new FORMAT_TYPE_Service().findById((int)formatBase.FK_ID_FORMAT_TYPE);
+
+            FORMAT_TYPE formatTypeDestination = new FORMAT_TYPE_Service().findById((int)Task.FORMAT.FK_ID_FORMAT_TYPE);
+            // S'il s'agit d'une extraction audio
+            if (formatTypeDestination != null && formatTypeBase.PK_ID_FORMAT_TYPE == (int)EnumManager.FORMAT_TYPE.VIDEO && formatTypeDestination.PK_ID_FORMAT_TYPE == (int)EnumManager.FORMAT_TYPE.AUDIO)
+            {
+                return ExtractAudioSegment(Task);
+            }
 
             try
             {  // On vérifie si la tache est à reassembler ou pas
@@ -80,6 +90,43 @@ namespace Core.Transcoder.WindowsService
             }
         }
 
+        public static bool ExtractAudioSegment(TASK Task)
+        {
+            try
+            {
+                Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EN_COURS;
+                Task.DATE_BEGIN_CONVERSION = DateTime.Now;
+                string fileName = GetFileName(Task);
+
+                CopyFileInTempFolder(fileName, Task);
+                new TASK_Service().AddOrUpdateTask(Task);
+
+                VideoFile VideoFile = new VideoFile(Task.FILE_URL_TEMP);
+                VideoFile.GetVideoInfo();
+                // On set le debut du premier split
+                TimeSpan begin = new TimeSpan(0);
+                // on récupère la durée totale de la video
+                long durationTotal = VideoFile.Duration.Ticks;
+                int count = (fileName.LastIndexOf('.') + 1);
+                fileName = fileName.Substring(0, count);
+                Task.FILE_URL_DESTINATION = destinationFolder + @"\" + fileName + Task.FORMAT.FORMAT_NAME;
+                // A voir pour l'extraction d'un morceau de son particulier
+                VideoFile.ExtractAudioSegment(begin.Ticks, durationTotal, Task.FORMAT.FORMAT_NAME, Task.FILE_URL_DESTINATION);
+                Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EFFECTUE;
+                Task.DATE_END_CONVERSION = DateTime.Now;
+                new TASK_Service().AddOrUpdateTask(Task);
+                return true;
+            }
+            catch(Exception e)
+            {
+                Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
+                Task.DATE_END_CONVERSION = DateTime.Now;
+                new TASK_Service().AddOrUpdateTask(Task);
+                var trace = new TRACE() { FK_ID_TASK = Task.PK_ID_TASK, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message, METHOD = "Erreur lors de l'extraction audio", TYPE = "ERROR" };
+                new TRACE_Service().AddTrace(trace);
+                return false;
+            }
+        }
         public static void ConvertTask(TASK Task, FORMAT formatToConvert)
         {
             try
@@ -87,6 +134,11 @@ namespace Core.Transcoder.WindowsService
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EN_COURS;
                 new TASK_Service().AddOrUpdateTask(Task);
                 FFMpegService.Execute(Task.FILE_URL_TEMP, formatToConvert.FORMAT_FFMPEG_VALUE, Task.FILE_URL_DESTINATION);
+                bool fileIsAvailable = CheckFileIsAvailable(Task.FILE_URL_DESTINATION);
+
+                if (!fileIsAvailable)
+                    throw new Exception();
+
                 Task.DATE_END_CONVERSION = DateTime.Now;
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EFFECTUE;
             }
@@ -117,23 +169,11 @@ namespace Core.Transcoder.WindowsService
                 TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, METHOD = "CREATION DES SPLIT TEMPORAIRES", TYPE = "INFO" };
                 new TRACE_Service().AddTrace(Trace);
 
-                string fileUrl = Task.FILE_URL;
-                int count = (fileUrl.LastIndexOf(@"\") + 1);
-                string fileName = fileName = fileUrl.Substring(count);
+                string fileName = GetFileName(Task);
 
                 // si le fichier n'a pas été encore copié, on le copie dans notre repertoire temporaire.
-                if (Task.FILE_URL_TEMP == null)
-                {
-                    Task.FILE_URL_TEMP = sourceFolder + @"\" + fileName;
-                    if (File.Exists(fileUrl))
-                    {
-                        if (File.Exists(Task.FILE_URL_TEMP))
-                        {
-                            File.Delete(Task.FILE_URL_TEMP);
-                        }
-                        File.Copy(fileUrl, Task.FILE_URL_TEMP);
-                    }
-                }
+                CopyFileInTempFolder(fileName, Task);
+
                 // On verifie si la tache doit être splittée ou non, si c'est le cas nous la splittons
                 bool isSplitted = VerifyTaskLengthAndSplitTask(Task);
                 if (isSplitted)
@@ -143,7 +183,7 @@ namespace Core.Transcoder.WindowsService
                 }
                 else
                 {
-                    count = (fileName.LastIndexOf('.') + 1);
+                    int count = (fileName.LastIndexOf('.') + 1);
                     fileName = fileName.Substring(0, count);
                     Task.FILE_URL_DESTINATION = destinationFolder + @"\" + fileName + Format.FORMAT_NAME;
                     result = false;
@@ -158,6 +198,39 @@ namespace Core.Transcoder.WindowsService
                 new TRACE_Service().AddTrace(Trace);
                 return false;
             }
+        }
+
+        public static string GetFileName(TASK Task)
+        {
+            int count = (Task.FILE_URL.LastIndexOf(@"\") + 1);
+            string fileName = Task.FILE_URL.Substring(count);
+
+            return fileName;
+        }
+
+        public static void CopyFileInTempFolder(string fileName, TASK Task)
+        {
+            if (Task.FILE_URL_TEMP == null)
+            {
+                Task.FILE_URL_TEMP = sourceFolder + @"\" + fileName;
+                if (File.Exists(Task.FILE_URL))
+                {
+                    if (File.Exists(Task.FILE_URL_TEMP))
+                    {
+                        File.Delete(Task.FILE_URL_TEMP);
+                    }
+                    File.Copy(Task.FILE_URL, Task.FILE_URL_TEMP);
+                }
+            }
+        }
+
+        public static bool CheckFileIsAvailable(string fileUrl)
+        {
+            if (File.Exists(fileUrl))
+            {
+                return true;
+            }
+            return false;
         }
 
         public static void CreateWorkDirectories(string folder)
@@ -178,12 +251,13 @@ namespace Core.Transcoder.WindowsService
 
         public static bool VerifyTaskLengthAndSplitTask(TASK Task)
         {
-            int MaxLength;
+           
             //On récupère la taille maximum sans split
-            string MaxLengthString = new CONFIG_Service().GetConfigValueById((int)EnumManager.CONFIG.MAXLENGTHWITHOUTSPLIT);
-            int.TryParse(MaxLengthString, out MaxLength);
+            double MaxLength = (double)new PARAM_LENGTH_Service().GetAll().LastOrDefault().LENGTH;
+            //int.TryParse(MaxLengthString, out MaxLength);
             // Si la tache est trop lourde on la split
-            if (Task.LENGTH >= MaxLength)
+            double megabytes = ConverterUtil.ConvertBytesToMegabytes((double)Task.LENGTH);
+            if (megabytes >= MaxLength)
             {
                 VideoFile VideoFile = new VideoFile(Task.FILE_URL);
                 VideoFile.GetVideoInfo();
@@ -287,19 +361,38 @@ namespace Core.Transcoder.WindowsService
 
         public static int GetNumberOfSplits(TASK task)
         {
-            if (task.LENGTH >= 1000)
+            var listParam = new PARAM_LENGTH_Service().GetAll();
+            try
             {
-                return 5;
+                double megabytes = ConverterUtil.ConvertBytesToMegabytes((double)task.LENGTH);  
+                foreach(var param in listParam)
+                {
+                    if(megabytes >= param.LENGTH)
+                    {
+                        return (int)param.NB_OF_SPLITS;
+                    }
+                }
+                return 1;
             }
-            if (task.LENGTH >= 600)
+            catch (Exception e)
             {
-                return 4;
+                task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
+                new TASK_Service().AddOrUpdateTask(task);
+
+                TRACE trace = new TRACE()
+                {
+                    FK_ID_TASK = task.PK_ID_TASK,
+                    FK_ID_SERVER = 1,
+                    METHOD = "GetNumberOfSplits problème lors de la recupération de la length",
+                    TYPE = "ERROR",
+                    DESCRIPTION = e.Message,
+                    DATE_TRACE = DateTime.Now,
+                    NOM_SERVER = System.Environment.MachineName
+
+                };
+                new TRACE_Service().AddTrace(trace);
+                return 0;
             }
-            if (task.LENGTH >= 300)
-            {
-                return 2;
-            }
-            return 1;
         }
 
         public static bool FFmpegMergeSplits(TASK Task, List<TASK> ListSubTasks)
@@ -344,6 +437,7 @@ namespace Core.Transcoder.WindowsService
                 return false;
             }
         }
+
 
     }
 }

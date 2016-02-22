@@ -28,8 +28,10 @@ namespace Core.Transcoder.DataAccess
         public Nullable<System.DateTime> DATE_BEGIN_CONVERSION { get; set; }
         public Nullable<System.DateTime> DATE_END_CONVERSION { get; set; }
         public Nullable<int> FK_ID_PARENT_TASK { get; set; }
-        public Nullable<int> LENGTH { get; set; }
+        public Nullable<double> LENGTH { get; set; }
         public Nullable<int> FK_ID_PARAM_SPLIT { get; set; }
+        public string DURATION { get; set; }
+        public Nullable<decimal> PRICE { get; set; }
     
         public virtual FORMAT FORMAT { get; set; }
         public virtual PARAM_TASK_STATUS PARAM_TASK_STATUS { get; set; }

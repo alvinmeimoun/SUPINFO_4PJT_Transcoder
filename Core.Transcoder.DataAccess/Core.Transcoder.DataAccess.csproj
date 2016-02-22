@@ -66,6 +66,9 @@
     <Compile Include="FORMAT_TYPE.cs">
       <DependentUpon>TRANSCODER_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="PARAM_LENGTH.cs">
+      <DependentUpon>TRANSCODER_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="PARAM_SPLIT.cs">
       <DependentUpon>TRANSCODER_Entities.tt</DependentUpon>
     </Compile>

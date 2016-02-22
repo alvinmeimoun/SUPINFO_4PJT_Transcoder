@@ -29,6 +29,12 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Required]
         [Display(Name = "Taille du fichier")]
         public int LENGTH { get; set; }
+        [Required]
+        [Display(Name = "Durée")]
+        public int DURATION { get; set; }
+        [Required]
+        [Display(Name = "Prix")]
+        public int PRICE { get; set; }
 
         public ShortEditUserViewModel ShortEditUserViewModel { get; set; }
 

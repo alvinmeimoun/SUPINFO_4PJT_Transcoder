@@ -311,9 +311,9 @@ namespace Core.Transcoder.FFmpegWrapper
         }
 
 
-        public string ExtractAudioSegment(long ticksToExtract, long ticksTimeLapse, AudioFormat type)
+        public string ExtractAudioSegment(long ticksToExtract, long ticksTimeLapse, string type, string fileDestination)
         {
-            string tempFile = Path.GetTempPath() + Guid.NewGuid() + "." + type.ToString();
+            //string tempFile = Path.GetTempPath() + Guid.NewGuid() + "." + type.ToString();
             var span = TimeSpan.FromTicks(ticksToExtract);
             var spanTo = TimeSpan.FromTicks(ticksTimeLapse - ticksToExtract);
 
@@ -325,18 +325,18 @@ namespace Core.Transcoder.FFmpegWrapper
                 InputFilePath = FilePath,
                 DisableAudio = false,
                 OutputOptions = String.Format("-vn -ss {0} -t {1}", span.Hours.ToString("D2") + ":" + span.Minutes.ToString("D2") + ":" + span.Seconds.ToString("D2") + "." + span.Milliseconds.ToString("D3"), spanTo.Hours.ToString("D2") + ":" + spanTo.Minutes.ToString("D2") + ":" + spanTo.Seconds.ToString("D2") + "." + spanTo.Milliseconds.ToString("D3")),
-                OutputFilePath = tempFile,
+                OutputFilePath = fileDestination,
 
             };
 
             string output = FFMpegService.Execute(parameters);
 
-            if (!File.Exists(tempFile))
+            if (!File.Exists(fileDestination))
             {
                 throw new Exception("Could not extract Audio From Video Clip");
             }
 
-            return tempFile;
+            return fileDestination;
         }
 
 
