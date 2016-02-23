@@ -43,7 +43,7 @@ namespace Core.Transcoder.DataAccess
                         USERNAME = "fb-" + model.ProviderUserId;
                         break;
                     case LoginExternalViewModel.Provider.Google:
-                        USERNAME = "google-" + model.ProviderUserId;
+                        USERNAME = "gl-" + model.ProviderUserId;
                         break;
             }
 

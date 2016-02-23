@@ -36,7 +36,7 @@ function delogIfLogged(completionHandler) {
             });
 }
 
-function doLoginOrRegister() {
+function doLoginOrRegisterWithFacebook() {
     delogIfLogged(function() {
         FB.login(function (responseLogin) {
             if (responseLogin.status === 'connected') {
@@ -105,7 +105,7 @@ window.fbAsyncInit = function() {
     });
 };
 
-// Load the SDK asynchronously
+// Load the Facebook SDK asynchronously
 (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) { return; }
@@ -113,3 +113,60 @@ window.fbAsyncInit = function() {
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+
+/* GOOGLE */
+
+//function bindGoogleSignButton(element) {
+//    auth2.attachClickHandler(element, {},
+//        function (googleUser) {
+//            var profile = googleUser.getBasicProfile();
+//            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+//            console.log('Name: ' + profile.getName());
+//            console.log('Image URL: ' + profile.getImageUrl());
+//            console.log('Email: ' + profile.getEmail());
+//        }, function (error) {
+//            alert(JSON.stringify(error, undefined, 2));
+//        });
+//}
+
+function doLoginOrRegisterWithGoogle() {
+    var googleAuthInstance = gapi.auth2.getAuthInstance();
+
+    if (googleAuthInstance.isSignedIn.get()) {
+        googleAuthInstance.signOut().then(function () {
+            doLoginOrRegisterWithGoogle();
+        });
+        return;
+    }
+
+    googleAuthInstance.signIn({
+        'scope': 'profile email'
+    }).then(function (responseUser) {
+        //Login callback
+        var profile = responseUser.getBasicProfile();
+        var userId = profile.getId();
+        var email = profile.getEmail();
+        var lastName = profile.getFamilyName();
+        var firstName = profile.getGivenName();
+
+        //Envoi du formulaire
+        var formParams = {
+            Email: email,
+            ProviderType: "Google",
+            FirstName: firstName,
+            LastName: lastName,
+            ProviderUserId: userId
+        }
+        sendExternalLoginForm(formParams);
+    });
+}
+
+function loadGoogleApi() {
+    gapi.load('auth2', function () {
+        gapi.auth2.init({
+            client_id: '659045647151-b43na1lt7qi3sarvjen397k54ikra1g5.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin'
+        });
+    });
+}
