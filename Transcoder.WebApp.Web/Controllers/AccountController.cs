@@ -15,6 +15,7 @@ using System.Web.Security;
 using Core.Transcoder.Service.Utils;
 using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.DataAccess;
+using Core.Transcoder.DataAccess.ViewModels.User;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -59,13 +60,13 @@ namespace Transcoder.WebApp.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            model.Password = EncryptionUtil.Encrypt(model.Password);
+            model.Password = string.IsNullOrWhiteSpace(model.Password) ? "" : EncryptionUtil.Encrypt(model.Password);
             var user = new USER_Service().LoginUser(model.Username, model.Password);
                   
             if(user != null)
@@ -79,6 +80,7 @@ namespace Transcoder.WebApp.Web.Controllers
                 return View(model);
             }
         }
+        
         public void SetCurrentUser(string Username, int Pk_id_user)
         {
             HttpCookie Cookie = Request.Cookies["User"] ?? new HttpCookie("User");
@@ -110,16 +112,17 @@ namespace Transcoder.WebApp.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool usernameAlreadyExist = new USER_Service().FindUserByUserName(model.Username);
-                if(usernameAlreadyExist)
+                USER_Service userService = new USER_Service();
+                bool userAlreadyExist = userService.FindUserByUserName(model.Username) != null ||
+                     userService.FindByEmail(model.Email) != null;
+                if(userAlreadyExist)
                 {
-                    ModelState.AddModelError("", "Le pseudo " + model.Username + " existe déjà, veuillez en choisir un autre.");
+                    ModelState.AddModelError("", "Le pseudo ou l'email existe déjà, veuillez en choisir un autre.");
                     return View(model);
                 }
                    
                 model.Password = EncryptionUtil.Encrypt(model.Password);
-                var user = new USER();
-                user.CreateFromModel(model);
+                var user = new USER().CreateFromModel(model);
                 bool isRegistered = new USER_Service().AddOrUpdateUser(user);
 
                 if (isRegistered)
@@ -132,6 +135,48 @@ namespace Transcoder.WebApp.Web.Controllers
 
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
             return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult LoginOrRegisterExternal(LoginExternalViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                USER_Service userService = new USER_Service();
+                USER user = userService.FindByEmail(model.Email);
+
+                if (user == null)
+                {
+                    user = new USER().CreateFromExternalLoginModel(model);
+                    bool isRegistered = userService.AddOrUpdateUser(user);
+
+                    if (isRegistered)
+                    {
+                        SetCurrentUser(user.USERNAME, user.PK_ID_USER);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    switch (model.ProviderType)
+                    {
+                        case LoginExternalViewModel.Provider.Google:
+                            user.GOOGLEID = model.ProviderUserId;
+                            break;
+                        case LoginExternalViewModel.Provider.Facebook:
+                            user.FACEBOOKID = model.ProviderUserId;
+                            break;
+                    }
+                    userService.AddOrUpdateUser(user);
+
+                    SetCurrentUser(user.USERNAME, user.PK_ID_USER);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ModelState.AddModelError("", "Une erreur est survenue lors de l'authentification");
+            return View("Login", new LoginViewModel());
         }
 
         //

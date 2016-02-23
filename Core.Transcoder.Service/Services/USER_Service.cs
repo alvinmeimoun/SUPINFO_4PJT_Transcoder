@@ -28,13 +28,20 @@ namespace Core.Transcoder.Service
 
         public USER LoginUser(string Username, string password)
         {
-            return UoW.USER_Repository.Get(x => x.USERNAME == Username && x.PASSWORD == password).FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(password)) return null; //Case append generally when trying to log with an account without password (created with external provider and standard password not defined)
 
+            return UoW.USER_Repository.Get(x => x.USERNAME == Username && x.PASSWORD == password).FirstOrDefault();
         }
-        public bool FindUserByUserName(string Username)
+        public USER FindUserByUserName(string Username)
         {
-            return UoW.USER_Repository.Get(x => x.USERNAME == Username).FirstOrDefault() != null ? true : false;
+            return UoW.USER_Repository.Get(x => x.USERNAME == Username).FirstOrDefault();
         }
+
+        public USER FindByEmail(string email)
+        {
+            return UoW.USER_Repository.Get(x => x.EMAIL == email).FirstOrDefault();
+        }
+
         public USER FindUserByID(int UserID)
         {
             return UoW.USER_Repository.GetByID(UserID);

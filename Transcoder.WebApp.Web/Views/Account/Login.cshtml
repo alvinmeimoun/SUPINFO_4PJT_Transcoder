@@ -1,5 +1,4 @@
 ﻿@using Core.Transcoder.DataAccess.ViewModels;
-@using Transcoder.WebApp.Web.Models
 @model LoginViewModel
 @{
     ViewBag.Title = "Connexion";
@@ -8,30 +7,11 @@
 <h2>@ViewBag.Title.</h2>
 <div class="row">
     <div class="col-md-6">
-        <section id="socialLoginForm">
-            <h4>Connectez-vous avec</h4>
-            <hr/>
-            <div class="col-md-3"></div>
-            <div class="col-md-2">
-                    <a style="horiz-align: center;"><img style="max-height: 50px; margin: 5px;" src="~/Content/Images/fb-logo_icon.jpg"/></a>
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-1">
-                    <a style="horiz-align: center;"><img style="max-height: 50px; margin: 5px;" src="~/Content/Images/google_logo.png" /></a>
-            </div>
-            @*<div id="socialLoginList">
-                    <p>
-                        @foreach (AuthenticationDescription p in loginProviders)
-                        {
-                            <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Connexion avec votre compte @p.Caption">@p.AuthenticationType</button>
-                        }
-                    </p>
-                </div>*@
-        </section>
+        @Html.Partial("_LoginExternalPartial")
     </div>
     <div class="col-md-6">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
             {
                 @Html.AntiForgeryToken()
                 <h4>Ou utilisez un compte standard</h4>
@@ -77,5 +57,5 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+   @* @Scripts.Render("~/bundles/jqueryval")*@
 }
