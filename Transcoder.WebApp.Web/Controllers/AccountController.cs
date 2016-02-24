@@ -149,6 +149,16 @@ namespace Transcoder.WebApp.Web.Controllers
                 if (user == null)
                 {
                     user = new USER().CreateFromExternalLoginModel(model);
+
+                    //Génération du username
+                    var generatedUsername = user.FIRSTNAME.ToLower() + user.LASTNAME.ToLower();
+                    var usernameAlreadyExistsWithSameBaseCount =
+                        userService.FindAllByUsernameStartWith(generatedUsername).Count();
+                    if (usernameAlreadyExistsWithSameBaseCount > 0)
+                        generatedUsername += usernameAlreadyExistsWithSameBaseCount;
+                    user.USERNAME = generatedUsername;
+
+                    //Ajout en BDD
                     bool isRegistered = userService.AddOrUpdateUser(user);
 
                     if (isRegistered)

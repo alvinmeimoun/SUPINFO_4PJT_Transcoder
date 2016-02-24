@@ -37,16 +37,6 @@ namespace Core.Transcoder.DataAccess
 
         public USER CreateFromExternalLoginModel(LoginExternalViewModel model)
         {
-            switch (model.ProviderType)
-            {
-                    case LoginExternalViewModel.Provider.Facebook:
-                        USERNAME = "fb-" + model.ProviderUserId;
-                        break;
-                    case LoginExternalViewModel.Provider.Google:
-                        USERNAME = "gl-" + model.ProviderUserId;
-                        break;
-            }
-
             EMAIL = model.Email;
             LASTNAME = model.LastName;
             FIRSTNAME = model.FirstName;

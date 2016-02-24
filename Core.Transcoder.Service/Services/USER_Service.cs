@@ -46,6 +46,12 @@ namespace Core.Transcoder.Service
         {
             return UoW.USER_Repository.GetByID(UserID);
         }
+
+        public IEnumerable<USER> FindAllByUsernameStartWith(string startWithValue)
+        {
+            return UoW.USER_Repository.Get(x => x.USERNAME.StartsWith(startWithValue));
+        } 
+
         public bool AddOrUpdateUser(USER user)
         {
             if (user.PK_ID_USER != 0)
