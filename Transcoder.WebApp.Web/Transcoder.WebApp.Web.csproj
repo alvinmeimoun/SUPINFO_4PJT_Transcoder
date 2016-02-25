@@ -217,6 +217,7 @@
     <Content Include="Content\Images\download.png" />
     <Content Include="Content\Images\fb-logo_icon.jpg" />
     <Content Include="Content\Images\google_logo.png" />
+    <Content Include="Content\Images\home_main_bg.jpg" />
     <Content Include="Content\Images\loader.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
