@@ -3,7 +3,7 @@
         ViewBag.Title = "AddConversion";
     }*@
 
-
+<div class="container">
 <div class="header" style="height:100px;">
     <h2 class="title">Commander une conversion</h2>
 
@@ -23,28 +23,28 @@
                         <h4 class="head-1-title" style="">Selectionner un fichier</h4>
                     </div>
 
-                    <div class="contentWrap">
-                        <p id="fileName" style="font-weight:bold; color:#5cb85c"></p>
+                    <div class="contentWrap" style="text-align:center; padding:5px;">
+                        <p id="fileName" style="font-weight:bold; color:#5cb85c;overflow: hidden;-o-text-overflow: ellipsis; text-overflow: ellipsis;"></p>
                         <span class="text-danger" id="fileError" style="display:none;">L'élément téléchargé ne peut pas être converti, veuillez en choisir un autre.</span>
                         <div class="fileUpload btn btn-info">
 
                             <span>Choisir votre fichier</span>
                             <input type="file" name="file" class="upload" id="FileToUpload" />
                         </div>
-                    </div>
 
-                    @Html.HiddenFor(m => m.FILE_URL, new { @id = "fileUrl" })
-                    @Html.ValidationMessageFor(m => m.FILE_URL, "", new { @class = "text-danger" })
 
-                    @Html.HiddenFor(m => m.LENGTH, new { @id = "fileLength" })
-                    @Html.HiddenFor(m => m.FK_ID_FORMAT_BASE, new { @id = "fileFormatBase" })
-                    
-                    @Html.HiddenFor(m => m.DURATION, new { @id = "fileDuration" })
-                    @Html.HiddenFor(m => m.PRICE, new { @id = "filePrice" })
+                        @Html.HiddenFor(m => m.FILE_URL, new { @id = "fileUrl" })
+                        @Html.ValidationMessageFor(m => m.FILE_URL, "", new { @class = "text-danger" })
 
-                    <div class="progress" id="progress" style="display:none;">
-                        <div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; ">
-                            <span id="progressValue"></span>
+                        @Html.HiddenFor(m => m.LENGTH, new { @id = "fileLength" })
+                        @Html.HiddenFor(m => m.FK_ID_FORMAT_BASE, new { @id = "fileFormatBase" })
+                        @Html.HiddenFor(m => m.PRICE, new { @id = "filePrice" })
+                        @Html.HiddenFor(m => m.DURATION, new { @id = "fileDuration" })
+
+                        <div class="progress" id="progress" style="display:none; width:100%; ">
+                            <div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; ">
+                                <span id="progressValue"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -60,6 +60,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-3" id="FormatConversion" style="display:none;">
             <div class="heading">
             <div style="height:320px;">
@@ -90,20 +91,57 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3" id="userInformations" style="display:none;">
-            @Html.Partial("_ShortUserEdit", Model.ShortEditUserViewModel)
-        </div>
+
+        <div class="col-md-3" id="finalPart"  style="display:none;">
+                <div class="heading">
+                    <div style="height:320px;">
+                        <div class="head-3">
+                            <img class="img-heading" src="~/Content/Images/validate.ico" />
+                            <h4 class="head-1-title" style="">Valider votre commande</h4>
+                        </div>
+                        <div class="contentWrap" style="text-align:center; margin-top:8%;">
+                           
+                            <div style="" id="priceAnnounced">
+                                <div class="form-group" style="color:green;">
+                                    @Html.LabelFor(m => m.PRICE)
+                                </div>
+                                <div class="clearfix container" style="width:56%">
+                                    <div class="c100 p100 green">
+                                        <span id="price"></span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                               <button type="button" id="btnCommander" class="btn btn-success">Commander Maintenant !</button>
+                            </div>
+                            <div id="userInformations" style="display:none;">
+                                @Html.Partial("_ShortUserEdit", Model.ShortEditUserViewModel)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
     </div>
     <p style="text-align:right; display:none;" id="btnSection">
         <input type="submit" value="Ajouter la conversion" id="AddConversion" class="btn btn-success" />
     </p>
 }
-
+</div>
 
 @section Scripts {
 
     <script>
 
+        jQuery.extend(jQuery.validator.methods, {
+            number: function (value, element) {
+                return this.optional(element)
+                || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d+)?$/.test(value)
+                || /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value);
+            }
+        });
         ShowSaveButton();
 
         $('#FileToUpload').on("change", function () {
@@ -207,10 +245,18 @@
         });
         $("#ddlFormats").change(function () {
             if ($(this).val() != "0") {
+                $("#price").html($("#filePrice").val() + ' €');
                 $("#separator-2").show();
-                $("#userInformations").show("slow");
-                ShowSaveButton();
+                $("#finalPart").show("slow");
+                
             }
+        });
+
+        $("#btnCommander").click(function () {
+            $("#priceAnnounced").hide();
+            $("#userInformations").show("slow");
+            ShowSaveButton();
+
         });
         function ShowSaveButton() {
             if ($('#FileToUpload').val() != "" && $("#ddlFormatTypes").val() != "undefined" && $("#ddlFormats").val() != "undefined") {

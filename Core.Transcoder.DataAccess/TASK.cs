@@ -30,8 +30,8 @@ namespace Core.Transcoder.DataAccess
         public Nullable<int> FK_ID_PARENT_TASK { get; set; }
         public Nullable<double> LENGTH { get; set; }
         public Nullable<int> FK_ID_PARAM_SPLIT { get; set; }
-        public string DURATION { get; set; }
-        public Nullable<decimal> PRICE { get; set; }
+        public Nullable<double> DURATION { get; set; }
+        public Nullable<double> PRICE { get; set; }
     
         public virtual FORMAT FORMAT { get; set; }
         public virtual PARAM_TASK_STATUS PARAM_TASK_STATUS { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.FFmpegWrapper;
 using Core.Transcoder.Service;
+using Core.Transcoder.Service.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,10 +19,10 @@ namespace Transcoder.WebApp.Web.Controllers
             int UserId = CookieUtil.GetUserId(this);
             if (UserId == 0)
                 return RedirectToAction("Index", "Home");
-            
-            var listOfConversions = new TASK_Service().GetListTaskViewModelByUserId(UserId);
 
-            return View("ListConversions",listOfConversions);
+            var panier = new TASK_Service().GetPanierViewModel(UserId);
+
+            return View("Panier",panier);
         }
 
 
@@ -33,6 +34,7 @@ namespace Transcoder.WebApp.Web.Controllers
             CreateTaskViewModel model = new TASK_Service().InitCreateTaskViewModel(UserId);
             return View(model);
         }
+
         [HttpPost]
         public ActionResult AddConversion(CreateTaskViewModel model)
         {
@@ -43,6 +45,27 @@ namespace Transcoder.WebApp.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult DeleteConversion(int id)
+        {
+            if(id != 0)
+            {
+               bool isDeleted = new TASK_Service().DeleteTaskById(id);
+                if (isDeleted)
+                    return RedirectToAction("Index");
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult ValiderPanier(PanierViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            //bool isEdited = new TASK_Service().AddTaskByViewModel(model);
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         public ActionResult Upload()
@@ -50,28 +73,25 @@ namespace Transcoder.WebApp.Web.Controllers
             if (Request.Files.Count > 0)
             {
                 var file = Request.Files[0];
-                string path = "";
-                if (file != null && file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
-                    file.SaveAs(path);
-                }
-                int indexOf = file.FileName.IndexOf('.') + 1;
+
+                string path = SaveFileInFolder(file);
+                // On recupere le format de base de la video
+                int indexOf = file.FileName.LastIndexOf('.') + 1;
                 string format = file.FileName.Substring(indexOf);
                 var formatBase = new FORMAT_Service().GetFormatByName(format);
+                // On recupere les infos de la video
                 VideoFile videoFile = new VideoFile(path);
-                //VideoFile.GetVideoInfo();
                 double VideoDuration = videoFile.Duration.TotalMinutes;
-                double price = VideoDuration / 60;
+                // On génére le prix en fonction de la durée
+                double price = PriceGeneratorUtil.GetPriceByDuration(VideoDuration);
 
-
+                // Si le format a été trouvé dans nos bases on va proposer les conversions liées possibles.
                 if (formatBase != null)
                 {
                     var listFormatTypes = new FORMAT_TYPE_Service().GetSelectListFormatTypeByFormat((int)formatBase.FK_ID_FORMAT_TYPE);
 
                     return Json(new { success = "true", fileUrl = path, fileLength = file.ContentLength, fileName = file.FileName, fileFormatBase = formatBase.PK_ID_FORMAT,
-                        listFormatType = new SelectList(listFormatTypes, "Value", "Text"), fileDuration = VideoDuration, filePrice = price
+                        listFormatType = new SelectList(listFormatTypes, "Value", "Text"), fileDuration =  VideoDuration.ToString(), filePrice = price.ToString()
                     });
                 }
                 else
@@ -94,5 +114,18 @@ namespace Transcoder.WebApp.Web.Controllers
 
         }
 
+
+        private string SaveFileInFolder(HttpPostedFileBase file)
+        {
+            string path = "";
+            if (file != null && file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
+                file.SaveAs(path);
+                
+            }
+            return path;
+        }
     }
 }

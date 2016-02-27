@@ -44,6 +44,18 @@ namespace Core.Transcoder.Service
             }
         }
 
+        public bool DeleteTaskById(int id)
+        {
+            try
+            {
+                UoW.TASK_Repository.Delete(id);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         public List<TASK> GetListOfTaskByStatus(EnumManager.PARAM_TASK_STATUS Status)
         {
             int statut = ((int)Status);
@@ -102,6 +114,16 @@ namespace Core.Transcoder.Service
             return AddOrUpdateTask(task);
         }
 
+        public PanierViewModel GetPanierViewModel(int userId)
+        {
+            PanierViewModel panier = new PanierViewModel();
+            panier.ListOfConversions = GetListTaskViewModelByUserId(userId);
+            panier.GlobalPrice = panier.ListOfConversions.Sum(x => x.PRICE);
+
+            return panier;
+
+        }
+
         public List<TASK> GetListOfTaskByUserId(int userId)
         {
             return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
@@ -116,13 +138,14 @@ namespace Core.Transcoder.Service
                          select new ListTaskViewModel
                          {
                              PK_ID_TASK = task.PK_ID_TASK,
-                             FILE_URL_ACCESS = task.FILE_URL_DESTINATION,
+                             FILE_URL_ACCESS = task.FILE_URL.Substring(task.FILE_URL.LastIndexOf(@"\") + 1),
                              FK_ID_USER = (int)task.FK_ID_USER,
                              FORMAT_BASE = listOfFormat.Find(x => x.PK_ID_FORMAT == task.FK_ID_FORMAT_BASE).FORMAT_NAME,
                              FORMAT_CONVERT = listOfFormat.Find(x => x.PK_ID_FORMAT == task.FK_ID_FORMAT_TO_CONVERT).FORMAT_NAME,
-                             LENGTH = (int)task.LENGTH,
-                             STATUS = status.LIBELLE
-
+                             LENGTH = (double)task.LENGTH,
+                             STATUS = status.LIBELLE,
+                             PRICE = (double)task.PRICE,
+                             DURATION = (double)task.DURATION
                          });
 
             var listOfTasks = query.ToList();

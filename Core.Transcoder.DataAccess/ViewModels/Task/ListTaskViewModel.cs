@@ -27,10 +27,14 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Display(Name = "Format de conversion")]
         public string FORMAT_CONVERT { get; set; }
 
-
-        [Required]
         [Display(Name = "Taille du fichier")]
-        public int LENGTH { get; set; }
+        public double LENGTH { get; set; }
+        [Required]
+        [Display(Name = "Durée")]
+        public double DURATION { get; set; }
+        [Required]
+        [Display(Name = "Prix de la conversion")]
+        public double PRICE { get; set; }
 
         [Required]
         [Display(Name = "Statut de la conversion")]

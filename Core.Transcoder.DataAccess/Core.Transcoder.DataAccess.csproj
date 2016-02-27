@@ -105,6 +105,7 @@
     <Compile Include="ViewModels\Task\CreateTaskViewModel.cs" />
     <Compile Include="ViewModels\Task\EditTaskViewModel.cs" />
     <Compile Include="ViewModels\Task\ListTaskViewModel.cs" />
+    <Compile Include="ViewModels\Task\PanierViewModel.cs" />
     <Compile Include="ViewModels\User\EditUserViewModel.cs" />
     <Compile Include="ViewModels\User\LoginExternalViewModel.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />

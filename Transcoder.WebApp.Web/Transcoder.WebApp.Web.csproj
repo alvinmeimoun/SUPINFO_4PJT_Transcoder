@@ -211,6 +211,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\circle.css" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Images\choose.png" />
     <Content Include="Content\Images\download-2.png" />
@@ -284,11 +285,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Conversion\AddConversion.cshtml" />
     <Content Include="Views\Conversion\_ShortUserEdit.cshtml" />
-    <Content Include="Views\Conversion\ListConversions.cshtml" />
+    <Content Include="Views\Conversion\Panier.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Shared\_LoginExternalPartial.cshtml" />
     <Content Include="Views\Shared\_HomeVisiteur.cshtml" />
     <Content Include="Views\Shared\_HomeAuth.cshtml" />
+    <Content Include="Views\Conversion\_ListConversions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

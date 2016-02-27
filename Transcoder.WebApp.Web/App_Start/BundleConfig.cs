@@ -32,7 +32,8 @@ namespace Transcoder.WebApp.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                        "~/Content/bootstrap-table.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/circle.css"));
         }
     }
 }

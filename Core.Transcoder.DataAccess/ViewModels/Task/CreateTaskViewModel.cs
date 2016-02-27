@@ -28,13 +28,13 @@ namespace Core.Transcoder.DataAccess.ViewModels
         //public Nullable<bool> IS_PAID { get; set; }
         [Required]
         [Display(Name = "Taille du fichier")]
-        public int LENGTH { get; set; }
+        public double LENGTH { get; set; }
         [Required]
         [Display(Name = "Durée")]
-        public int DURATION { get; set; }
+        public double DURATION { get; set; }
         [Required]
-        [Display(Name = "Prix")]
-        public int PRICE { get; set; }
+        [Display(Name = "Prix de la conversion")]
+        public double PRICE { get; set; }
 
         public ShortEditUserViewModel ShortEditUserViewModel { get; set; }
 
