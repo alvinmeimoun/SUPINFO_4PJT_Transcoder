@@ -5,18 +5,20 @@
     //{
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
+    <ul class="nav navbar-nav navbar-right"  >
+        
+        <li style="border-left: 1px solid #4e4e4e;">
             @Html.ActionLink("Bonjour " + Request.Cookies["User"].Value + "!", "Edit", "User", routeValues: null, htmlAttributes: new { title = "Edit" })
         </li>
-        <li><a href="/Account/LogOff">Se déconnecter</a></li>
     </ul>
     //}
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class="nav navbar-nav navbar-right" >
+        
+        <li style="border-left: 1px solid #4e4e4e;" >@Html.ActionLink("Accueil", "Index", "Home")</li>
+        <li style="border-left: 1px solid #4e4e4e;" >@Html.ActionLink("Contact", "Contact", "Home")</li>
+    
     </ul>
 }
