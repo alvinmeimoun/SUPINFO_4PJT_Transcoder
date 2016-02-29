@@ -1,3 +1,59 @@
-﻿<div class="row">
-    <img src="~/Content/Images/home_main_bg.jpg" style="width: 100%"/>
+﻿<style type="text/css">
+    #content_banner {
+        background: url(@Url.Content("~/Content/Images/home_main_bg.jpg"));
+        background-position: bottom;
+    }
+
+    #transcoder_title {
+        text-align: center; 
+        margin-top: 75px; 
+        font-size: 40px; 
+        font-weight: bold; 
+        color: white;
+    }
+
+    #transcoder_summary {
+        text-align: center; 
+        horiz-align: center;
+        margin-top: 50px; 
+        font-size: 25px; 
+        font-weight: normal; 
+        color: white; 
+        margin-left: 5px; 
+        margin-right: 5px; 
+        margin-bottom: 35px;
+    }
+
+    #bt_get_started {
+        padding: 10px; 
+        border: white solid 1px; 
+        border-radius: 20px; 
+        background-color: transparent; 
+        margin-bottom: 30px; 
+        color: white;
+    }
+
+    #content_summary {
+        background-color: #2ECC71; 
+        height: 150px;
+    }
+</style>
+
+<div id="content_banner" role="main" tabindex="-1">
+    <div class="container">
+        <div class="row">
+            <p id="transcoder_title">Transcoder</p>
+        </div>
+        <div class="row">
+            <p id="transcoder_summary">Converting your media has never been so easy</p>
+        </div>
+        <div class="row" style="margin-top: 35px;">
+            <form action="/Account/Register">
+                <input id="bt_get_started" class="center-block" type="submit" value="Get Started">
+            </form>
+        </div>
+    </div>
+</div>
+<div id="content_summary">
+    
 </div>
