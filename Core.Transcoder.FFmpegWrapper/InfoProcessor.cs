@@ -84,7 +84,7 @@ namespace Core.Transcoder.FFmpegWrapper
                 return 0;
             }
 
-            return Double.Parse(m.Captures[0].Value.Replace("fps", "").Trim());
+            return Double.Parse(m.Captures[0].Value.Replace(".", ",").Replace("fps", "").Trim());
         }
 
         public static Size GetVideoDimensions(string outputCapture)

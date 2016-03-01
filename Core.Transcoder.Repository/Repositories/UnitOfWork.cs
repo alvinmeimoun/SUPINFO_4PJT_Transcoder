@@ -35,6 +35,8 @@ namespace Core.Transcoder.Repository
         private FORMAT_TYPE_Repository formatTypeRepository;
         private USER_Repository userRepository;
         private CONFIG_Repository configRepository;
+        private TRANSACTION_Repository transactionRepository;
+        private MODE_PAIEMENT_Repository modePaiementRepository;
 
         public TRACE_Repository TRACE_Repository
         {
@@ -135,7 +137,28 @@ namespace Core.Transcoder.Repository
                 return configRepository;
             }
         }
-
+        public TRANSACTION_Repository TRANSACTION_Repository
+        {
+            get
+            {
+                if (this.transactionRepository == null)
+                {
+                    this.transactionRepository = new TRANSACTION_Repository(context);
+                }
+                return transactionRepository;
+            }
+        }
+        public MODE_PAIEMENT_Repository MODE_PAIEMENT_Repository
+        {
+            get
+            {
+                if (this.modePaiementRepository == null)
+                {
+                    this.modePaiementRepository = new MODE_PAIEMENT_Repository(context);
+                }
+                return modePaiementRepository;
+            }
+        }
 
         public void Save()
         {

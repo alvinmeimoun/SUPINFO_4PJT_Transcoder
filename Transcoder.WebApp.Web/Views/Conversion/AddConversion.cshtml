@@ -2,12 +2,13 @@
 @*@{
         ViewBag.Title = "AddConversion";
     }*@
-
-<div class="container">
-<div class="header" style="height:100px;">
-    <h2 class="title">Commander une conversion</h2>
-
+<div class="header" id="content_summary" style="height:150px; margin-bottom:50px; color:white; text-align:left;">
+    <div class="container">
+        <h2 class="title" style="color:white;">Commander une conversion</h2>
+    </div>
 </div>
+<div class="container">
+
 @using (Html.BeginForm("AddConversion", "Conversion", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -126,7 +127,7 @@
       
     </div>
     <p style="text-align:right; display:none;" id="btnSection">
-        <input type="submit" value="Ajouter la conversion" id="AddConversion" class="btn btn-success" />
+        <button type="submit"  id="AddConversion" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Ajouter la conversion</button>
     </p>
 }
 </div>

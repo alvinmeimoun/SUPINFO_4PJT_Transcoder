@@ -136,8 +136,13 @@ textarea {
         -webkit-font-smoothing: antialiased;
         color: #404852;
     /*font-size: 42px;*/
-    font-weight: bold;
+    /*font-weight: bold;*/
     line-height: 1.2;
     margin-bottom: 1rem;
+    font-family: "Proxima Nova","proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif !important; 
 }
 
+#content_summary {
+    background-color: #2ECC71; 
+    height: 150px;
+}

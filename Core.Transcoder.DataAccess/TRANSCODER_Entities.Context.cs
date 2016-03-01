@@ -34,5 +34,7 @@ namespace Core.Transcoder.DataAccess
         public virtual DbSet<FORMAT_TYPE> FORMAT_TYPE { get; set; }
         public virtual DbSet<PARAM_LENGTH> PARAM_LENGTH { get; set; }
         public virtual DbSet<TASK> TASK { get; set; }
+        public virtual DbSet<MODE_PAIEMENT> MODE_PAIEMENT { get; set; }
+        public virtual DbSet<TRANSACTION> TRANSACTION { get; set; }
     }
 }

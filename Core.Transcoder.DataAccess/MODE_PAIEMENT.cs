@@ -12,27 +12,17 @@ namespace Core.Transcoder.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class USER
+    public partial class MODE_PAIEMENT
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public USER()
+        public MODE_PAIEMENT()
         {
-            this.TASK = new HashSet<TASK>();
             this.TRANSACTION = new HashSet<TRANSACTION>();
         }
     
-        public int PK_ID_USER { get; set; }
-        public string USERNAME { get; set; }
-        public string PASSWORD { get; set; }
-        public string FIRSTNAME { get; set; }
-        public string LASTNAME { get; set; }
-        public string BIRTHDATE { get; set; }
-        public string EMAIL { get; set; }
-        public string FACEBOOKID { get; set; }
-        public string GOOGLEID { get; set; }
+        public int PK_ID_MODE_PAIEMENT { get; set; }
+        public string NOM_MODE_PAIEMENT { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TASK> TASK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TRANSACTION> TRANSACTION { get; set; }
     }

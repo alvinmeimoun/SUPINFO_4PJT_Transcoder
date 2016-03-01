@@ -16,15 +16,20 @@ namespace Transcoder.WebApp.Web.Controllers
         // GET: Conversion
         public ActionResult Index()
         {
+            return RedirectToAction("Panier");
+        }
+
+
+        public ActionResult Panier()
+        {
             int UserId = CookieUtil.GetUserId(this);
             if (UserId == 0)
                 return RedirectToAction("Index", "Home");
 
             var panier = new TASK_Service().GetPanierViewModel(UserId);
 
-            return View("Panier",panier);
+            return View("Panier", panier);
         }
-
 
         public ActionResult AddConversion()
         {
@@ -62,7 +67,13 @@ namespace Transcoder.WebApp.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
+            // Prevoir l'intervention de paypal
 
+            // on set a true le is Paid
+            //foreach(var task in model.ListOfConversions)
+            //{
+            //    task.IS_PAID = true;
+            //}
             //bool isEdited = new TASK_Service().AddTaskByViewModel(model);
             return RedirectToAction("Index");
         }
@@ -76,8 +87,8 @@ namespace Transcoder.WebApp.Web.Controllers
 
                 string path = SaveFileInFolder(file);
                 // On recupere le format de base de la video
-                int indexOf = file.FileName.LastIndexOf('.') + 1;
-                string format = file.FileName.Substring(indexOf);
+                int indexOf = file.ContentType.LastIndexOf('/') + 1;
+                string format = file.ContentType.Substring(indexOf);
                 var formatBase = new FORMAT_Service().GetFormatByName(format);
                 // On recupere les infos de la video
                 VideoFile videoFile = new VideoFile(path);

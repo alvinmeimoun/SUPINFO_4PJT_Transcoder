@@ -117,7 +117,7 @@ namespace Core.Transcoder.Service
         public PanierViewModel GetPanierViewModel(int userId)
         {
             PanierViewModel panier = new PanierViewModel();
-            panier.ListOfConversions = GetListTaskViewModelByUserId(userId);
+            panier.ListOfConversions = GetListTaskViewModelByUserId(userId).Where( x=> x.IS_PAID == false).ToList();
             panier.GlobalPrice = panier.ListOfConversions.Sum(x => x.PRICE);
 
             return panier;
@@ -145,7 +145,8 @@ namespace Core.Transcoder.Service
                              LENGTH = (double)task.LENGTH,
                              STATUS = status.LIBELLE,
                              PRICE = (double)task.PRICE,
-                             DURATION = (double)task.DURATION
+                             DURATION = (double)task.DURATION,
+                             IS_PAID = (bool)task.IS_PAID
                          });
 
             var listOfTasks = query.ToList();

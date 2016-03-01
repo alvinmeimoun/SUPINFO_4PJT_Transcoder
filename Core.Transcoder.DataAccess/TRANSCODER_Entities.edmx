@@ -31,6 +31,13 @@
           <Property Name="PK_ID_FORMAT_TYPE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FORMAT_TYPE_NAME" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="MODE_PAIEMENT">
+          <Key>
+            <PropertyRef Name="PK_ID_MODE_PAIEMENT" />
+          </Key>
+          <Property Name="PK_ID_MODE_PAIEMENT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOM_MODE_PAIEMENT" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityType Name="PARAM_LENGTH">
           <Key>
             <PropertyRef Name="PK_ID_PARAM_LENGTH" />
@@ -90,6 +97,17 @@
           <Property Name="DESCRIPTION" Type="nvarchar(max)" />
           <Property Name="TYPE" Type="nvarchar(max)" />
           <Property Name="NOM_SERVER" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TRANSACTION">
+          <Key>
+            <PropertyRef Name="PK_ID_TRANSACTION" />
+          </Key>
+          <Property Name="PK_ID_TRANSACTION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_ID_USER" Type="int" Nullable="false" />
+          <Property Name="FK_ID_TASK" Type="int" Nullable="false" />
+          <Property Name="PRICE" Type="float" Nullable="false" />
+          <Property Name="DATE_TRANSACTION" Type="datetime" Nullable="false" />
+          <Property Name="FK_ID_MODE_PAIEMENT" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="USER">
           <Key>
@@ -153,15 +171,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TRANSACTION_MODE_PAIEMENT">
+          <End Role="MODE_PAIEMENT" Type="Self.MODE_PAIEMENT" Multiplicity="1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MODE_PAIEMENT">
+              <PropertyRef Name="PK_ID_MODE_PAIEMENT" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="FK_ID_MODE_PAIEMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACTION_TASK">
+          <End Role="TASK" Type="Self.TASK" Multiplicity="1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK">
+              <PropertyRef Name="PK_ID_TASK" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="FK_ID_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACTION_USER">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="PK_ID_USER" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="FK_ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TRANSCODERModelStoreContainer">
           <EntitySet Name="CONFIG" EntityType="Self.CONFIG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMAT" EntityType="Self.FORMAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMAT_TYPE" EntityType="Self.FORMAT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MODE_PAIEMENT" EntityType="Self.MODE_PAIEMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARAM_LENGTH" EntityType="Self.PARAM_LENGTH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARAM_SPLIT" EntityType="Self.PARAM_SPLIT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARAM_TASK_STATUS" EntityType="Self.PARAM_TASK_STATUS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TASK" EntityType="Self.TASK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TRACE" EntityType="Self.TRACE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRANSACTION" EntityType="Self.TRANSACTION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_FORMAT_FORMAT_TYPE" Association="Self.FK_FORMAT_FORMAT_TYPE">
             <End Role="FORMAT_TYPE" EntitySet="FORMAT_TYPE" />
@@ -178,6 +234,18 @@
           <AssociationSet Name="FK_TASK_USER" Association="Self.FK_TASK_USER">
             <End Role="USER" EntitySet="USER" />
             <End Role="TASK" EntitySet="TASK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACTION_MODE_PAIEMENT" Association="Self.FK_TRANSACTION_MODE_PAIEMENT">
+            <End Role="MODE_PAIEMENT" EntitySet="MODE_PAIEMENT" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACTION_TASK" Association="Self.FK_TRANSACTION_TASK">
+            <End Role="TASK" EntitySet="TASK" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACTION_USER" Association="Self.FK_TRANSACTION_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -223,6 +291,20 @@
             <End Role="USER" EntitySet="USER" />
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
+          <EntitySet Name="MODE_PAIEMENT" EntityType="TRANSCODERModel.MODE_PAIEMENT" />
+          <EntitySet Name="TRANSACTION" EntityType="TRANSCODERModel.TRANSACTION" />
+          <AssociationSet Name="FK_TRANSACTION_MODE_PAIEMENT" Association="TRANSCODERModel.FK_TRANSACTION_MODE_PAIEMENT">
+            <End Role="MODE_PAIEMENT" EntitySet="MODE_PAIEMENT" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACTION_TASK" Association="TRANSCODERModel.FK_TRANSACTION_TASK">
+            <End Role="TASK" EntitySet="TASK" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACTION_USER" Association="TRANSCODERModel.FK_TRANSACTION_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CONFIG">
           <Key>
@@ -263,6 +345,7 @@
           <Property Name="FACEBOOKID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GOOGLEID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TASK" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="USER" ToRole="TASK" />
+          <NavigationProperty Name="TRANSACTION" Relationship="TRANSCODERModel.FK_TRANSACTION_USER" FromRole="USER" ToRole="TRANSACTION" />
         </EntityType>
         <EntityType Name="FORMAT">
           <Key>
@@ -330,6 +413,7 @@
           <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_TASK_FORMAT" FromRole="TASK" ToRole="FORMAT" />
           <NavigationProperty Name="PARAM_TASK_STATUS" Relationship="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS" FromRole="TASK" ToRole="PARAM_TASK_STATUS" />
           <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="TASK" ToRole="USER" />
+          <NavigationProperty Name="TRANSACTION" Relationship="TRANSCODERModel.FK_TRANSACTION_TASK" FromRole="TASK" ToRole="TRANSACTION" />
         </EntityType>
         <Association Name="FK_TASK_FORMAT">
           <End Type="TRANSCODERModel.FORMAT" Role="FORMAT" Multiplicity="0..1" />
@@ -363,6 +447,64 @@
               <PropertyRef Name="PK_ID_USER" />
             </Principal>
             <Dependent Role="TASK">
+              <PropertyRef Name="FK_ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MODE_PAIEMENT">
+          <Key>
+            <PropertyRef Name="PK_ID_MODE_PAIEMENT" />
+          </Key>
+          <Property Name="PK_ID_MODE_PAIEMENT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOM_MODE_PAIEMENT" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TRANSACTION" Relationship="TRANSCODERModel.FK_TRANSACTION_MODE_PAIEMENT" FromRole="MODE_PAIEMENT" ToRole="TRANSACTION" />
+        </EntityType>
+        <EntityType Name="TRANSACTION">
+          <Key>
+            <PropertyRef Name="PK_ID_TRANSACTION" />
+          </Key>
+          <Property Name="PK_ID_TRANSACTION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_ID_USER" Type="Int32" Nullable="false" />
+          <Property Name="FK_ID_TASK" Type="Int32" Nullable="false" />
+          <Property Name="PRICE" Type="Double" Nullable="false" />
+          <Property Name="DATE_TRANSACTION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FK_ID_MODE_PAIEMENT" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MODE_PAIEMENT" Relationship="TRANSCODERModel.FK_TRANSACTION_MODE_PAIEMENT" FromRole="TRANSACTION" ToRole="MODE_PAIEMENT" />
+          <NavigationProperty Name="TASK" Relationship="TRANSCODERModel.FK_TRANSACTION_TASK" FromRole="TRANSACTION" ToRole="TASK" />
+          <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TRANSACTION_USER" FromRole="TRANSACTION" ToRole="USER" />
+        </EntityType>
+        <Association Name="FK_TRANSACTION_MODE_PAIEMENT">
+          <End Type="TRANSCODERModel.MODE_PAIEMENT" Role="MODE_PAIEMENT" Multiplicity="1" />
+          <End Type="TRANSCODERModel.TRANSACTION" Role="TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MODE_PAIEMENT">
+              <PropertyRef Name="PK_ID_MODE_PAIEMENT" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="FK_ID_MODE_PAIEMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACTION_TASK">
+          <End Type="TRANSCODERModel.TASK" Role="TASK" Multiplicity="1" />
+          <End Type="TRANSCODERModel.TRANSACTION" Role="TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK">
+              <PropertyRef Name="PK_ID_TASK" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="FK_ID_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACTION_USER">
+          <End Type="TRANSCODERModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="TRANSCODERModel.TRANSACTION" Role="TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="PK_ID_USER" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
               <PropertyRef Name="FK_ID_USER" />
             </Dependent>
           </ReferentialConstraint>
@@ -479,6 +621,26 @@
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="FK_ID_USER" ColumnName="FK_ID_USER" />
                 <ScalarProperty Name="PK_ID_TASK" ColumnName="PK_ID_TASK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MODE_PAIEMENT">
+            <EntityTypeMapping TypeName="TRANSCODERModel.MODE_PAIEMENT">
+              <MappingFragment StoreEntitySet="MODE_PAIEMENT">
+                <ScalarProperty Name="NOM_MODE_PAIEMENT" ColumnName="NOM_MODE_PAIEMENT" />
+                <ScalarProperty Name="PK_ID_MODE_PAIEMENT" ColumnName="PK_ID_MODE_PAIEMENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSACTION">
+            <EntityTypeMapping TypeName="TRANSCODERModel.TRANSACTION">
+              <MappingFragment StoreEntitySet="TRANSACTION">
+                <ScalarProperty Name="FK_ID_MODE_PAIEMENT" ColumnName="FK_ID_MODE_PAIEMENT" />
+                <ScalarProperty Name="DATE_TRANSACTION" ColumnName="DATE_TRANSACTION" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="FK_ID_TASK" ColumnName="FK_ID_TASK" />
+                <ScalarProperty Name="FK_ID_USER" ColumnName="FK_ID_USER" />
+                <ScalarProperty Name="PK_ID_TRANSACTION" ColumnName="PK_ID_TRANSACTION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

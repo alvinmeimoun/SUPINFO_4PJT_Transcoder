@@ -35,7 +35,9 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Required]
         [Display(Name = "Prix de la conversion")]
         public double PRICE { get; set; }
-
+        [Required]
+        [Display(Name = "A été réglé")]
+        public bool IS_PAID { get; set; }
         [Required]
         [Display(Name = "Statut de la conversion")]
         public string STATUS { get; set; }

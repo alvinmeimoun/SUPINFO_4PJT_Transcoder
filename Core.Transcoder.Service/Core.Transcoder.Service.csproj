@@ -59,11 +59,13 @@
     <Compile Include="Services\CONFIG_Service.cs" />
     <Compile Include="Services\FORMAT_Service.cs" />
     <Compile Include="Services\FORMAT_TYPE_Service.cs" />
+    <Compile Include="Services\MODE_PAIEMENT_Service.cs" />
     <Compile Include="Services\PARAM_LENGTH_Service.cs" />
     <Compile Include="Services\PARAM_SPLIT_Service.cs" />
     <Compile Include="Services\PARAM_TASK_STATUS_Service.cs" />
     <Compile Include="Services\TASK_Service.cs" />
     <Compile Include="Services\TRACE_Service.cs" />
+    <Compile Include="Services\TRANSACTION_Service.cs" />
     <Compile Include="Services\USER_Service.cs" />
     <Compile Include="Utils\ConverterUtil.cs" />
     <Compile Include="Utils\CookieUtil.cs" />

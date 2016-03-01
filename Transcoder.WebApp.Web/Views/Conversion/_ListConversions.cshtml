@@ -6,10 +6,10 @@
 <table class="table table-striped table-condensed table-no-bordered" data-toggle="table" data-pagination="true" data-filter-control="true">
     <thead>
         <tr>
-            <th data-field="PK_ID_TASK" data-sortable="true" data-filter-control="input">
+            @*<th data-field="PK_ID_TASK" data-sortable="true" data-filter-control="input">
                Id
-            </th>
-            <th data-field="FILE_URL_ACCESS" data-sortable="true" data-filter-control="input" width="10%">
+            </th>*@
+            <th data-field="FILE_URL_ACCESS" data-sortable="true" data-filter-control="input" width="10%" data-width="20%">
                 Nom du fichier
             </th>
             @*<th data-field="FORMAT_TYPE" data-sortable="true" data-filter-control="input">
@@ -40,9 +40,9 @@
             {
             <tr>
                 @Html.HiddenFor(modelItem => Model.ToList()[i].FK_ID_USER, new { Name = "ListOfConversions[" + i + "].FK_ID_USER" })
-                <td>
-                    @Html.DisplayFor(modelItem => Model.ToList()[i].PK_ID_TASK, new { Name = "ListOfConversions[" + i + "].PK_ID_TASK" })
-                </td>
+                @*<td>*@
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].PK_ID_TASK, new { Name = "ListOfConversions[" + i + "].PK_ID_TASK" })
+                @*</td>*@
                 <td>
                     @Html.DisplayFor(modelItem => Model.ToList()[i].FILE_URL_ACCESS, new { Name = "ListOfConversions[" + i + "].FILE_URL_ACCESS" })
                 </td>

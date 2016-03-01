@@ -14,6 +14,12 @@ namespace Core.Transcoder.DataAccess
     
     public partial class TASK
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TASK()
+        {
+            this.TRANSACTION = new HashSet<TRANSACTION>();
+        }
+    
         public int PK_ID_TASK { get; set; }
         public Nullable<int> FK_ID_USER { get; set; }
         public Nullable<int> STATUS { get; set; }
@@ -36,5 +42,7 @@ namespace Core.Transcoder.DataAccess
         public virtual FORMAT FORMAT { get; set; }
         public virtual PARAM_TASK_STATUS PARAM_TASK_STATUS { get; set; }
         public virtual USER USER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TRANSACTION> TRANSACTION { get; set; }
     }
 }
