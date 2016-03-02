@@ -142,7 +142,7 @@ textarea {
     font-family: "Proxima Nova","proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif !important; 
 }
 
-#content_summary {
+.content_summary_1 {
     background-color: #2ECC71; 
     height: 150px;
 }

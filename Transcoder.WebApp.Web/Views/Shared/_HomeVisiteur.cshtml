@@ -1,42 +1,80 @@
-﻿<style type="text/css">
+﻿@Scripts.Render("~/Scripts/jquery.AshAlom.gaugeMeter-2.0.0.min.js")
+
+<style type="text/css">
     #content_banner {
         background: url(@Url.Content("~/Content/Images/home_main_bg.jpg"));
         background-position: bottom;
     }
 
     #transcoder_title {
-        text-align: center; 
-        margin-top: 75px; 
-        font-size: 40px; 
-        font-weight: bold; 
+        text-align: center;
+        margin-top: 75px;
+        font-size: 40px;
+        font-weight: bold;
         color: white;
     }
 
     #transcoder_summary {
-        text-align: center; 
+        text-align: center;
         horiz-align: center;
-        margin-top: 50px; 
-        font-size: 25px; 
-        font-weight: normal; 
-        color: white; 
-        margin-left: 5px; 
-        margin-right: 5px; 
+        margin-top: 50px;
+        font-size: 25px;
+        font-weight: normal;
+        color: white;
+        margin-left: 5px;
+        margin-right: 5px;
         margin-bottom: 35px;
     }
 
     #bt_get_started {
-        padding: 10px; 
-        border: white solid 1px; 
-        border-radius: 20px; 
-        background-color: transparent; 
-        margin-bottom: 30px; 
+        padding: 10px;
+        border: white solid 1px;
+        border-radius: 20px;
+        background-color: transparent;
+        margin-bottom: 30px;
         color: white;
     }
 
-    #content_summary {
-        background-color: #2ECC71; 
-        height: 150px;
+    .gauge-meter-home-1 {
+      position: Relative;
+      text-align: Center;
+      overflow: Hidden;
+      cursor: Default;
+      display: inline-block;
     }
+
+    .gauge-meter-home-1 SPAN, .gauge-meter-home-1 B {
+      width: 54%;
+      position: Absolute;
+      text-align: Center;
+      display: Inline-Block;
+      color: RGBa(255,255,255,.8);
+      font-weight: 100;
+      font-family: "Open Sans", Arial;
+      overflow: Hidden;
+      white-space: NoWrap;
+      text-overflow: Ellipsis;
+      margin: 0 23%;
+    }
+
+    .gauge-meter-home-1[data-style="Semi"] B {
+      width: 80%;
+      margin: 0 10%;
+    }
+
+    .gauge-meter-home-1 S, .gauge-meter-home-1 U {
+      text-decoration: None;
+      font-size: .60em;
+      font-weight: 200;
+      opacity: .6;
+    }
+
+    .gauge-meter-home-1 B {
+      color: #FFF;
+      font-weight: 200;
+      opacity: .8;
+    }
+
 </style>
 
 <div id="content_banner" role="main" tabindex="-1">
@@ -54,6 +92,17 @@
         </div>
     </div>
 </div>
-<div id="content_summary">
-    
+<div class="content_summary_1 row row-centered">
+    <div class="col-md-2">
+        <div id="gauge_users" class="gauge-meter-home-1"
+             data-percent="60"
+             data-label="Percent">
+        </div>
+    </div>
+    <div class="col-md-2">b</div>
+    <div class="col-md-2">c</div>
 </div>
+
+<script>
+    $("#gauge_users").gaugeMeter();
+</script>
