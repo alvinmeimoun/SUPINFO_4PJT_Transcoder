@@ -9,10 +9,7 @@ namespace Core.Transcoder.DataAccess
 {
     public partial class TASK
     {
-        public TASK()
-        {
 
-        }
 
         public void CreateFromModel(CreateTaskViewModel model)
         {
