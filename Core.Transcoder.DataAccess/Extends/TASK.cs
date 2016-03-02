@@ -9,7 +9,6 @@ namespace Core.Transcoder.DataAccess
 {
     public partial class TASK
     {
-
         public void CreateFromModel(CreateTaskViewModel model)
         {
             FILE_URL = model.FILE_URL;

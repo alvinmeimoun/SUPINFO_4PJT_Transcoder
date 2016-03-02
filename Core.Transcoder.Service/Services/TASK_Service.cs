@@ -146,7 +146,7 @@ namespace Core.Transcoder.Service
                              STATUS = status.LIBELLE,
                              PRICE = (double)task.PRICE,
                              DURATION = (double)task.DURATION,
-                             IS_PAID = (bool)task.IS_PAID
+                             IS_PAID = task.IS_PAID == null ? false : (bool)task.IS_PAID
                          });
 
             var listOfTasks = query.ToList();
