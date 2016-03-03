@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Core.Transcoder.Service.Services
 {
-    public class PARAM_TASK_STATUS_Service
+    public class PARAM_TASK_STATUS_Service : BaseService
     {
-        public UnitOfWork UoW = new UnitOfWork();
-
         public List<PARAM_TASK_STATUS> GetAll()
         {
             return UoW.PARAM_TASK_STATUS_Repository.Get(null, q => q.OrderBy(s => s.PK_ID_STATUS), "").ToList();

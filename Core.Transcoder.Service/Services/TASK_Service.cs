@@ -11,22 +11,9 @@ using System.Threading.Tasks;
 
 namespace Core.Transcoder.Service
 {
-    public class TASK_Service
+    public class TASK_Service : BaseService
     {
-        private UnitOfWork uow;
-        public UnitOfWork UoW
-        {
-            get
-            {
-                if (uow == null)
-                {
-                    uow = new UnitOfWork();
-                }
-                return uow;
-            }
-            
-        }
-
+        
         public bool AddOrUpdateTask(TASK task)
         {
             if(task.PK_ID_TASK != 0)

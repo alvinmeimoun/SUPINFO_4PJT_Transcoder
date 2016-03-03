@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Transcoder.Service.Services;
 
 namespace Core.Transcoder.Service
 {
-    public class TRACE_Service
+    public class TRACE_Service : BaseService
     {
-        public UnitOfWork UoW = new UnitOfWork();
 
         public bool AddTrace(TRACE trace)
         {

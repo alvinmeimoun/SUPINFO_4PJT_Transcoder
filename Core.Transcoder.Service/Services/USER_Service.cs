@@ -6,26 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Transcoder.Service.Services;
 
 namespace Core.Transcoder.Service
 {
-    public class USER_Service
+    public class USER_Service : BaseService
     {
-        private UnitOfWork uow;
-        public UnitOfWork UoW
-        {
-            get
-            {
-                if (uow == null)
-                {
-                    uow = new UnitOfWork();
-                }
-                return uow;
-            }
-
-        }
-
-
         public USER LoginUser(string Username, string password)
         {
             if (string.IsNullOrWhiteSpace(password)) return null; //Case append generally when trying to log with an account without password (created with external provider and standard password not defined)

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Transcoder.Service.Services;
 
 namespace Core.Transcoder.Service
 {
-    public class CONFIG_Service
+    public class CONFIG_Service : BaseService
     {
-        public UnitOfWork UoW = new UnitOfWork();
         public string GetConfigValueById(int id)
         {
             return UoW.CONFIG_Repository.GetByID(id).CONFIG_VALUE;

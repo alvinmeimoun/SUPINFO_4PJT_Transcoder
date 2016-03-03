@@ -56,6 +56,7 @@
     <Compile Include="Enums\EnumManager.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CONFIG_Service.cs" />
     <Compile Include="Services\FORMAT_Service.cs" />
     <Compile Include="Services\FORMAT_TYPE_Service.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Services\PARAM_LENGTH_Service.cs" />
     <Compile Include="Services\PARAM_SPLIT_Service.cs" />
     <Compile Include="Services\PARAM_TASK_STATUS_Service.cs" />
+    <Compile Include="Services\StatsService.cs" />
     <Compile Include="Services\TASK_Service.cs" />
     <Compile Include="Services\TRACE_Service.cs" />
     <Compile Include="Services\TRANSACTION_Service.cs" />

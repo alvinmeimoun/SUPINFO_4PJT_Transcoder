@@ -5,24 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Transcoder.Service.Services;
 
 namespace Core.Transcoder.Service
 {
-    public class TRANSACTION_Service
+    public class TRANSACTION_Service : BaseService
     {
-        private UnitOfWork uow;
-        public UnitOfWork UoW
-        {
-            get
-            {
-                if (uow == null)
-                {
-                    uow = new UnitOfWork();
-                }
-                return uow;
-            }
-
-        }
 
         public bool AddOrUpdateTransaction(TRANSACTION transaction)
         {

@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Core.Transcoder.Service.Services;
 
 namespace Core.Transcoder.Service
 {
-    public class FORMAT_Service
+    public class FORMAT_Service : BaseService
     {
-        public UnitOfWork UoW = new UnitOfWork();
 
         public FORMAT GetFormatById(int Id)
         {

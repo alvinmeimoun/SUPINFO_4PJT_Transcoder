@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Transcoder.Service.Services;
 
 namespace Core.Transcoder.Service
 {
-    public class PARAM_SPLIT_Service
+    public class PARAM_SPLIT_Service : BaseService
     {
-        public UnitOfWork UoW = new UnitOfWork();
-
         public bool AddOrUpdateParamSplit(PARAM_SPLIT paramSplit)
         {
             if (paramSplit.PK_ID_PARAM_SPLIT != 0)

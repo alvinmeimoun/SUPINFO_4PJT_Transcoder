@@ -7,14 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Core.Transcoder.Service.Services;
 
 namespace Core.Transcoder.Service
 {
-    public class FORMAT_TYPE_Service
+    public class FORMAT_TYPE_Service : BaseService
     {
-        public UnitOfWork UoW = new UnitOfWork();
-
-
+       
         public List<SelectListItem> GetSelectListFormatTypeByFormat(int fkFormatId)
         {
             var listFormat = new List<FORMAT_TYPE>();
