@@ -208,6 +208,9 @@
 
                     RefreshJQueryValidator('form');
                     ShowSaveButton();
+                },
+                error: function(response) {
+                    console.log(response);
                 }
             });
         });
@@ -237,8 +240,9 @@
 
 
                     },
-                    error: function (ex) {
-                        alert('Error' + ex);
+                    error: function (request, status, error) {
+                        console.log(error);
+                        alert('Une erreur est survenue lors de l\'envoi');
                     }
                 });
 
