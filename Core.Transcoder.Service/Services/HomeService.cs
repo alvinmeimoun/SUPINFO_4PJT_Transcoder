@@ -18,7 +18,7 @@ namespace Core.Transcoder.Service.Services
             {
                 IsLogged = isLogged,
                 UsersCount = statsService.GetUsersCount(),
-                //TaskCount = statsService.GetTasksCount(),
+                TaskCount = statsService.GetTasksCount(),
                 CombinationCount = statsService.GetFormatCount()
             };
 
