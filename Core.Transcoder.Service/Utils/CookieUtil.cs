@@ -11,16 +11,14 @@ namespace Transcoder.WebApp.Web
 
         public static int GetUserId(Controller controller)
         {
-            int userId = 0;
-            if (controller.Request.Cookies["UserID"].Value != null)
+            var httpCookie = controller.Request.Cookies["UserID"];
+            if (httpCookie?.Value != null)
             {
+                var userId = 0;
                 int.TryParse(controller.Request.Cookies["UserID"].Value, out userId);
                 return userId;
             }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
     }
 }
