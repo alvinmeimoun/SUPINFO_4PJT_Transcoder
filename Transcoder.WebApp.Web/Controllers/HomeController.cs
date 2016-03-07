@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Core.Transcoder.Service.Services;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -10,7 +11,10 @@ namespace Transcoder.WebApp.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var homeService = new HomeService();
+            var isLogged = (System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+
+            return View(homeService.GenerateHomeViewModel(isLogged));
         }
 
         public ActionResult About()

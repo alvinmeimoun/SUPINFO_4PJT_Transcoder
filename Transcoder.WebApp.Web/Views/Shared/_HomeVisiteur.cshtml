@@ -1,4 +1,5 @@
 ﻿@Scripts.Render("~/Scripts/jquery.AshAlom.gaugeMeter-2.0.0.min.js")
+@model Core.Transcoder.DataAccess.ViewModels.HomeViewModel
 
 <style type="text/css">
     #content_banner {
@@ -92,17 +93,53 @@
         </div>
     </div>
 </div>
-<div class="content_summary_1 row row-centered">
-    <div class="col-md-2">
-        <div id="gauge_users" class="gauge-meter-home-1"
-             data-percent="60"
-             data-label="Percent">
+
+<div class="content_summary_1 row row-centered" style="margin-right: 0px;">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-centered">
+        <div class="item">
+            <div class="content center">
+                <div id="gauge_users" class="gauge-meter-home-1"
+                     data-percent="33"
+                     data-theme="White"
+                     data-size="150"
+                     data-text="@(Model.UsersCount)"
+                     data-label_color="White"
+                     data-label="Utilisateurs">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-2">b</div>
-    <div class="col-md-2">c</div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-centered">
+        <div class="item">
+            <div class="content center">
+                <div id="gauge_formats" class="gauge-meter-home-1"
+                     data-percent="66"
+                     data-theme="White"
+                     data-size="150"
+                     data-text="@(Model.UsersCount)"
+                     data-label_color="White"
+                     data-label="Formats">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-centered">
+        <div class="item">
+            <div class="content center">
+                <div id="gauge_conversions" class="gauge-meter-home-1"
+                     data-text="0"
+                     data-theme="White"
+                     data-label_color="White"
+                     data-size="150"
+                     data-percent="100"
+                     data-label="Conversions">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 <script>
     $("#gauge_users").gaugeMeter();
+    $("#gauge_formats").gaugeMeter();
+    $("#gauge_conversions").gaugeMeter();
 </script>

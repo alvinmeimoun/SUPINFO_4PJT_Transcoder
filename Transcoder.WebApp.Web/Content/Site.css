@@ -144,5 +144,8 @@ textarea {
 
 .content_summary_1 {
     background-color: #2ECC71; 
-    height: 150px;
+}
+
+.row-centered {
+    text-align:center;
 }

@@ -60,6 +60,7 @@
     <Compile Include="Services\CONFIG_Service.cs" />
     <Compile Include="Services\FORMAT_Service.cs" />
     <Compile Include="Services\FORMAT_TYPE_Service.cs" />
+    <Compile Include="Services\HomeService.cs" />
     <Compile Include="Services\MODE_PAIEMENT_Service.cs" />
     <Compile Include="Services\PARAM_LENGTH_Service.cs" />
     <Compile Include="Services\PARAM_SPLIT_Service.cs" />
