@@ -14,7 +14,7 @@ namespace Transcoder.WebApp.Web
             var httpCookie = controller.Request.Cookies["UserID"];
             if (httpCookie?.Value != null)
             {
-                var userId = 0;
+                var userId = 0; 
                 int.TryParse(httpCookie.Value, out userId);
                 return userId;
             }
