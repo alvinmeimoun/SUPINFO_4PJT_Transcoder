@@ -39,34 +39,34 @@
         
             {
             <tr>
-                @Html.HiddenFor(modelItem => Model.ToList()[i].FK_ID_USER, new { Name = "ListOfConversions[" + i + "].FK_ID_USER" })
-                @*<td>*@
-                    @Html.HiddenFor(modelItem => Model.ToList()[i].PK_ID_TASK, new { Name = "ListOfConversions[" + i + "].PK_ID_TASK" })
-                @*</td>*@
+               
                 <td>
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].FK_ID_USER, new { Name = "ListOfConversions[" + i + "].FK_ID_USER" })
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].PK_ID_TASK, new { Name = "ListOfConversions[" + i + "].PK_ID_TASK" })
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].FILE_URL_ACCESS, new { Name = "ListOfConversions[" + i + "].FILE_URL_ACCESS" })
                     @Html.DisplayFor(modelItem => Model.ToList()[i].FILE_URL_ACCESS, new { Name = "ListOfConversions[" + i + "].FILE_URL_ACCESS" })
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.FORMAT_TYPE)
-                    </td>*@
                 <td>
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].FORMAT_BASE, new { Name = "ListOfConversions[" + i + "].FORMAT_BASE" })
                     @Html.DisplayFor(modelItem => Model.ToList()[i].FORMAT_BASE, new { Name = "ListOfConversions[" + i + "].FORMAT_BASE" })
                 </td>
                 <td>
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].FORMAT_CONVERT, new { Name = "ListOfConversions[" + i + "].FORMAT_CONVERT" })
                     @Html.DisplayFor(modelItem => Model.ToList()[i].FORMAT_CONVERT, new { Name = "ListOfConversions[" + i + "].FORMAT_CONVERT" })
                 </td>
                 <td>
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].DURATION, new { Name = "ListOfConversions[" + i + "].DURATION" })
                     @Html.DisplayFor(modelItem => Model.ToList()[i].DURATION, new { Name = "ListOfConversions[" + i + "].DURATION" }) minutes
                 </td>
                 <td>
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
                     @Html.DisplayFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
                 </td>
                 <td style="color:greenyellow;">
+                    @Html.HiddenFor(modelItem => Model.ToList()[i].PRICE, new { Name = "ListOfConversions[" + i + "].PRICE" })
                     @Html.DisplayFor(modelItem => Model.ToList()[i].PRICE, new { Name = "ListOfConversions[" + i + "].PRICE" }) €
                 </td>
                 <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
                     @Html.ActionLink("Supprimer", "DeleteConversion", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
