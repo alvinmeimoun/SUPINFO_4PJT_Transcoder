@@ -207,12 +207,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-table.css" />
+    <Content Include="Content\bootstrap-table.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\circle.css" />
     <Content Include="Content\Images\arrow.png" />
+    <Content Include="Content\Images\btn-github.png" />
     <Content Include="Content\Images\choose.png" />
     <Content Include="Content\Images\download-2.png" />
     <Content Include="Content\Images\download.png" />
