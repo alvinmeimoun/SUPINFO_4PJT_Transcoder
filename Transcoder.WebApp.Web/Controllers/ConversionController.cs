@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Core.Transcoder.Service.Services;
+using Transcoder.WebApp.Web.Settings;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -69,8 +70,8 @@ namespace Transcoder.WebApp.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-
-            PaypalService.PayPalRedirect redirect = PaypalService.ExpressCheckout(new PaypalService.PayPalOrder { Amount = 50 });
+            var paypalService = new PaypalService(new WebPaypalSettings());
+            PaypalModels.PayPalRedirect redirect = paypalService.ExpressCheckout(new PaypalModels.PayPalOrder { Amount = 50 });
 
             Session["token"] = redirect.Token;
 
@@ -132,7 +133,12 @@ namespace Transcoder.WebApp.Web.Controllers
             return Json(new { listFormats = new SelectList(slFormat, "Value", "Text") }, JsonRequestBehavior.AllowGet);
 
         }
+        
+        public ActionResult OrderPaidConfirm(string token, string ack)
+        {
 
+            return RedirectToAction("Index", "Home");
+        }
 
         private string SaveFileInFolder(HttpPostedFileBase file)
         {
