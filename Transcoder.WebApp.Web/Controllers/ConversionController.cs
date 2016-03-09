@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Core.Transcoder.Service.Services;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -67,7 +68,13 @@ namespace Transcoder.WebApp.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-            // Prevoir l'intervention de paypal
+
+
+            PaypalService.PayPalRedirect redirect = PaypalService.ExpressCheckout(new PaypalService.PayPalOrder { Amount = 50 });
+
+            Session["token"] = redirect.Token;
+
+            return new RedirectResult(redirect.Url);
 
             // on set a true le is Paid
             //foreach(var task in model.ListOfConversions)
@@ -75,7 +82,8 @@ namespace Transcoder.WebApp.Web.Controllers
             //    task.IS_PAID = true;
             //}
             //bool isEdited = new TASK_Service().AddTaskByViewModel(model);
-            return RedirectToAction("Index");
+
+            //return RedirectToAction("Index");
         }
 
         [HttpPost]
