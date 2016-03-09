@@ -6,6 +6,10 @@
 @if (Request.Cookies["User"] != null)
 {
     @Html.Partial("_HomeAuth")
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Transcoder</p>
+    </footer>
 }
 else
 {

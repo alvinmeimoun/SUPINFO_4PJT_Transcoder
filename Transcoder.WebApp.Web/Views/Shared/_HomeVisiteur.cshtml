@@ -2,6 +2,9 @@
 @model Core.Transcoder.DataAccess.ViewModels.HomeViewModel
 
 <style type="text/css">
+    body {
+    padding-bottom:0;
+    }
     #content_banner {
         background: url(@Url.Content("~/Content/Images/home_main_bg.jpg"));
         background-position: bottom;
@@ -47,6 +50,12 @@
         margin-bottom: 30px;
         color: white;
     }
+    #bt_get_started:hover {
+  
+        background-color: #ff9d35;
+        border-color:#ff9d35;
+        color : white;
+    }
 
     .gauge-meter-home-1 {
       position: Relative;
@@ -90,7 +99,7 @@
 
 </style>
 
-<div id="content_banner" role="main" tabindex="-1">
+<div id="content_banner" role="main" tabindex="-1" style="height:460px;">
     <div class="container">
         <div class="row">
             <p id="transcoder_title">Transcoder</p>
@@ -98,22 +107,21 @@
         <div class="row">
             <p class="transcoder_summary_white">Converting your media has never been so easy</p>
         </div>
-        <div class="row" style="margin-top: 35px;">
-            <form action="/Account/Register">
-                <input id="bt_get_started" class="center-block" type="submit" value="Get Started">
-            </form>
+        <div class="row" style="margin-top: 35px; text-align:center">
+            @Html.ActionLink("Get Started", "Register","Account",null, new { @id="bt_get_started" , @class="btn btn-primary"})
         </div>
     </div>
 </div>
 
-<div class="content_summary_green row row-centered" style="margin-right: 0px;">
+<div class="content_summary_purple row row-centered" style="margin-right: 0px; height:250px; padding-top:25px;">
+
     <div class="col-md-4 col-sm-4 col-xs-12 col-centered">
         <div class="item">
             <div class="content center">
                 <div id="gauge_users" class="gauge-meter-home-1"
                      data-percent="33"
-                     data-theme="White"
-                     data-size="150"
+                     data-theme="Red-Gold-Green"
+                     data-size="200"
                      data-text="@(Model.UsersCount)"
                      data-label_color="White"
                      data-label="Utilisateurs">
@@ -126,8 +134,8 @@
             <div class="content center">
                 <div id="gauge_formats" class="gauge-meter-home-1"
                      data-percent="66"
-                     data-theme="White"
-                     data-size="150"
+                     data-theme="Red-Gold-Green"
+                     data-size="200"
                      data-text="@(Model.UsersCount)"
                      data-label_color="White"
                      data-label="Formats">
@@ -140,9 +148,9 @@
             <div class="content center">
                 <div id="gauge_conversions" class="gauge-meter-home-1"
                      data-text="@(Model.TaskCount)"
-                     data-theme="White"
+                     data-theme="Red-Gold-Green"
                      data-label_color="White"
-                     data-size="150"
+                     data-size="200"
                      data-percent="100"
                      data-label="Conversions">
                 </div>
@@ -153,20 +161,20 @@
 
 <div class="content_summary_white row row-centered" style="margin-right: 0px; padding-bottom: 30px;">
     <div class="row">
-        <p class="transcoder_summary_black" class="text-center" style="margin-bottom: 10px; margin-top: 10px">Stay connected</p>
+        <p class="transcoder_summary_black text-center" style="margin-bottom: 10px; margin-top: 10px">Stay connected</p>
     </div>
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12 col-centered">
-            <a href="/Account/Register"><img style="max-height: 120px; margin: 5px;" src="~/Content/Images/fb-logo_icon.jpg" style="margin-top: 30px; margin-bottom: 30px;" /></a>
+            <a href="/Account/Register"><img style="max-height: 120px; margin: 5px; margin-top: 30px; margin-bottom: 30px;" src="~/Content/Images/fb-logo_icon.jpg"  /></a>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12 col-centered">
-            <a href="/Account/Register"><img style="max-height: 120px; margin: 5px;" src="~/Content/Images/google_logo.png" style="margin-top: 30px; margin-bottom: 30px;" /></a>
+            <a href="/Account/Register"><img style="max-height: 120px; margin: 5px; margin-top: 30px; margin-bottom: 30px;" src="~/Content/Images/google_logo.png"  /></a>
         </div>
     </div>
 </div>
 
 
-<div class="content_summary_red row row-centered" style="margin-right: 0px;">
+<div class="content_summary_blue row row-centered" style="margin-right: 0px;">
     <div class="col-md-12 col-sm-12 col-xs-12 col-centered text-center">
         <div class="row row-centered text-center">
             <p class="transcoder_summary_white text-center" style="margin-bottom: 10px; margin-top: 10px">Community</p>

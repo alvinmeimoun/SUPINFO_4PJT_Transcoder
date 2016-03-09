@@ -145,6 +145,12 @@ textarea {
 .content_summary_green {
     background-color: #2ECC71; 
 }
+.content_summary_purple {
+    background-color: #394166; 
+}
+.content_summary_blue {
+    background-color: #4285f4; 
+}
 
 .content_summary_white {
     background-color: #FAFAFA; 
