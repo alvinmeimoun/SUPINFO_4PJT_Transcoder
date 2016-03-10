@@ -75,6 +75,5 @@
     <Build Include="dbo\Tables\CONFIG.sql" />
     <Build Include="dbo\Tables\PARAM_LENGTH.sql" />
     <Build Include="dbo\Tables\TRANSACTION.sql" />
-    <Build Include="dbo\Tables\MODE_PAIEMENT.sql" />
   </ItemGroup>
 </Project>

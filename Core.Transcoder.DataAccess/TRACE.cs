@@ -17,10 +17,10 @@ namespace Core.Transcoder.DataAccess
         public int PK_ID_TRACE { get; set; }
         public int FK_ID_TASK { get; set; }
         public int FK_ID_SERVER { get; set; }
+        public Nullable<System.DateTime> DATE_TRACE { get; set; }
         public string METHOD { get; set; }
         public string DESCRIPTION { get; set; }
         public string TYPE { get; set; }
-        public Nullable<System.DateTime> DATE_TRACE { get; set; }
         public string NOM_SERVER { get; set; }
     }
 }

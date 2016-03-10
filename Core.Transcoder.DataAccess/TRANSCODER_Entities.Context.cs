@@ -25,16 +25,16 @@ namespace Core.Transcoder.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<TRACE> TRACE { get; set; }
         public virtual DbSet<CONFIG> CONFIG { get; set; }
-        public virtual DbSet<PARAM_SPLIT> PARAM_SPLIT { get; set; }
-        public virtual DbSet<PARAM_TASK_STATUS> PARAM_TASK_STATUS { get; set; }
-        public virtual DbSet<USER> USER { get; set; }
         public virtual DbSet<FORMAT> FORMAT { get; set; }
         public virtual DbSet<FORMAT_TYPE> FORMAT_TYPE { get; set; }
         public virtual DbSet<PARAM_LENGTH> PARAM_LENGTH { get; set; }
+        public virtual DbSet<PARAM_SPLIT> PARAM_SPLIT { get; set; }
+        public virtual DbSet<PARAM_TASK_STATUS> PARAM_TASK_STATUS { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TASK> TASK { get; set; }
-        public virtual DbSet<MODE_PAIEMENT> MODE_PAIEMENT { get; set; }
+        public virtual DbSet<TRACE> TRACE { get; set; }
         public virtual DbSet<TRANSACTION> TRANSACTION { get; set; }
+        public virtual DbSet<USER> USER { get; set; }
     }
 }
