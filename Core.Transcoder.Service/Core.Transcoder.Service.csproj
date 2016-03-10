@@ -90,6 +90,10 @@
       <Project>{fe577079-5f3e-4913-94d8-f7198416289b}</Project>
       <Name>Core.Transcoder.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PayPalMvc\PayPalMvc.csproj">
+      <Project>{9c870b1f-9794-4738-9ba3-1ed045c62636}</Project>
+      <Name>PayPalMvc</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

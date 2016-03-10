@@ -4,17 +4,22 @@ using Core.Transcoder.Service;
 using Core.Transcoder.Service.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Core.Transcoder.Service.Services;
-using Transcoder.WebApp.Web.Settings;
+using PayPalMvc;
+using PayPalMvc.Enums;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
     public class ConversionController : Controller
     {
+        PaypalService paypalService = new PaypalService();
+
         // GET: Conversion
         public ActionResult Index()
         {
@@ -67,24 +72,28 @@ namespace Transcoder.WebApp.Web.Controllers
         [HttpPost]
         public ActionResult ValiderPanier(PanierViewModel model)
         {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             if (!ModelState.IsValid)
                 return View(model);
 
-            var paypalService = new PaypalService(new WebPaypalSettings());
-            PaypalModels.PayPalRedirect redirect = paypalService.ExpressCheckout(new PaypalModels.PayPalOrder { Amount = 50 });
+            //TODO generate correct transaction id
+            model.TransactionId = DateTime.Now.Ticks.ToString();
 
-            Session["token"] = redirect.Token;
+            Session["Panier"] = model;
 
-            return new RedirectResult(redirect.Url);
-
-            // on set a true le is Paid
-            //foreach(var task in model.ListOfConversions)
-            //{
-            //    task.IS_PAID = true;
-            //}
-            //bool isEdited = new TASK_Service().AddTaskByViewModel(model);
-
-            //return RedirectToAction("Index");
+            string serverURL = HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute("~/");
+            SetExpressCheckoutResponse transactionResponse = paypalService.SendPayPalSetExpressCheckoutRequest(model, serverURL);
+            // If Success redirect to PayPal for user to make payment
+            if (transactionResponse == null || transactionResponse.ResponseStatus != PayPalMvc.Enums.ResponseType.Success)
+            {
+                //SetUserNotification("Sorry there was a problem with initiating a PayPal transaction. Please try again and contact an Administrator if this still doesn't work.");
+                string errorMessage = (transactionResponse == null) ? "Null Transaction Response" : transactionResponse.ErrorToString;
+                Debug.WriteLine("Error initiating PayPal SetExpressCheckout transaction. Error: " + errorMessage);
+                return RedirectToAction("Panier", model);
+            }
+            return Redirect(string.Format(PayPalMvc.Configuration.Current.PayPalRedirectUrl, transactionResponse.TOKEN));
         }
 
         [HttpPost]
@@ -134,9 +143,55 @@ namespace Transcoder.WebApp.Web.Controllers
 
         }
         
-        public ActionResult OrderPaidConfirm(string token, string ack)
+        public ActionResult OrderPaypalAuthorized(string token, string PayerID)
         {
+            PanierViewModel panier = (PanierViewModel)Session["Panier"];
 
+            //Réucpération des détails de l'appel Express Checkout
+            GetExpressCheckoutDetailsResponse getDetailsResponse = paypalService.SendPayPalGetExpressCheckoutDetailsRequest(token);
+            if (getDetailsResponse == null || getDetailsResponse.ResponseStatus != PayPalMvc.Enums.ResponseType.Success)
+            {
+                string errorMessage = (getDetailsResponse == null) ? "Null Transaction Response" : getDetailsResponse.ErrorToString;
+                Debug.WriteLine("Error initiating PayPal GetExpressCheckoutDetails transaction. Error: " + errorMessage);
+                return RedirectToAction("Panier", panier);
+            }
+
+
+
+
+            //Paiement de la commande
+            DoExpressCheckoutPaymentResponse doCheckoutRepsonse = paypalService.SendPayPalDoExpressCheckoutPaymentRequest(panier, token, PayerID);
+
+            if (doCheckoutRepsonse == null || doCheckoutRepsonse.ResponseStatus != PayPalMvc.Enums.ResponseType.Success)
+            {
+                if (doCheckoutRepsonse != null && doCheckoutRepsonse.L_ERRORCODE0 == "10486")
+                {
+                    Debug.WriteLine("Redirecting User back to PayPal due to 10486 error (bad funding method - typically an invalid or maxed out credit card)");
+                    return Redirect(string.Format(PayPalMvc.Configuration.Current.PayPalRedirectUrl, token));
+                }
+                string errorMessage = (doCheckoutRepsonse == null) ? "Null Transaction Response" : doCheckoutRepsonse.ErrorToString;
+                Debug.WriteLine("Error initiating PayPal DoExpressCheckoutPayment transaction. Error: " + errorMessage);
+                return RedirectToAction("Panier", panier);
+            }
+
+            if (doCheckoutRepsonse.PaymentStatus == PaymentStatus.Completed)
+                return RedirectToAction("OrderPaidConfirm");
+            else
+            {
+                Debug.WriteLine($"Error taking PayPal payment. Error: " + doCheckoutRepsonse.ErrorToString + " - Payment Error: " + doCheckoutRepsonse.PaymentErrorToString);
+                TempData["TransactionResult"] = doCheckoutRepsonse.PAYMENTREQUEST_0_LONGMESSAGE;
+                return RedirectToAction("Panier", panier);
+            }
+        }
+
+        public ActionResult OrderPaidConfirm()
+        {
+            Debug.WriteLine("Post Payment Result: Success");
+            PanierViewModel cart = (PanierViewModel)Session["Panier"];
+            ViewBag.TrackingReference = cart.TransactionId;
+            ViewBag.Description = "Transcoder";
+            ViewBag.TotalCost = cart.GlobalPrice;
+            ViewBag.Currency = "EUR";
             return RedirectToAction("Index", "Home");
         }
 

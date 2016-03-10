@@ -208,7 +208,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\WebPaypalSettings.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +325,10 @@
     <ProjectReference Include="..\Core.Transcoder.Service\Core.Transcoder.Service.csproj">
       <Project>{25b43747-b65c-46bb-8ebf-0b12546480c9}</Project>
       <Name>Core.Transcoder.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayPalMvc\PayPalMvc.csproj">
+      <Project>{9c870b1f-9794-4738-9ba3-1ed045c62636}</Project>
+      <Name>PayPalMvc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
