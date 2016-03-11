@@ -3,7 +3,7 @@ using System;
 using System.Web.Configuration;
 using System.Collections.Generic;
 
-namespace PayPalMvc
+namespace Core.Transcoder.PayPalMvc
 {
 	/// <summary>
 	/// Default ITransactionRegistrar implementation

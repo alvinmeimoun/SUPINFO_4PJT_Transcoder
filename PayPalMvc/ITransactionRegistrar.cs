@@ -1,7 +1,7 @@
 using System.Web.Routing;
 using System.Collections.Generic;
 
-namespace PayPalMvc {
+namespace Core.Transcoder.PayPalMvc {
 	public interface ITransactionRegistrar {
         
         /// <summary>

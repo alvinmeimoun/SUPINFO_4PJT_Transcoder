@@ -7,7 +7,7 @@ using System.Text;
 using System.Web;
 using System.Collections;
 
-namespace PayPalMvc {
+namespace Core.Transcoder.PayPalMvc {
 	/// <summary>
 	/// Used for serializing an object for use with an HTTP POST.
 	/// </summary>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 
-namespace PayPalMvc
+namespace Core.Transcoder.PayPalMvc
 {
     public class Logging
     {

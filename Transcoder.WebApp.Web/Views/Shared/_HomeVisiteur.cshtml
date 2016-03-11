@@ -6,25 +6,27 @@
     padding-bottom:0;
     }
     #content_banner {
-        background: url(@Url.Content("~/Content/Images/home_main_bg.jpg"));
-        background-position: bottom;
+        /*background: url(@Url.Content("~/Content/Images/home_main_bg.jpg"));*/
+        background: url(@Url.Content("http://blog.flyconseils.com/hs-fs/hub/387757/file-1717808839-jpg/blog-img/strategie-medias-sociaux.jpg"));
+        
+        background-position: 0% 30%;
     }
 
     #transcoder_title {
-        text-align: center;
+        text-align: left;
         margin-top: 75px;
         font-size: 40px;
         font-weight: bold;
-        color: white;
+        color: lightslategrey;
     }
 
     .transcoder_summary_white {
-        text-align: center;
+        text-align: left;
         horiz-align: center;
-        margin-top: 50px;
+        /*margin-top: 50px;*/
         font-size: 25px;
         font-weight: normal;
-        color: white;
+        color: lightslategrey;
         margin-left: 5px;
         margin-right: 5px;
         margin-bottom: 35px;
@@ -44,11 +46,12 @@
 
     #bt_get_started {
         padding: 10px;
-        border: white solid 1px;
+        border: lightslategrey solid 1px;
         border-radius: 20px;
         background-color: transparent;
         margin-bottom: 30px;
-        color: white;
+        color: lightslategrey;
+        font-weight : bold;
     }
     #bt_get_started:hover {
   
@@ -107,13 +110,13 @@
         <div class="row">
             <p class="transcoder_summary_white">Converting your media has never been so easy</p>
         </div>
-        <div class="row" style="margin-top: 35px; text-align:center">
+        <div class="row" style="text-align:left">
             @Html.ActionLink("Get Started", "Register","Account",null, new { @id="bt_get_started" , @class="btn btn-primary"})
         </div>
     </div>
 </div>
 
-<div class="content_summary_purple row row-centered" style="margin-right: 0px; height:250px; padding-top:25px;">
+<div class="content_summary_teal row row-centered" style="margin-right: 0px; height:250px; padding-top:25px;">
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-centered">
         <div class="item">
@@ -177,10 +180,10 @@
 <div class="content_summary_blue row row-centered" style="margin-right: 0px;">
     <div class="col-md-12 col-sm-12 col-xs-12 col-centered text-center">
         <div class="row row-centered text-center">
-            <p class="transcoder_summary_white text-center" style="margin-bottom: 10px; margin-top: 10px">Community</p>
+            <p class="" style="margin-bottom: 10px; margin-top: 10px; color:white;text-align:center;font-size: 25px;">Community</p>
         </div>
         <div class="row row-centered text-center">
-            <a href="https://github.com/alvinmeimoun" target="_blank"><img style="max-height: 80px; margin: 5px;" src="~/Content/Images/btn-github.png" style="margin-top: 30px; margin-bottom: 30px;" /></a>
+            <a href="https://github.com/alvinmeimoun" target="_blank"><img style="max-height: 80px; margin: 5px; margin-top: 30px; margin-bottom: 30px;" src="~/Content/Images/btn-github.png"  /></a>
         </div>
     </div>
 </div>

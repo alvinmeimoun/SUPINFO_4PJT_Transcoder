@@ -131,7 +131,7 @@ textarea {
     margin-bottom:20px;
 }
 
-
+/******* PAGE D ACCUEIL ********/
 .title {
         -webkit-font-smoothing: antialiased;
         color: #404852;
@@ -144,6 +144,9 @@ textarea {
 
 .content_summary_green {
     background-color: #2ECC71; 
+}
+.content_summary_teal {
+    background-color: teal; 
 }
 .content_summary_purple {
     background-color: #394166; 

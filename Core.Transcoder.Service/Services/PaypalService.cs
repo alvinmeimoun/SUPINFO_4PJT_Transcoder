@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using Core.Transcoder.DataAccess.ViewModels;
-using PayPalMvc;
+using Core.Transcoder.PayPalMvc;
 
-namespace Core.Transcoder.Service.Services
+namespace Core.Transcoder.Service
 {
     public interface IPaypalService
     {

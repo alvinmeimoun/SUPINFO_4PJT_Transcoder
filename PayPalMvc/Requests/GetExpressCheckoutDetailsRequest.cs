@@ -1,5 +1,6 @@
-using PayPalMvc.Enums;
-namespace PayPalMvc
+using Core.Transcoder.PayPalMvc.Enums;
+
+namespace Core.Transcoder.PayPalMvc
 {
     /// <summary>
     /// Represents a transaction registration that is sent to PayPal. 

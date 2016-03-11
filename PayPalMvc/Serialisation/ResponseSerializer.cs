@@ -1,8 +1,8 @@
 using System;
 using System.Reflection;
-using PayPalMvc.Enums;
+using Core.Transcoder.PayPalMvc.Enums;
 
-namespace PayPalMvc {
+namespace Core.Transcoder.PayPalMvc {
 	/// <summary>
 	/// Used for deserializing SagePay response data. 
 	/// </summary>

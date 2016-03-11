@@ -1,6 +1,6 @@
 using System;
 
-namespace PayPalMvc {
+namespace Core.Transcoder.PayPalMvc {
 	/// <summary>
 	/// Specifies that a property should not be URL Encoded when being serialized by the HttpPostSerialzier
 	/// </summary>

@@ -1,4 +1,4 @@
-namespace PayPalMvc.Enums
+namespace Core.Transcoder.PayPalMvc.Enums
 {
 	/// <summary>
 	/// Server Mode

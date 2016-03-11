@@ -11,8 +11,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Core.Transcoder.Service.Services;
-using PayPalMvc;
-using PayPalMvc.Enums;
+using Core.Transcoder.PayPalMvc;
+using Core.Transcoder.PayPalMvc.Enums;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -84,13 +84,13 @@ namespace Transcoder.WebApp.Web.Controllers
             string serverURL = HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute("~/");
             SetExpressCheckoutResponse transactionResponse = paypalService.SendPayPalSetExpressCheckoutRequest(model, serverURL);
             
-            if (transactionResponse == null || transactionResponse.ResponseStatus != PayPalMvc.Enums.ResponseType.Success)
+            if (transactionResponse == null || transactionResponse.ResponseStatus != Core.Transcoder.PayPalMvc.Enums.ResponseType.Success)
             {
                 string errorMessage = (transactionResponse == null) ? "Null Paypal Transaction Response" : transactionResponse.ErrorToString;
                 Debug.WriteLine("Error initiating PayPal SetExpressCheckout transaction. Error: " + errorMessage);
                 return RedirectToAction("Panier", model);
             }
-            return Redirect(string.Format(PayPalMvc.Configuration.Current.PayPalRedirectUrl, transactionResponse.TOKEN));
+            return Redirect(string.Format(Configuration.Current.PayPalRedirectUrl, transactionResponse.TOKEN));
         }
 
         [HttpPost]
@@ -146,7 +146,7 @@ namespace Transcoder.WebApp.Web.Controllers
 
             //Réucpération des détails de l'appel Express Checkout
             GetExpressCheckoutDetailsResponse getDetailsResponse = paypalService.SendPayPalGetExpressCheckoutDetailsRequest(token);
-            if (getDetailsResponse == null || getDetailsResponse.ResponseStatus != PayPalMvc.Enums.ResponseType.Success)
+            if (getDetailsResponse == null || getDetailsResponse.ResponseStatus != Core.Transcoder.PayPalMvc.Enums.ResponseType.Success)
             {
                 string errorMessage = (getDetailsResponse == null) ? "Null Transaction Response" : getDetailsResponse.ErrorToString;
                 Debug.WriteLine("Error initiating PayPal GetExpressCheckoutDetails transaction. Error: " + errorMessage);
@@ -159,12 +159,12 @@ namespace Transcoder.WebApp.Web.Controllers
             //Paiement de la commande
             DoExpressCheckoutPaymentResponse doCheckoutRepsonse = paypalService.SendPayPalDoExpressCheckoutPaymentRequest(panier, token, PayerID);
 
-            if (doCheckoutRepsonse == null || doCheckoutRepsonse.ResponseStatus != PayPalMvc.Enums.ResponseType.Success)
+            if (doCheckoutRepsonse == null || doCheckoutRepsonse.ResponseStatus != Core.Transcoder.PayPalMvc.Enums.ResponseType.Success)
             {
                 if (doCheckoutRepsonse != null && doCheckoutRepsonse.L_ERRORCODE0 == "10486")
                 {
                     Debug.WriteLine("10486 error (bad funding method - typically an invalid credit card)");
-                    return Redirect(string.Format(PayPalMvc.Configuration.Current.PayPalRedirectUrl, token));
+                    return Redirect(string.Format(Configuration.Current.PayPalRedirectUrl, token));
                 }
                 string errorMessage = (doCheckoutRepsonse == null) ? "Null Transaction Response" : doCheckoutRepsonse.ErrorToString;
                 Debug.WriteLine("Error initiating PayPal DoExpressCheckoutPayment transaction. Error: " + errorMessage);

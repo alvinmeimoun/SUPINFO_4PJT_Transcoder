@@ -1,6 +1,7 @@
 using System;
-using PayPalMvc.Enums;
-namespace PayPalMvc {
+using Core.Transcoder.PayPalMvc.Enums;
+namespace Core.Transcoder.PayPalMvc
+{
 	/// <summary>
 	/// All requests must contain these fields
 	/// </summary>

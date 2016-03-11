@@ -8,8 +8,8 @@
     <ProjectGuid>{9C870B1F-9794-4738-9BA3-1ED045C62636}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PayPalMvc</RootNamespace>
-    <AssemblyName>PayPalMvc</AssemblyName>
+    <RootNamespace>Core.Transcoder.PayPalMvc</RootNamespace>
+    <AssemblyName>Core.Transcoder.PayPalMvc</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

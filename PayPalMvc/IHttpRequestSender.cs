@@ -1,4 +1,4 @@
-namespace PayPalMvc {
+namespace Core.Transcoder.PayPalMvc {
 	public interface IHttpRequestSender {
 		/// <summary>
 		/// Sends some data to a URL using an HTTP POST.

@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace PayPalMvc {
+namespace Core.Transcoder.PayPalMvc {
 	/// <summary>
 	/// Default implementation of IHttpRequestSender
 	/// </summary>

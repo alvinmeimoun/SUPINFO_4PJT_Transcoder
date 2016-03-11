@@ -3,9 +3,9 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Globalization;
 using System.Linq.Expressions;
-using PayPalMvc.Enums;
+using Core.Transcoder.PayPalMvc.Enums;
 
-namespace PayPalMvc
+namespace Core.Transcoder.PayPalMvc
 {
     /// <summary>
     /// Configuration data

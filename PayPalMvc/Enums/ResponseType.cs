@@ -1,4 +1,4 @@
-namespace PayPalMvc.Enums
+namespace Core.Transcoder.PayPalMvc.Enums
 {
 	/// <summary>
 	/// Response types that could be received from PayPal

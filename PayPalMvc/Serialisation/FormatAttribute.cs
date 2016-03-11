@@ -1,6 +1,6 @@
 using System;
 
-namespace PayPalMvc {
+namespace Core.Transcoder.PayPalMvc {
 	/// <summary>
 	/// Specifies a format to use when serializing.
 	/// </summary>

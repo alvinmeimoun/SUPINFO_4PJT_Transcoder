@@ -1,5 +1,6 @@
-using PayPalMvc.Enums;
-namespace PayPalMvc {
+using Core.Transcoder.PayPalMvc.Enums;
+
+namespace Core.Transcoder.PayPalMvc {
 	/// <summary>
 	/// Response received from a take payment request
 	/// </summary>
