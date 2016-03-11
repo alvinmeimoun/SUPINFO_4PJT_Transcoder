@@ -14,12 +14,20 @@ namespace Core.Transcoder.DataAccess
     
     public partial class TRANSACTION
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TRANSACTION()
+        {
+            this.TASK = new HashSet<TASK>();
+        }
+    
         public int PK_ID_TRANSACTION { get; set; }
         public int FK_ID_USER { get; set; }
         public double PRICE { get; set; }
         public System.DateTime DATE_TRANSACTION { get; set; }
         public Nullable<long> PAYPAL_TRANSACTION_ID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TASK> TASK { get; set; }
         public virtual USER USER { get; set; }
     }
 }

@@ -36,6 +36,7 @@ namespace Core.Transcoder.DataAccess
     
         public virtual FORMAT FORMAT { get; set; }
         public virtual PARAM_TASK_STATUS PARAM_TASK_STATUS { get; set; }
+        public virtual TRANSACTION TRANSACTION { get; set; }
         public virtual USER USER { get; set; }
     }
 }

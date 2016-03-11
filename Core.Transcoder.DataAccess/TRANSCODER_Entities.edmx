@@ -162,6 +162,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TASK_TRANSACTION">
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="0..1" />
+          <End Role="TASK" Type="Self.TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSACTION">
+              <PropertyRef Name="PK_ID_TRANSACTION" />
+            </Principal>
+            <Dependent Role="TASK">
+              <PropertyRef Name="FK_ID_TRANSACTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TASK_USER">
           <End Role="USER" Type="Self.USER" Multiplicity="0..1" />
           <End Role="TASK" Type="Self.TASK" Multiplicity="*" />
@@ -210,6 +222,10 @@
             <End Role="PARAM_TASK_STATUS" EntitySet="PARAM_TASK_STATUS" />
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
+          <AssociationSet Name="FK_TASK_TRANSACTION" Association="Self.FK_TASK_TRANSACTION">
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+            <End Role="TASK" EntitySet="TASK" />
+          </AssociationSet>
           <AssociationSet Name="FK_TASK_USER" Association="Self.FK_TASK_USER">
             <End Role="USER" EntitySet="USER" />
             <End Role="TASK" EntitySet="TASK" />
@@ -245,6 +261,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_TASK_PARAM_TASK_STATUS" Association="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS">
             <End Role="PARAM_TASK_STATUS" EntitySet="PARAM_TASK_STATUS" />
+            <End Role="TASK" EntitySet="TASK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TASK_TRANSACTION" Association="TRANSCODERModel.FK_TASK_TRANSACTION">
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
             <End Role="TASK" EntitySet="TASK" />
           </AssociationSet>
           <AssociationSet Name="FK_TASK_USER" Association="TRANSCODERModel.FK_TASK_USER">
@@ -345,6 +365,7 @@
           <Property Name="FK_ID_TRANSACTION" Type="Int32" />
           <NavigationProperty Name="FORMAT" Relationship="TRANSCODERModel.FK_TASK_FORMAT" FromRole="TASK" ToRole="FORMAT" />
           <NavigationProperty Name="PARAM_TASK_STATUS" Relationship="TRANSCODERModel.FK_TASK_PARAM_TASK_STATUS" FromRole="TASK" ToRole="PARAM_TASK_STATUS" />
+          <NavigationProperty Name="TRANSACTION" Relationship="TRANSCODERModel.FK_TASK_TRANSACTION" FromRole="TASK" ToRole="TRANSACTION" />
           <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TASK_USER" FromRole="TASK" ToRole="USER" />
         </EntityType>
         <EntityType Name="TRACE">
@@ -369,6 +390,7 @@
           <Property Name="PRICE" Type="Double" Nullable="false" />
           <Property Name="DATE_TRANSACTION" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PAYPAL_TRANSACTION_ID" Type="Int64" />
+          <NavigationProperty Name="TASK" Relationship="TRANSCODERModel.FK_TASK_TRANSACTION" FromRole="TRANSACTION" ToRole="TASK" />
           <NavigationProperty Name="USER" Relationship="TRANSCODERModel.FK_TRANSACTION_USER" FromRole="TRANSACTION" ToRole="USER" />
         </EntityType>
         <EntityType Name="USER">
@@ -420,6 +442,18 @@
             </Principal>
             <Dependent Role="TASK">
               <PropertyRef Name="STATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TASK_TRANSACTION">
+          <End Type="TRANSCODERModel.TRANSACTION" Role="TRANSACTION" Multiplicity="0..1" />
+          <End Type="TRANSCODERModel.TASK" Role="TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSACTION">
+              <PropertyRef Name="PK_ID_TRANSACTION" />
+            </Principal>
+            <Dependent Role="TASK">
+              <PropertyRef Name="FK_ID_TRANSACTION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
