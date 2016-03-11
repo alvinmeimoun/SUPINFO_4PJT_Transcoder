@@ -146,7 +146,7 @@ textarea {
     background-color: #2ECC71; 
 }
 .content_summary_teal {
-    background-color: teal; 
+    background-color: #006595; 
 }
 .content_summary_purple {
     background-color: #394166; 
@@ -166,3 +166,100 @@ textarea {
 .row-centered {
     text-align:center;
 }
+
+body {
+    padding-bottom:0;
+    }
+#content_banner {
+    /*background: url(@Url.Content("~/Content/Images/home_main_bg.jpg"));*/
+    background: url('Images/medias.jpg');
+    background-position: 0% 30%;
+}
+
+    #transcoder_title {
+        text-align: left;
+        margin-top: 75px;
+        font-size: 40px;
+        font-weight: bold;
+        color: #55539c;
+    }
+
+    .transcoder_summary_white {
+        text-align: left;
+        /*margin-top: 50px;*/
+        font-size: 25px;
+        font-weight: normal;
+        color: lightslategrey;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 35px;
+    }
+
+    .transcoder_summary_black {
+        text-align: center;
+        horiz-align: center;
+        margin-top: 50px;
+        font-size: 25px;
+        font-weight: normal;
+        color: black;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 35px;
+    }
+
+    #bt_get_started {
+        padding: 10px;
+        /*lightslategrey*/
+        border:  #55539c solid 2px;
+        border-radius: 20px;
+        background-color: transparent;
+        margin-bottom: 30px;
+        color:  #55539c;
+        font-weight : bold;
+    }
+    #bt_get_started:hover {
+  
+        background-color: #ff9d35;
+        border-color:#ff9d35;
+        color : white;
+    }
+
+    .gauge-meter-home-1 {
+      position: Relative;
+      text-align: Center;
+      overflow: Hidden;
+      cursor: Default;
+      display: inline-block;
+    }
+
+    .gauge-meter-home-1 SPAN, .gauge-meter-home-1 B {
+      width: 54%;
+      position: Absolute;
+      text-align: Center;
+      display: Inline-Block;
+      color: RGBa(255,255,255,.8);
+      font-weight: 100;
+      font-family: "Open Sans", Arial;
+      overflow: Hidden;
+      white-space: NoWrap;
+      text-overflow: Ellipsis;
+      margin: 0 23%;
+    }
+
+    .gauge-meter-home-1[data-style="Semi"] B {
+      width: 80%;
+      margin: 0 10%;
+    }
+
+    .gauge-meter-home-1 S, .gauge-meter-home-1 U {
+      text-decoration: None;
+      font-size: .60em;
+      font-weight: 200;
+      opacity: .6;
+    }
+
+    .gauge-meter-home-1 B {
+      color: #FFF;
+      font-weight: 200;
+      opacity: .8;
+    }

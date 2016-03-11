@@ -3,15 +3,18 @@
 @{
     ViewBag.Title = "Modifier votre compte";
 }
-
+<div class="header content_summary_green" style="height:150px; margin-bottom:50px; color:white; text-align:left;">
+    <div class="container">
+        <h2 class="title" style="color:white;">Modifier votre compte</h2>
+    </div>
+</div>
 <div class="container">
-    <h2>@ViewBag.Title</h2>
 
     @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
    
-        <hr />
+
         @Html.ValidationSummary(false)
         @Html.HiddenFor(m => m.Pk_id_user)
         @Html.HiddenFor(m => m.Password)
@@ -47,7 +50,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Ajouter" />
+                <input type="submit" class="btn btn-success" value="Modifier" />
             </div>
         </div>
     }

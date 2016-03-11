@@ -7,17 +7,12 @@
 
     <ul class="nav navbar-nav navbar-right"  >
         
-        <li style="border-left: 1px solid #4e4e4e;">
-            @Html.ActionLink("Bonjour " + Request.Cookies["User"].Value + "!", "Edit", "User", routeValues: null, htmlAttributes: new { title = "Edit" })
-        </li>
     </ul>
     //}
 }
 else
 {
     <ul class="nav navbar-nav navbar-right" >
-        
-        <li style="border-left: 1px solid #4e4e4e;" >@Html.ActionLink("Accueil", "Index", "Home")</li>
         <li style="border-left: 1px solid #4e4e4e;" >@Html.ActionLink("Contact", "Contact", "Home")</li>
     
     </ul>

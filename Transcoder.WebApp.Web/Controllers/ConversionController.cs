@@ -39,6 +39,7 @@ namespace Transcoder.WebApp.Web.Controllers
             return View("Panier", panier);
         }
 
+
         public ActionResult AddConversion()
         {
             int UserId = CookieUtil.GetUserId(this);
@@ -58,6 +59,7 @@ namespace Transcoder.WebApp.Web.Controllers
             return RedirectToAction("Index");
         }
 
+
         [HttpGet]
         public ActionResult DeleteConversion(int id)
         {
@@ -69,6 +71,7 @@ namespace Transcoder.WebApp.Web.Controllers
             }
             return RedirectToAction("Panier");
         }
+
 
         [HttpPost]
         public ActionResult ValiderPanier(PanierViewModel model)
@@ -92,6 +95,7 @@ namespace Transcoder.WebApp.Web.Controllers
             }
             return Redirect(string.Format(Configuration.Current.PayPalRedirectUrl, transactionResponse.TOKEN));
         }
+
 
         [HttpPost]
         public ActionResult Upload()
@@ -127,6 +131,7 @@ namespace Transcoder.WebApp.Web.Controllers
             }
             return Json(new { success = "false" });
         }
+
 
         [HttpPost]
         public JsonResult GetFormatByFormatTypeAndFormatBase(string formatTypeId, string fileFormatBase)

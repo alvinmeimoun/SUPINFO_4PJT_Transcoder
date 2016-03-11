@@ -229,6 +229,7 @@
     <Content Include="Content\Images\loader.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Images\medias.jpg" />
     <Content Include="Content\Images\validate.ico" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
