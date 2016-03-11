@@ -36,6 +36,8 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Display(Name = "Prix de la conversion")]
         public double PRICE { get; set; }
 
+        public int TransactionId { get; set; }
+
         public ShortEditUserViewModel ShortEditUserViewModel { get; set; }
 
         public List<FORMAT> ListAvailableFormats { get; set; }
@@ -70,13 +72,13 @@ namespace Core.Transcoder.DataAccess.ViewModels
         {
 
         }
-        public CreateTaskViewModel(int userId,List<FORMAT_TYPE> listFormatsTypes, List<FORMAT> listFormats, ShortEditUserViewModel userModel)
-        {
-            this.FK_ID_USER = userId;
-            this.ListAvailableFormatTypes = listFormatsTypes;
-            this.ListAvailableFormats = listFormats;
-            this.ShortEditUserViewModel = userModel;
-        }
+        //public CreateTaskViewModel(int userId,List<FORMAT_TYPE> listFormatsTypes, List<FORMAT> listFormats, ShortEditUserViewModel userModel)
+        //{
+        //    this.FK_ID_USER = userId;
+        //    this.ListAvailableFormatTypes = listFormatsTypes;
+        //    this.ListAvailableFormats = listFormats;
+        //    this.ShortEditUserViewModel = userModel;
+        //}
 
     }
 }

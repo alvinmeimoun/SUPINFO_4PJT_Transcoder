@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Diagnostics;
 using Core.Transcoder.Service.Enums;
 
 namespace WindowsServiceConsoleApplicationTest
@@ -269,7 +270,7 @@ namespace WindowsServiceConsoleApplicationTest
             }
             catch(Exception e)
             {
-                throw e;
+                Debug.WriteLine(e.StackTrace);
                 return false;
             }
         }

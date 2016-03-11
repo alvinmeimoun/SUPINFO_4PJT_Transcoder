@@ -7,6 +7,7 @@ using System.Data;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Data.Entity;
+using System.Diagnostics;
 
 namespace Core.Transcoder.Repository
 {
@@ -63,6 +64,7 @@ namespace Core.Transcoder.Repository
             }
             catch(Exception e)
             {
+                Debug.WriteLine(e.StackTrace);
                 return false;
             }
           

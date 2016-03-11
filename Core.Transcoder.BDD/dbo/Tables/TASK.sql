@@ -7,7 +7,7 @@
     [FILE_URL_DESTINATION]    NVARCHAR (MAX) NULL,
     [FK_ID_FORMAT_BASE]       INT            NULL,
     [FK_ID_FORMAT_TO_CONVERT] INT            NULL,
-    [IS_PAID]                 BIT            NULL,
+    [IS_PAID]                 BIT            NOT NULL,
     [THREAD_ID]               INT            NULL,
     [SERVER_ID]               INT            NULL,
     [DATE_BEGIN_CONVERSION]   DATETIME       NULL,
@@ -24,6 +24,8 @@
     CONSTRAINT [FK_TASK_TRANSACTION] FOREIGN KEY ([FK_ID_TRANSACTION]) REFERENCES [dbo].[TRANSACTION] ([PK_ID_TRANSACTION]),
     CONSTRAINT [FK_TASK_USER] FOREIGN KEY ([FK_ID_USER]) REFERENCES [dbo].[USER] ([PK_ID_USER])
 );
+
+
 
 
 

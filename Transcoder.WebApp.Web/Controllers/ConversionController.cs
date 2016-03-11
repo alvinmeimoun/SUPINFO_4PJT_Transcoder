@@ -19,6 +19,7 @@ namespace Transcoder.WebApp.Web.Controllers
     public class ConversionController : Controller
     {
         PaypalService paypalService = new PaypalService();
+        TASK_Service taskService = new TASK_Service();
 
         // GET: Conversion
         public ActionResult Index()
@@ -64,9 +65,9 @@ namespace Transcoder.WebApp.Web.Controllers
             {
                bool isDeleted = new TASK_Service().DeleteTaskById(id);
                 if (isDeleted)
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Panier");
             }
-            return null;
+            return RedirectToAction("Panier");
         }
 
         [HttpPost]
@@ -78,18 +79,14 @@ namespace Transcoder.WebApp.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            //TODO generate correct transaction id
-            model.TransactionId = DateTime.Now.Ticks.ToString();
-
             Session["Panier"] = model;
 
             string serverURL = HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute("~/");
             SetExpressCheckoutResponse transactionResponse = paypalService.SendPayPalSetExpressCheckoutRequest(model, serverURL);
-            // If Success redirect to PayPal for user to make payment
+            
             if (transactionResponse == null || transactionResponse.ResponseStatus != PayPalMvc.Enums.ResponseType.Success)
             {
-                //SetUserNotification("Sorry there was a problem with initiating a PayPal transaction. Please try again and contact an Administrator if this still doesn't work.");
-                string errorMessage = (transactionResponse == null) ? "Null Transaction Response" : transactionResponse.ErrorToString;
+                string errorMessage = (transactionResponse == null) ? "Null Paypal Transaction Response" : transactionResponse.ErrorToString;
                 Debug.WriteLine("Error initiating PayPal SetExpressCheckout transaction. Error: " + errorMessage);
                 return RedirectToAction("Panier", model);
             }
@@ -166,7 +163,7 @@ namespace Transcoder.WebApp.Web.Controllers
             {
                 if (doCheckoutRepsonse != null && doCheckoutRepsonse.L_ERRORCODE0 == "10486")
                 {
-                    Debug.WriteLine("Redirecting User back to PayPal due to 10486 error (bad funding method - typically an invalid or maxed out credit card)");
+                    Debug.WriteLine("10486 error (bad funding method - typically an invalid credit card)");
                     return Redirect(string.Format(PayPalMvc.Configuration.Current.PayPalRedirectUrl, token));
                 }
                 string errorMessage = (doCheckoutRepsonse == null) ? "Null Transaction Response" : doCheckoutRepsonse.ErrorToString;
@@ -175,10 +172,15 @@ namespace Transcoder.WebApp.Web.Controllers
             }
 
             if (doCheckoutRepsonse.PaymentStatus == PaymentStatus.Completed)
+            {
+                taskService.SetAllTasksPaidForTransaction(panier.TransactionId);
+
                 return RedirectToAction("OrderPaidConfirm");
+            }
             else
             {
-                Debug.WriteLine($"Error taking PayPal payment. Error: " + doCheckoutRepsonse.ErrorToString + " - Payment Error: " + doCheckoutRepsonse.PaymentErrorToString);
+                Debug.WriteLine($"Error taking PayPal payment. Error: " + doCheckoutRepsonse.ErrorToString +
+                                " - Payment Error: " + doCheckoutRepsonse.PaymentErrorToString);
                 TempData["TransactionResult"] = doCheckoutRepsonse.PAYMENTREQUEST_0_LONGMESSAGE;
                 return RedirectToAction("Panier", panier);
             }
@@ -192,6 +194,9 @@ namespace Transcoder.WebApp.Web.Controllers
             ViewBag.Description = "Transcoder";
             ViewBag.TotalCost = cart.GlobalPrice;
             ViewBag.Currency = "EUR";
+
+            Session["Panier"] = null;
+
             return RedirectToAction("Index", "Home");
         }
 

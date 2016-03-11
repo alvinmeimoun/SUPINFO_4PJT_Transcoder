@@ -77,7 +77,7 @@
           <Property Name="FILE_URL_DESTINATION" Type="nvarchar(max)" />
           <Property Name="FK_ID_FORMAT_BASE" Type="int" />
           <Property Name="FK_ID_FORMAT_TO_CONVERT" Type="int" />
-          <Property Name="IS_PAID" Type="bit" />
+          <Property Name="IS_PAID" Type="bit" Nullable="false" />
           <Property Name="THREAD_ID" Type="int" />
           <Property Name="SERVER_ID" Type="int" />
           <Property Name="DATE_BEGIN_CONVERSION" Type="datetime" />
@@ -352,7 +352,7 @@
           <Property Name="FILE_URL_DESTINATION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FK_ID_FORMAT_BASE" Type="Int32" />
           <Property Name="FK_ID_FORMAT_TO_CONVERT" Type="Int32" />
-          <Property Name="IS_PAID" Type="Boolean" />
+          <Property Name="IS_PAID" Type="Boolean" Nullable="false" />
           <Property Name="THREAD_ID" Type="Int32" />
           <Property Name="SERVER_ID" Type="Int32" />
           <Property Name="DATE_BEGIN_CONVERSION" Type="DateTime" Precision="3" />

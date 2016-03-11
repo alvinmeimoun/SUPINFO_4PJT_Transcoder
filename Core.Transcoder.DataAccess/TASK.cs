@@ -22,7 +22,7 @@ namespace Core.Transcoder.DataAccess
         public string FILE_URL_DESTINATION { get; set; }
         public Nullable<int> FK_ID_FORMAT_BASE { get; set; }
         public Nullable<int> FK_ID_FORMAT_TO_CONVERT { get; set; }
-        public Nullable<bool> IS_PAID { get; set; }
+        public bool IS_PAID { get; set; }
         public Nullable<int> THREAD_ID { get; set; }
         public Nullable<int> SERVER_ID { get; set; }
         public Nullable<System.DateTime> DATE_BEGIN_CONVERSION { get; set; }
