@@ -302,6 +302,7 @@
     <Content Include="Views\Shared\_HomeVisiteur.cshtml" />
     <Content Include="Views\Shared\_HomeAuth.cshtml" />
     <Content Include="Views\Conversion\_ListConversions.cshtml" />
+    <Content Include="Views\Conversion\ListCommandes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

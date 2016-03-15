@@ -112,6 +112,7 @@
     <Compile Include="ViewModels\PaypalModels.cs" />
     <Compile Include="ViewModels\Task\CreateTaskViewModel.cs" />
     <Compile Include="ViewModels\Task\EditTaskViewModel.cs" />
+    <Compile Include="ViewModels\Task\ListCommandesViewModel.cs" />
     <Compile Include="ViewModels\Task\ListTaskViewModel.cs" />
     <Compile Include="ViewModels\Task\PanierViewModel.cs" />
     <Compile Include="ViewModels\User\EditUserViewModel.cs" />

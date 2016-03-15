@@ -164,6 +164,15 @@ namespace Core.Transcoder.Service
 
         }
 
+        public ListCommandesViewModel GetListCommandesViewModel(int userId)
+        {
+            ListCommandesViewModel viewModel = new ListCommandesViewModel();
+            viewModel.ListOfConversions = GetListTaskViewModelByUserId(userId).Where(x => x.IS_PAID == true).ToList();
+
+            return viewModel;
+        }
+
+
         public List<TASK> GetListOfTaskByUserId(int userId)
         {
             return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();

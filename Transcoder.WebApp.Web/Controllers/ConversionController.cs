@@ -39,6 +39,17 @@ namespace Transcoder.WebApp.Web.Controllers
             return View("Panier", panier);
         }
 
+        public ActionResult MesConversions()
+        {
+            int UserId = CookieUtil.GetUserId(this);
+            if (UserId == 0)
+                return RedirectToAction("Index", "Home");
+
+            var commandes = new TASK_Service().GetListCommandesViewModel(UserId);
+
+            return View("ListCommandes", commandes);
+        }
+
 
         public ActionResult AddConversion()
         {

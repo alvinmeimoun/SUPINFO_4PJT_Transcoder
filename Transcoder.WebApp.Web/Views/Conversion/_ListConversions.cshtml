@@ -59,15 +59,28 @@
                     @Html.DisplayFor(modelItem => Model.ToList()[i].DURATION, new { Name = "ListOfConversions[" + i + "].DURATION" }) minutes
                 </td>
                 <td>
-                    @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
-                    @Html.DisplayFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
+                    @if (Model.ToList()[i].IS_PAID != false)
+                    {
+                        @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
+                        @Html.DisplayFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
+                    }else
+                    { 
+                       @Html.Raw("Ajouté au panier")
+                    }
                 </td>
                 <td style="color:greenyellow;">
                     @Html.HiddenFor(modelItem => Model.ToList()[i].PRICE, new { Name = "ListOfConversions[" + i + "].PRICE" })
                     @Html.DisplayFor(modelItem => Model.ToList()[i].PRICE, new { Name = "ListOfConversions[" + i + "].PRICE" }) €
                 </td>
                 <td>
-                    @Html.ActionLink("Supprimer", "DeleteConversion", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-danger" })
+                    @if (Model.ToList()[i].IS_PAID == false)
+                    {
+                        @Html.ActionLink("Supprimer", "DeleteConversion", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-danger" })
+                    }
+                    else if(Model.ToList()[i].STATUS == "Effectue")
+                    {
+                        @Html.ActionLink("Télécharger", "Telecharger", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-primary disabled" })
+                    }
                 </td>
             </tr>
         }
