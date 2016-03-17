@@ -33,7 +33,6 @@ namespace Core.Transcoder.WindowsService
             {
                 return ExtractAudioSegment(Task);
             }
-
             try
             {  // On vérifie si la tache est à reassembler ou pas
                 if (Task.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER)
@@ -51,6 +50,8 @@ namespace Core.Transcoder.WindowsService
                     {
                         Task.DATE_END_CONVERSION = DateTime.Now;
                         Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EFFECTUE;
+                        // On envoie la notification par mail
+                        MailUtil.SendMail(StringManager.CONVERSION_TERMINEE, Task);
                     }
                 }
                 else
@@ -253,11 +254,11 @@ namespace Core.Transcoder.WindowsService
         {
            
             //On récupère la taille maximum sans split
-            double MaxLength = (double)new PARAM_LENGTH_Service().GetAll().LastOrDefault().LENGTH;
+            var listParamLength = new PARAM_LENGTH_Service().GetAll().ToList();
             //int.TryParse(MaxLengthString, out MaxLength);
             // Si la tache est trop lourde on la split
-            double megabytes = ConverterUtil.ConvertBytesToMegabytes((double)Task.LENGTH);
-            if (megabytes >= MaxLength)
+            int megabytes = (int)ConverterUtil.ConvertBytesToMegabytes((double)Task.LENGTH);
+            if (listParamLength.Where( x => x.LENGTH <= megabytes).FirstOrDefault() != null)
             {
                 VideoFile VideoFile = new VideoFile(Task.FILE_URL);
                 VideoFile.GetVideoInfo();
@@ -298,23 +299,28 @@ namespace Core.Transcoder.WindowsService
 
                 new PARAM_SPLIT_Service().AddOrUpdateParamSplit(paramSplit);
                 // On crée une sous tache associé au paramSplit et la tache mere
-                CreateSubTask(MotherTask, paramSplit);
+                CreateSubTask(MotherTask, paramSplit, SplitsTotal);
 
                 Splits--;
             }
         }
 
-        public static void CreateSubTask(TASK MotherTask, PARAM_SPLIT paramSplit)
+        public static void CreateSubTask(TASK MotherTask, PARAM_SPLIT paramSplit, int nbSplitsTotal)
         {
-            TASK subTask_1 = new TASK();
-            subTask_1.FK_ID_PARENT_TASK = MotherTask.PK_ID_TASK;
-            subTask_1.FK_ID_USER = MotherTask.FK_ID_USER;
-            subTask_1.FK_ID_FORMAT_TO_CONVERT = MotherTask.FK_ID_FORMAT_TO_CONVERT;
-            subTask_1.FK_ID_PARAM_SPLIT = paramSplit.PK_ID_PARAM_SPLIT;
+            TASK subTask = new TASK();
+            subTask.FK_ID_PARENT_TASK = MotherTask.PK_ID_TASK;
+            subTask.FK_ID_USER = MotherTask.FK_ID_USER;
+            subTask.IS_PAID = MotherTask.IS_PAID;
+            subTask.FK_ID_TRANSACTION = MotherTask.FK_ID_TRANSACTION;
+            subTask.FK_ID_FORMAT_BASE = MotherTask.FK_ID_FORMAT_BASE;
+            subTask.FK_ID_FORMAT_TO_CONVERT = MotherTask.FK_ID_FORMAT_TO_CONVERT;
+            subTask.FK_ID_PARAM_SPLIT = paramSplit.PK_ID_PARAM_SPLIT;
+            subTask.LENGTH = (int)MotherTask.LENGTH/nbSplitsTotal;
+
             // On set l'url de la tache mere pour que le service puisse aller créer le split a partir du fichier de base
-            subTask_1.FILE_URL = MotherTask.FILE_URL_TEMP;
-            new TASK_Service().AddOrUpdateTask(subTask_1);
-            CreateSplit(subTask_1, paramSplit);
+            subTask.FILE_URL = MotherTask.FILE_URL_TEMP;
+            new TASK_Service().AddOrUpdateTask(subTask);
+            CreateSplit(subTask, paramSplit);
 
         }
 
@@ -361,7 +367,7 @@ namespace Core.Transcoder.WindowsService
 
         public static int GetNumberOfSplits(TASK task)
         {
-            var listParam = new PARAM_LENGTH_Service().GetAll();
+            var listParam = new PARAM_LENGTH_Service().GetAll().OrderByDescending(q => q.PK_ID_PARAM_LENGTH);
             try
             {
                 double megabytes = ConverterUtil.ConvertBytesToMegabytes((double)task.LENGTH);  
@@ -414,7 +420,8 @@ namespace Core.Transcoder.WindowsService
                 Task.FILE_URL_DESTINATION = destinationFolder + @"\" + fileName + new FORMAT_Service().GetFormatById((int)Task.FK_ID_FORMAT_TO_CONVERT).FORMAT_NAME;
                 
                 // On merge les splits
-                VideoFile.MergeVideoSegment(listOfUrls, Task.FILE_URL_DESTINATION);
+                VideoFile.MergeVideoWithSplits(listOfUrls, Task.FILE_URL_DESTINATION);
+
                 return true;
             }
             catch (Exception e)

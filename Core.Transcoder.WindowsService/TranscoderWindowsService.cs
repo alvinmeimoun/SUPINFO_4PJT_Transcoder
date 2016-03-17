@@ -11,6 +11,7 @@ using Core.Transcoder.FFmpegWrapper;
 using System.Threading;
 using Core.Transcoder.Service;
 using Core.Transcoder.DataAccess;
+using Core.Transcoder.Service.Utils;
 
 namespace Core.Transcoder.WindowsService
 {
@@ -44,6 +45,7 @@ namespace Core.Transcoder.WindowsService
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
 
+        private object _lockObject = new object();
 
         public void Run()
         {
@@ -65,20 +67,20 @@ namespace Core.Transcoder.WindowsService
             {
 
                 Trace.TraceInformation("Working");
+
                 TASK_Service taskService = new TASK_Service();
+                TASK task = taskService.GetListOfTaskByStatusToDoOrToMerge().FirstOrDefault();
 
-                List<TASK> listOfTasks = taskService.GetListOfTaskByStatusToDoOrToMerge();
-
-                if (listOfTasks.Count() > 0)
+                lock(_lockObject)
                 {
-                    TASK task = listOfTasks.First();
-
-                    task.DATE_BEGIN_CONVERSION = DateTime.Now;
-                    taskService.AddOrUpdateTask(task);
-                    new TRACE_Service().AddTrace(new TRACE() { FK_ID_TASK = task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, METHOD = "INITIALISATION TASK", DESCRIPTION = "Récupération de la tache à effectuer" });
-                    TranscoderService.DoFFmpegConversion(task);
+                    if (task != null)
+                    {
+                        task.DATE_BEGIN_CONVERSION = DateTime.Now;
+                        taskService.AddOrUpdateTask(task);
+                        new TRACE_Service().AddTrace(new TRACE() { FK_ID_TASK = task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, METHOD = "INITIALISATION TASK", DESCRIPTION = "Récupération de la tache à effectuer" });
+                        TranscoderService.DoFFmpegConversion(task);
+                    }
                 }
-
                 await Task.Delay(60000);
             }
         }

@@ -75,6 +75,7 @@
     <Compile Include="Utils\ConverterUtil.cs" />
     <Compile Include="Utils\CookieUtil.cs" />
     <Compile Include="Utils\EncryptionUtil.cs" />
+    <Compile Include="Utils\MailUtil.cs" />
     <Compile Include="Utils\PriceGeneratorUtil.cs" />
   </ItemGroup>
   <ItemGroup>

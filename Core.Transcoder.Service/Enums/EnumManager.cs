@@ -30,5 +30,12 @@ namespace Core.Transcoder.Service.Enums
             VIDEO = 2,
             VIDEOTOAUDIO = 3
         }
+
+        
+    }
+    public class StringManager
+    {
+        public const string DEMANDE_CONVERSION = "Demande";
+        public const string CONVERSION_TERMINEE = "ConversionTerminee";
     }
 }

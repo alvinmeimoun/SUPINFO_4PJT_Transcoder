@@ -65,9 +65,12 @@ namespace Core.Transcoder.Service
         public List<TASK> GetListOfTaskByStatusToDoOrToMerge()
         {
 
-            List<TASK> listTasks = UoW.TASK_Repository.Get(x => x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE 
-            || x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER, 
-            q => q.OrderBy(s => s.PK_ID_TASK), "").Where(x => x.IS_PAID == true).ToList();
+            List<TASK> listTasks = UoW.TASK_Repository
+                .Get(x => x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE || 
+                x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER, 
+                q => q.OrderBy(s => s.PK_ID_TASK), "")
+                .Where(x => x.IS_PAID == true).ToList();
+
             return listTasks;
         }
 
