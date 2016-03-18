@@ -30,7 +30,15 @@ namespace Core.Transcoder.Service
 
         public List<SelectListItem> GetSelectListFormatByFormatTypeIdAndFormatBase(int formatTypeId, int formatBase)
         {
-            var listFormat =  UoW.FORMAT_Repository.Get(x => x.FK_ID_FORMAT_TYPE == formatTypeId && x.FK_ID_FORMAT_BASE == formatBase).ToList();
+            var listFormat = new List<FORMAT>();
+            if(formatTypeId == (int)Enums.EnumManager.FORMAT_TYPE.VIDEOTOAUDIO)
+            {
+               listFormat = UoW.FORMAT_Repository.Get(x => x.FK_ID_FORMAT_TYPE == (int)Enums.EnumManager.FORMAT_TYPE.AUDIO).ToList();
+            }
+            else
+            {
+               listFormat = UoW.FORMAT_Repository.Get(x => x.FK_ID_FORMAT_TYPE == formatTypeId && x.FK_ID_FORMAT_BASE == formatBase).ToList();
+            }
             List<SelectListItem> slFormat = listFormat.Select(x => new SelectListItem()
             {
                 Text = x.FORMAT_NAME,

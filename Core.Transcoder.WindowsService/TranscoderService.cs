@@ -128,6 +128,7 @@ namespace Core.Transcoder.WindowsService
                 return false;
             }
         }
+
         public static void ConvertTask(TASK Task, FORMAT formatToConvert)
         {
             try
