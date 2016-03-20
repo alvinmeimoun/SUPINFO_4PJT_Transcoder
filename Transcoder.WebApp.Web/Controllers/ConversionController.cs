@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using Core.Transcoder.Service.Services;
 using Core.Transcoder.PayPalMvc;
 using Core.Transcoder.PayPalMvc.Enums;
+using Core.Transcoder.DataAccess;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -143,7 +144,16 @@ namespace Transcoder.WebApp.Web.Controllers
             return Json(new { success = "false" });
         }
 
+        [HttpGet]
+        public ActionResult Telecharger(int id)
+        {
+            TASK task = new TASK_Service().GetTaskById(id);
+            int index = task.FILE_URL_DESTINATION.LastIndexOf('\\') + 1;
+            string file = task.FILE_URL_DESTINATION.Substring(index);
+            DownloadFile(file, task.FILE_URL_DESTINATION);
 
+            return RedirectToAction("MesConversions");
+    }
         [HttpPost]
         public JsonResult GetFormatByFormatTypeAndFormatBase(string formatTypeId, string fileFormatBase)
         {
@@ -160,7 +170,7 @@ namespace Transcoder.WebApp.Web.Controllers
         {
             PanierViewModel panier = (PanierViewModel)Session["Panier"];
 
-            //Réucpération des détails de l'appel Express Checkout
+            //Récupération des détails de l'appel Express Checkout
             GetExpressCheckoutDetailsResponse getDetailsResponse = paypalService.SendPayPalGetExpressCheckoutDetailsRequest(token);
             if (getDetailsResponse == null || getDetailsResponse.ResponseStatus != Core.Transcoder.PayPalMvc.Enums.ResponseType.Success)
             {
@@ -168,9 +178,6 @@ namespace Transcoder.WebApp.Web.Controllers
                 Debug.WriteLine("Error initiating PayPal GetExpressCheckoutDetails transaction. Error: " + errorMessage);
                 return RedirectToAction("Panier", panier);
             }
-
-
-
 
             //Paiement de la commande
             DoExpressCheckoutPaymentResponse doCheckoutRepsonse = paypalService.SendPayPalDoExpressCheckoutPaymentRequest(panier, token, PayerID);
@@ -190,6 +197,7 @@ namespace Transcoder.WebApp.Web.Controllers
             if (doCheckoutRepsonse.PaymentStatus == PaymentStatus.Completed)
             {
                 taskService.SetAllTasksPaidForTransaction(panier.TransactionId);
+                MailUtil.SendMail(Core.Transcoder.Service.Enums.StringManager.PAIEMENT_ACCEPTE, null, panier);
 
                 return RedirectToAction("OrderPaidConfirm");
             }
@@ -227,6 +235,104 @@ namespace Transcoder.WebApp.Web.Controllers
                 
             }
             return path;
+        }
+
+        private void DownloadFile(string fileName, string fileUrl)
+        {
+            // **************************************************
+            string strFileName =
+                string.Format("{0}", fileName);
+
+            if (System.IO.File.Exists(fileUrl) == false)
+            {
+                return ;
+            }
+            // **************************************************
+
+            System.IO.Stream oStream = null;
+
+            try
+            {
+                // Open the file
+                oStream =
+                    new System.IO.FileStream
+                        (path: fileUrl,
+                        mode: System.IO.FileMode.Open,
+                        share: System.IO.FileShare.Read,
+                        access: System.IO.FileAccess.Read);
+
+                // **************************************************
+                Response.Buffer = false;
+
+                // Setting the unknown [ContentType]
+                // will display the saving dialog for the user
+                Response.ContentType = "application/octet-stream";
+
+                // With setting the file name,
+                // in the saving dialog, user will see
+                // the [strFileName] name instead of [download]!
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + strFileName);
+
+                long lngFileLength = oStream.Length;
+
+                // Notify user (client) the total file length
+                Response.AddHeader("Content-Length", lngFileLength.ToString());
+                // **************************************************
+
+                // Total bytes that should be read
+                long lngDataToRead = lngFileLength;
+
+                // Read the bytes of file
+                while (lngDataToRead > 0)
+                {
+                    // The below code is just for testing! So we commented it!
+                    //System.Threading.Thread.Sleep(200);
+
+                    // Verify that the client is connected or not?
+                    if (Response.IsClientConnected)
+                    {
+                        // 8KB
+                        int intBufferSize = 8 * 1024;
+
+                        // Create buffer for reading [intBufferSize] bytes from file
+                        byte[] bytBuffers =
+                            new System.Byte[intBufferSize];
+
+                        // Read the data and put it in the buffer.
+                        int intTheBytesThatReallyHasBeenReadFromTheStream =
+                            oStream.Read(buffer: bytBuffers, offset: 0, count: intBufferSize);
+
+                        // Write the data from buffer to the current output stream.
+                        Response.OutputStream.Write
+                            (buffer: bytBuffers, offset: 0,
+                            count: intTheBytesThatReallyHasBeenReadFromTheStream);
+
+                        // Flush (Send) the data to output
+                        // (Don't buffer in server's RAM!)
+                        Response.Flush();
+
+                        lngDataToRead =
+                            lngDataToRead - intTheBytesThatReallyHasBeenReadFromTheStream;
+                    }
+                    else
+                    {
+                        // Prevent infinite loop if user disconnected!
+                        lngDataToRead = -1;
+                    }
+                }
+            }
+            catch { }
+            finally
+            {
+                if (oStream != null)
+                {
+                    //Close the file.
+                    oStream.Close();
+                    oStream.Dispose();
+                    oStream = null;
+                }
+                Response.Close();
+            }
         }
     }
 }

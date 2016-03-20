@@ -184,7 +184,7 @@ namespace Core.Transcoder.FFmpegWrapper
             {
                 InputFilePath = FilePath,
                 DisableAudio = false,
-                OutputOptions = String.Format("-ss {0} -t {1}", span.Hours.ToString("D2") + ":" + span.Minutes.ToString("D2") + ":" + span.Seconds.ToString("D2") + "." + span.Milliseconds.ToString("D3"), spanTo.Hours.ToString("D2") + ":" + spanTo.Minutes.ToString("D2") + ":" + spanTo.Seconds.ToString("D2") + "." + spanTo.Milliseconds.ToString("D3")),
+                OutputOptions = String.Format("-ss {0} -t {1} -acodec copy -vcodec copy ", span.Hours.ToString("D2") + ":" + span.Minutes.ToString("D2") + ":" + span.Seconds.ToString("D2") + "." + span.Milliseconds.ToString("D3"), spanTo.Hours.ToString("D2") + ":" + spanTo.Minutes.ToString("D2") + ":" + spanTo.Seconds.ToString("D2") + "." + spanTo.Milliseconds.ToString("D3")),
                 Size = dimensions,
                 OutputFilePath = tempFile,
             };

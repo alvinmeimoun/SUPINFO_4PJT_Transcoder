@@ -35,7 +35,7 @@ namespace Core.Transcoder.Service.Enums
     }
     public class StringManager
     {
-        public const string DEMANDE_CONVERSION = "Demande";
+        public const string PAIEMENT_ACCEPTE = "Demande";
         public const string CONVERSION_TERMINEE = "ConversionTerminee";
     }
 }

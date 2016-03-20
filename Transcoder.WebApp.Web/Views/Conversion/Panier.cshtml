@@ -21,12 +21,17 @@
     <div id="price">     
         @Html.HiddenFor(m => m.GlobalPrice)
         @Html.HiddenFor(m => m.TransactionId)
+        @Html.HiddenFor(m => m.UserId)
         @Html.HiddenFor(m => m.PaypalTransactionId)
+        
         <h4>Montant total de votre commande :<span style="float:right; color:green">@Html.DisplayFor(m => m.GlobalPrice) €</span></h4>
     </div>
+    @if (Model.ListOfConversions.Count > 0)
+    {
     <div id="validerPanier"  style="text-align:right; margin-top:50px;" >
         <button type="submit" class="btn btn-success"id="btnValiderPanier"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Valider mon panier</button>
     </div>
+    }
 </div>
 }
 @section Scripts

@@ -63,8 +63,10 @@
                     {
                         @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
                         @Html.DisplayFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
-                    }else
-                    { 
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
                        @Html.Raw("Ajouté au panier")
                     }
                 </td>
@@ -79,7 +81,7 @@
                     }
                     else if(Model.ToList()[i].STATUS == "Effectue")
                     {
-                        @Html.ActionLink("Télécharger", "Telecharger", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-primary disabled" })
+                        @Html.ActionLink("Télécharger", "Telecharger", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-warning" })
                     }
                 </td>
             </tr>

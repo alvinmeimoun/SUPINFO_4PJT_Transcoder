@@ -156,7 +156,7 @@ namespace Core.Transcoder.Service
             PanierViewModel panier = new PanierViewModel();
             panier.ListOfConversions = GetListTaskViewModelByUserId(userId).Where( x=> x.IS_PAID == false).ToList();
             panier.GlobalPrice = panier.ListOfConversions.Sum(x => x.PRICE);
-
+            panier.UserId = userId;
             if (panier.ListOfConversions != null && panier.ListOfConversions.Any())
             {
                 panier.TransactionId = panier.ListOfConversions.First().TransactionId;
@@ -178,7 +178,7 @@ namespace Core.Transcoder.Service
 
         public List<TASK> GetListOfTaskByUserId(int userId)
         {
-            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
+            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId && x.FK_ID_PARENT_TASK == null, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
         }
 
         public List<ListTaskViewModel> GetListTaskViewModelByUserId(int userId)
@@ -200,7 +200,7 @@ namespace Core.Transcoder.Service
                              TransactionId = task.FK_ID_TRANSACTION ?? 0,
                              PaypalTransactionId = task.TRANSACTION.PAYPAL_TRANSACTION_ID.ToString(),
                              DURATION = (double)task.DURATION,
-                             IS_PAID = task.IS_PAID == null ? false : (bool)task.IS_PAID
+                             IS_PAID = task.IS_PAID
                          });
 
             var listOfTasks = query.ToList();

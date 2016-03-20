@@ -14,6 +14,8 @@ namespace Core.Transcoder.DataAccess.ViewModels
         public int TransactionId { get; set; }
         public string PaypalTransactionId { get; set; }
 
+        public int UserId { get; set; }
+
         public PanierViewModel()
         {
 
