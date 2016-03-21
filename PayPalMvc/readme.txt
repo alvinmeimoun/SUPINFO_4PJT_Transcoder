@@ -1,0 +1,1 @@
+﻿Ceci est une bibliothèque externe qui n'est pas disponible via NuGet

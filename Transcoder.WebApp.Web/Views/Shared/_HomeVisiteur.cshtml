@@ -1,107 +1,30 @@
 ﻿@Scripts.Render("~/Scripts/jquery.AshAlom.gaugeMeter-2.0.0.min.js")
 @model Core.Transcoder.DataAccess.ViewModels.HomeViewModel
 
-<style type="text/css">
-    #content_banner {
-        background: url(@Url.Content("~/Content/Images/home_main_bg.jpg"));
-        background-position: bottom;
-    }
 
-    #transcoder_title {
-        text-align: center;
-        margin-top: 75px;
-        font-size: 40px;
-        font-weight: bold;
-        color: white;
-    }
-
-    #transcoder_summary {
-        text-align: center;
-        horiz-align: center;
-        margin-top: 50px;
-        font-size: 25px;
-        font-weight: normal;
-        color: white;
-        margin-left: 5px;
-        margin-right: 5px;
-        margin-bottom: 35px;
-    }
-
-    #bt_get_started {
-        padding: 10px;
-        border: white solid 1px;
-        border-radius: 20px;
-        background-color: transparent;
-        margin-bottom: 30px;
-        color: white;
-    }
-
-    .gauge-meter-home-1 {
-      position: Relative;
-      text-align: Center;
-      overflow: Hidden;
-      cursor: Default;
-      display: inline-block;
-    }
-
-    .gauge-meter-home-1 SPAN, .gauge-meter-home-1 B {
-      width: 54%;
-      position: Absolute;
-      text-align: Center;
-      display: Inline-Block;
-      color: RGBa(255,255,255,.8);
-      font-weight: 100;
-      font-family: "Open Sans", Arial;
-      overflow: Hidden;
-      white-space: NoWrap;
-      text-overflow: Ellipsis;
-      margin: 0 23%;
-    }
-
-    .gauge-meter-home-1[data-style="Semi"] B {
-      width: 80%;
-      margin: 0 10%;
-    }
-
-    .gauge-meter-home-1 S, .gauge-meter-home-1 U {
-      text-decoration: None;
-      font-size: .60em;
-      font-weight: 200;
-      opacity: .6;
-    }
-
-    .gauge-meter-home-1 B {
-      color: #FFF;
-      font-weight: 200;
-      opacity: .8;
-    }
-
-</style>
-
-<div id="content_banner" role="main" tabindex="-1">
+<div id="content_banner" role="main" tabindex="-1" style="height:460px;">
     <div class="container">
         <div class="row">
-            <p id="transcoder_title">Transcoder</p>
+            <h2 id="transcoder_title">Transcoder</h2>
         </div>
         <div class="row">
-            <p id="transcoder_summary">Converting your media has never been so easy</p>
+            <p class="transcoder_summary_white">Convertir vos médias n'a jamais été aussi facile</p>
         </div>
-        <div class="row" style="margin-top: 35px;">
-            <form action="/Account/Register">
-                <input id="bt_get_started" class="center-block" type="submit" value="Get Started">
-            </form>
+        <div class="row" style="text-align:left">
+            @Html.ActionLink("C'est parti !", "Register","Account",null, new { @id="bt_get_started" , @class="btn btn-primary"})
         </div>
     </div>
 </div>
 
-<div class="content_summary_1 row row-centered" style="margin-right: 0px;">
+<div class="content_summary_teal row row-centered" style="margin-right: 0px; height:250px; padding-top:25px;">
+
     <div class="col-md-4 col-sm-4 col-xs-12 col-centered">
         <div class="item">
             <div class="content center">
                 <div id="gauge_users" class="gauge-meter-home-1"
                      data-percent="33"
-                     data-theme="White"
-                     data-size="150"
+                     data-theme="Red-Gold-Green"
+                     data-size="200"
                      data-text="@(Model.UsersCount)"
                      data-label_color="White"
                      data-label="Utilisateurs">
@@ -114,8 +37,8 @@
             <div class="content center">
                 <div id="gauge_formats" class="gauge-meter-home-1"
                      data-percent="66"
-                     data-theme="White"
-                     data-size="150"
+                     data-theme="Red-Gold-Green"
+                     data-size="200"
                      data-text="@(Model.UsersCount)"
                      data-label_color="White"
                      data-label="Formats">
@@ -128,9 +51,9 @@
             <div class="content center">
                 <div id="gauge_conversions" class="gauge-meter-home-1"
                      data-text="@(Model.TaskCount)"
-                     data-theme="White"
+                     data-theme="Red-Gold-Green"
                      data-label_color="White"
-                     data-size="150"
+                     data-size="200"
                      data-percent="100"
                      data-label="Conversions">
                 </div>
@@ -138,6 +61,39 @@
         </div>
     </div>
 </div>
+
+<div class="content_summary_white row row-centered" style="margin-right: 0px; padding-bottom: 30px; height:550px;">
+   
+    <div>
+        <!--  <div class="row ">-->
+        <div class="container">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-centered">
+                <table style="margin-left: 20%;margin-top: 8%; ">
+                    <tr><td><a href="/Account/Register"><img style="max-height: 120px; margin: 5px; margin-top: 30px; margin-bottom: 30px;" src="~/Content/Images/fb-logo_icon.jpg" /></a></td></tr>
+                    <tr><td></td></tr>
+                    <tr ><td style="padding-top: 60%;"><a href="/Account/Register"><img style="max-height: 120px; margin: 5px; margin-top: 30px; margin-bottom: 30px;" src="~/Content/Images/google_logo.png" /></a></td></tr>
+                </table>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 col-centered">
+                <h2 id="transcoder_title">Restez connecté</h2>
+                <p class="transcoder_summary_black" style="font-size:20px; text-align:left">Connectez-vous grâce à vos comptes Google ou Facebook, et accédez depuis n'importe quel périphérique à vos conversions. </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content_summary_blue row row-centered" style="margin-right: 0px;">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-centered text-center">
+        <div class="row row-centered text-center">
+            <p id="transcoder_title" style="margin-bottom: 10px; margin-top: 10px; color:white;text-align:center;">Communauté</p>
+        </div>
+        <div class="row row-centered text-center">
+            <a href="https://github.com/alvinmeimoun" target="_blank"><img style="max-height: 80px; margin: 5px; margin-top: 30px; margin-bottom: 30px;" src="~/Content/Images/btn-github.png"  /></a>
+        </div>
+    </div>
+</div>
+
 <script>
     $("#gauge_users").gaugeMeter();
     $("#gauge_formats").gaugeMeter();

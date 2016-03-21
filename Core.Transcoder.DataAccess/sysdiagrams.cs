@@ -12,18 +12,12 @@ namespace Core.Transcoder.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class MODE_PAIEMENT
+    public partial class sysdiagrams
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MODE_PAIEMENT()
-        {
-            this.TRANSACTION = new HashSet<TRANSACTION>();
-        }
-    
-        public int PK_ID_MODE_PAIEMENT { get; set; }
-        public string NOM_MODE_PAIEMENT { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TRANSACTION> TRANSACTION { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

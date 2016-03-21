@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -65,6 +66,7 @@
     <Compile Include="Services\PARAM_LENGTH_Service.cs" />
     <Compile Include="Services\PARAM_SPLIT_Service.cs" />
     <Compile Include="Services\PARAM_TASK_STATUS_Service.cs" />
+    <Compile Include="Services\PaypalService.cs" />
     <Compile Include="Services\StatsService.cs" />
     <Compile Include="Services\TASK_Service.cs" />
     <Compile Include="Services\TRACE_Service.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Utils\ConverterUtil.cs" />
     <Compile Include="Utils\CookieUtil.cs" />
     <Compile Include="Utils\EncryptionUtil.cs" />
+    <Compile Include="Utils\MailUtil.cs" />
     <Compile Include="Utils\PriceGeneratorUtil.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +90,10 @@
     <ProjectReference Include="..\Core.Transcoder.Repository\Core.Transcoder.Repository.csproj">
       <Project>{fe577079-5f3e-4913-94d8-f7198416289b}</Project>
       <Name>Core.Transcoder.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayPalMvc\Core.Transcoder.PayPalMvc.csproj">
+      <Project>{9c870b1f-9794-4738-9ba3-1ed045c62636}</Project>
+      <Name>Core.Transcoder.PayPalMvc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -42,6 +42,9 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Display(Name = "Statut de la conversion")]
         public string STATUS { get; set; }
 
+        public string PaypalTransactionId { get; set; }
+
+        public int TransactionId { get; set; }
 
         public ListTaskViewModel()
         {

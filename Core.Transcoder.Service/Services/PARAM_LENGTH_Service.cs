@@ -13,7 +13,7 @@ namespace Core.Transcoder.Service
     {
         public List<PARAM_LENGTH> GetAll()
         {
-            return UoW.PARAM_LENGTH_Repository.Get(null, x => x.OrderByDescending(q => q.PK_ID_PARAM_LENGTH), "").ToList();
+            return UoW.PARAM_LENGTH_Repository.Get(null, x => x.OrderBy(q => q.PK_ID_PARAM_LENGTH), "").ToList();
         }
         
     }

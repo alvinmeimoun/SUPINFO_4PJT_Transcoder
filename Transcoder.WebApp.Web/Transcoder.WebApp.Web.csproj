@@ -85,6 +85,10 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PayPal, Version=1.7.3.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.7.3\lib\net451\PayPal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -137,6 +141,10 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Vereyon.Web.FlashMessage, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vereyon.Web.FlashMessage.1.0.1\lib\net40\Vereyon.Web.FlashMessage.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -207,12 +215,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-table.css" />
+    <Content Include="Content\bootstrap-table.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\circle.css" />
     <Content Include="Content\Images\arrow.png" />
+    <Content Include="Content\Images\btn-github.png" />
     <Content Include="Content\Images\choose.png" />
     <Content Include="Content\Images\download-2.png" />
     <Content Include="Content\Images\download.png" />
@@ -222,6 +233,7 @@
     <Content Include="Content\Images\loader.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Images\medias.jpg" />
     <Content Include="Content\Images\validate.ico" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -294,6 +306,7 @@
     <Content Include="Views\Shared\_HomeVisiteur.cshtml" />
     <Content Include="Views\Shared\_HomeAuth.cshtml" />
     <Content Include="Views\Conversion\_ListConversions.cshtml" />
+    <Content Include="Views\Conversion\ListCommandes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,6 +331,10 @@
     <ProjectReference Include="..\Core.Transcoder.Service\Core.Transcoder.Service.csproj">
       <Project>{25b43747-b65c-46bb-8ebf-0b12546480c9}</Project>
       <Name>Core.Transcoder.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayPalMvc\Core.Transcoder.PayPalMvc.csproj">
+      <Project>{9c870b1f-9794-4738-9ba3-1ed045c62636}</Project>
+      <Name>Core.Transcoder.PayPalMvc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -184,7 +184,7 @@ namespace Core.Transcoder.FFmpegWrapper
             {
                 InputFilePath = FilePath,
                 DisableAudio = false,
-                OutputOptions = String.Format("-ss {0} -t {1}", span.Hours.ToString("D2") + ":" + span.Minutes.ToString("D2") + ":" + span.Seconds.ToString("D2") + "." + span.Milliseconds.ToString("D3"), spanTo.Hours.ToString("D2") + ":" + spanTo.Minutes.ToString("D2") + ":" + spanTo.Seconds.ToString("D2") + "." + spanTo.Milliseconds.ToString("D3")),
+                OutputOptions = String.Format("-ss {0} -t {1} -acodec copy -vcodec copy ", span.Hours.ToString("D2") + ":" + span.Minutes.ToString("D2") + ":" + span.Seconds.ToString("D2") + "." + span.Milliseconds.ToString("D3"), spanTo.Hours.ToString("D2") + ":" + spanTo.Minutes.ToString("D2") + ":" + spanTo.Seconds.ToString("D2") + "." + spanTo.Milliseconds.ToString("D3")),
                 Size = dimensions,
                 OutputFilePath = tempFile,
             };
@@ -224,6 +224,57 @@ namespace Core.Transcoder.FFmpegWrapper
             string output = FFMpegService.Execute(parameters);
 
             return outputFilePath;
+        }
+        public static string FormatString(string filePath)
+        {
+            string firstIndexPath = filePath.Substring(0, filePath.IndexOf(@"\") + 1);
+            string lastIndexPath = filePath.Substring(filePath.IndexOf(@"\") + 1);
+            string OutputFinal = firstIndexPath + '\\' + lastIndexPath;
+
+            return OutputFinal;
+        }
+        public static string MergeVideoWithSplits(List<string> listVideoSegments, string outputFilePath)
+        {
+            try
+            {
+
+                string OutputFinal = FormatString(outputFilePath);
+
+                string Instruction = "-f concat -i ";
+                int indexFilePath = listVideoSegments[0].LastIndexOf(@"\") + 1;
+                string filePath = listVideoSegments[0].Substring(0, indexFilePath);
+                string fileName = "file_ " + Guid.NewGuid() + ".txt";
+                string fileFullPath = FormatString(filePath + fileName);
+
+                List<string> lines = new List<string>();
+                foreach (string line in listVideoSegments)
+                {
+                    lines.Add(@"file " + FormatString(line).Replace("\\", "\\\\"));
+                }
+
+                if (!File.Exists(fileFullPath))
+                {
+                    File.Create(fileFullPath).Close();
+                    File.WriteAllLines(fileFullPath, lines);
+                }
+
+                Instruction = Instruction + '"' + fileFullPath + '"' + " -c copy ";
+
+                FFMPEGParameters parameters = new FFMPEGParameters()
+                {
+                    DisableAudio = false,
+                    OutputOptions = Instruction,
+                    OutputFilePath = OutputFinal
+                };
+
+                string output = FFMpegService.Execute(parameters);
+
+                return outputFilePath;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
 
         public string MergeAudioSegment(string audioFile, VideoFormat type)

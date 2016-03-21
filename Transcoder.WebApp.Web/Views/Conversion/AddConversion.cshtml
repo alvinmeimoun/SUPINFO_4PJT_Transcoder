@@ -2,7 +2,7 @@
 @*@{
         ViewBag.Title = "AddConversion";
     }*@
-<div class="header content_summary_1" style="height:150px; margin-bottom:50px; color:white; text-align:left;">
+<div class="header content_summary_green" style="height:150px; margin-bottom:50px; color:white; text-align:left;">
     <div class="container">
         <h2 class="title" style="color:white;">Commander une conversion</h2>
     </div>
@@ -17,6 +17,7 @@
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     @Html.HiddenFor(m => m.FK_ID_USER)
+    @Html.HiddenFor(m => m.TransactionId)
     <div class="row">
         <div class="col-md-3">
             <div class="heading">
@@ -163,6 +164,16 @@
                 contentType: false,
                 processData: false,
                 beforeSend: function () {
+                
+                    $("#separator-1").css("display","none");
+                    $("#ddlFormatTypes").css("display", "none");
+                    $("#FormatConversion").css("display", "none");
+                    $("#separator-2").css("display", "none");
+
+                    $("#finalPart").css("display", "none");
+                    $("#priceAnnounced").css("display", "block");
+                    $("#userInformations").css("display", "none");
+                   
                     setProgressBarValue("20%");
                 },
                 success: function (data) {
@@ -253,9 +264,11 @@
         $("#ddlFormats").change(function () {
             if ($(this).val() != "0") {
                 $("#price").html($("#filePrice").val() + ' €');
+                $("#separator-2").css("display", "none");
+                $("#finalPart").css("display", "none");
                 $("#separator-2").show();
                 $("#finalPart").show("slow");
-                
+                ShowSaveButton();
             }
         });
 
@@ -265,6 +278,7 @@
             ShowSaveButton();
 
         });
+
         function ShowSaveButton() {
             if ($('#FileToUpload').val() != "" && $("#ddlFormatTypes").val() != "undefined" && $("#ddlFormats").val() != "undefined") {
                 if ($('#FileToUpload').val() != "" && $("#ddlFormatTypes").val() != "0" && $("#ddlFormats").val() != "0") {
@@ -279,6 +293,7 @@
                 $("#btnSection").hide("fast");
             }
         }
+
         function RefreshJQueryValidator(divId) {
             var div = $(divId);
             div.removeData("validator");

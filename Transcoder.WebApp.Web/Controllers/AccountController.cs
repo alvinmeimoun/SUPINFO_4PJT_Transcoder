@@ -16,6 +16,7 @@ using Core.Transcoder.Service.Utils;
 using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.DataAccess;
 using Core.Transcoder.DataAccess.ViewModels.User;
+using Vereyon.Web;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -72,6 +73,7 @@ namespace Transcoder.WebApp.Web.Controllers
             if(user != null)
             {
                 SetCurrentUser(user.USERNAME, user.PK_ID_USER);
+                FlashMessage.Confirmation("You have been logged in as: {0}", user.USERNAME);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -235,7 +237,6 @@ namespace Transcoder.WebApp.Web.Controllers
             return View();
         }
 
-     
 
         #region Applications auxiliaires
         // Utilisé(e) pour la protection XSRF lors de l'ajout de connexions externes

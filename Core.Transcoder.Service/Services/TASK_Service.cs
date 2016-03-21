@@ -5,6 +5,7 @@ using Core.Transcoder.Service.Enums;
 using Core.Transcoder.Service.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,11 +36,22 @@ namespace Core.Transcoder.Service
         {
             try
             {
-                UoW.TASK_Repository.Delete(id);
+                var task = UoW.TASK_Repository.GetByID(id);
+                var taskAmount = task.PRICE ?? 0;
+                
+
+                var transaction = task.TRANSACTION;
+                transaction.PRICE -= taskAmount;
+                
+                UoW.TASK_Repository.Delete(task);
+                UoW.TRANSACTION_Repository.Update(transaction);
+
+                UoW.Save();
                 return true;
             }
             catch (Exception e)
             {
+                Debug.WriteLine(e.StackTrace);
                 return false;
             }
         }
@@ -53,9 +65,12 @@ namespace Core.Transcoder.Service
         public List<TASK> GetListOfTaskByStatusToDoOrToMerge()
         {
 
-            List<TASK> listTasks = UoW.TASK_Repository.Get(x => x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE 
-            || x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER, 
-            q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
+            List<TASK> listTasks = UoW.TASK_Repository
+                .Get(x => x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE || 
+                x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER, 
+                q => q.OrderBy(s => s.PK_ID_TASK), "")
+                .Where(x => x.IS_PAID == true).ToList();
+
             return listTasks;
         }
 
@@ -79,7 +94,33 @@ namespace Core.Transcoder.Service
             var user = UoW.USER_Repository.GetByID(userId);
             var shortEditUserViewModel = new ShortEditUserViewModel(user);
 
-            return new CreateTaskViewModel(userId,listFormatTypes,listFormat, shortEditUserViewModel);
+            var userTasks = GetListOfTaskByUserId(userId).Where(x => x.IS_PAID == false);
+            TRANSACTION transaction;
+            if (userTasks.Any())
+            {
+                transaction = userTasks.First().TRANSACTION;
+            }
+            else
+            {
+                transaction = new TRANSACTION
+                {
+                    DATE_TRANSACTION = DateTime.Now,
+                    FK_ID_USER = userId,
+                    PAYPAL_TRANSACTION_ID = DateTime.Now.Ticks,
+                    PRICE = 0
+                };
+                UoW.TRANSACTION_Repository.Insert(transaction);
+                UoW.Save();
+            }
+
+            return new CreateTaskViewModel
+            {
+                FK_ID_USER = userId,
+                ListAvailableFormatTypes = listFormatTypes,
+                ListAvailableFormats = listFormat,
+                ShortEditUserViewModel = shortEditUserViewModel,
+                TransactionId = transaction.PK_ID_TRANSACTION
+            };
         }
 
        
@@ -93,9 +134,18 @@ namespace Core.Transcoder.Service
 
             bool userEdited = new USER_Service().AddOrUpdateUser(user);
             // on créé la tache
+
             var task = new TASK();
             task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE;
+            task.FK_ID_TRANSACTION = model.TransactionId;
+            task.IS_PAID = false;
+
             task.CreateFromModel(model);
+            
+            //Mise à jour du montant de la transaction
+            var transaction = UoW.TRANSACTION_Repository.GetByID(model.TransactionId);
+            transaction.PRICE += task.PRICE ?? 0;
+            UoW.TRANSACTION_Repository.Update(transaction);
 
 
             return AddOrUpdateTask(task);
@@ -106,14 +156,29 @@ namespace Core.Transcoder.Service
             PanierViewModel panier = new PanierViewModel();
             panier.ListOfConversions = GetListTaskViewModelByUserId(userId).Where( x=> x.IS_PAID == false).ToList();
             panier.GlobalPrice = panier.ListOfConversions.Sum(x => x.PRICE);
+            panier.UserId = userId;
+            if (panier.ListOfConversions != null && panier.ListOfConversions.Any())
+            {
+                panier.TransactionId = panier.ListOfConversions.First().TransactionId;
+                panier.PaypalTransactionId = panier.ListOfConversions.First().PaypalTransactionId;
+            }
 
             return panier;
 
         }
 
+        public ListCommandesViewModel GetListCommandesViewModel(int userId)
+        {
+            ListCommandesViewModel viewModel = new ListCommandesViewModel();
+            viewModel.ListOfConversions = GetListTaskViewModelByUserId(userId).Where(x => x.IS_PAID == true).ToList();
+
+            return viewModel;
+        }
+
+
         public List<TASK> GetListOfTaskByUserId(int userId)
         {
-            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
+            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId && x.FK_ID_PARENT_TASK == null, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
         }
 
         public List<ListTaskViewModel> GetListTaskViewModelByUserId(int userId)
@@ -132,15 +197,27 @@ namespace Core.Transcoder.Service
                              LENGTH = (double)task.LENGTH,
                              STATUS = status.LIBELLE,
                              PRICE = (double)task.PRICE,
+                             TransactionId = task.FK_ID_TRANSACTION ?? 0,
+                             PaypalTransactionId = task.TRANSACTION.PAYPAL_TRANSACTION_ID.ToString(),
                              DURATION = (double)task.DURATION,
-                             IS_PAID = task.IS_PAID == null ? false : (bool)task.IS_PAID
+                             IS_PAID = task.IS_PAID
                          });
 
             var listOfTasks = query.ToList();
 
             return listOfTasks;
-
         }
 
+        public void SetAllTasksPaidForTransaction(int transactionId)
+        {
+            var tasks = UoW.TASK_Repository.Get(t => t.FK_ID_TRANSACTION == transactionId);
+            foreach (var task in tasks)
+            {
+                task.IS_PAID = true;
+                UoW.TASK_Repository.Update(task);
+            }
+
+            UoW.Save();
+        }
     }
 }

@@ -1,0 +1,25 @@
+﻿@model Core.Transcoder.DataAccess.ViewModels.ListCommandesViewModel
+
+@{
+    ViewBag.Title = "Mes conversions";
+}
+
+<div class="header content_summary_green" style="height:150px; color:white; text-align:left;">
+    <div class="container">
+        <h2 class="title" style="color:white;">Mes conversions</h2>
+    </div>
+</div>
+
+    <div class="container">
+        <div id="conversions">
+            @{ Html.RenderPartial("_ListConversions", Model.ListOfConversions); }
+        </div>
+    </div>
+
+@section Scripts
+{
+    <script>
+
+
+    </script>
+}

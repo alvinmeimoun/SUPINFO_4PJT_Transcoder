@@ -1,28 +1,37 @@
 ﻿@model Core.Transcoder.DataAccess.ViewModels.PanierViewModel
 
 @{
-    ViewBag.Title = "Ma commande";
+    ViewBag.Title = "Mon panier";
 }
+
+<div class="header content_summary_green" style="height:150px; color:white; text-align:left;">
+    <div class="container">
+        <h2 class="title" style="color:white;">Mon panier</h2>
+    </div>
+</div>
 @using (Html.BeginForm("ValiderPanier", "Conversion", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 <div class="container">
-    <div class="header" style="height:100px;">
-        <h2 class="title">Ma commande</h2>
-    </div>
     <div id="conversions">
         @{ Html.RenderPartial("_ListConversions", Model.ListOfConversions); }
     </div>
     <hr />
     <div id="price">     
+        @Html.HiddenFor(m => m.GlobalPrice)
+        @Html.HiddenFor(m => m.TransactionId)
+        @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.PaypalTransactionId)
+        
         <h4>Montant total de votre commande :<span style="float:right; color:green">@Html.DisplayFor(m => m.GlobalPrice) €</span></h4>
-
     </div>
+    @if (Model.ListOfConversions.Count > 0)
+    {
     <div id="validerPanier"  style="text-align:right; margin-top:50px;" >
         <button type="submit" class="btn btn-success"id="btnValiderPanier"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Valider mon panier</button>
     </div>
+    }
 </div>
 }
 @section Scripts
