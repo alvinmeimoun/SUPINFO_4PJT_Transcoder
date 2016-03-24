@@ -16,6 +16,7 @@ using Core.Transcoder.Service.Utils;
 using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.DataAccess;
 using Core.Transcoder.DataAccess.ViewModels.User;
+using Core.Transcoder.Utils.Resources;
 using Vereyon.Web;
 
 namespace Transcoder.WebApp.Web.Controllers
@@ -73,12 +74,12 @@ namespace Transcoder.WebApp.Web.Controllers
             if(user != null)
             {
                 SetCurrentUser(user.USERNAME, user.PK_ID_USER);
-                FlashMessage.Confirmation("You have been logged in as: {0}", user.USERNAME);
+                FlashMessage.Confirmation(UiStrings.login_message_disconnected);
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                ModelState.AddModelError("", "Tentative de connexion non valide.");
+                ModelState.AddModelError("", UiStrings.login_error_invalid_connexion);
                 return View(model);
             }
         }
@@ -119,7 +120,7 @@ namespace Transcoder.WebApp.Web.Controllers
                      userService.FindByEmail(model.Email) != null;
                 if(userAlreadyExist)
                 {
-                    ModelState.AddModelError("", "Le pseudo ou l'email existe déjà, veuillez en choisir un autre.");
+                    ModelState.AddModelError("", UiStrings.register_error_user_already_exists);
                     return View(model);
                 }
                    
@@ -187,7 +188,7 @@ namespace Transcoder.WebApp.Web.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "Une erreur est survenue lors de l'authentification");
+            ModelState.AddModelError("", UiStrings.login_error_auth);
             return View("Login", new LoginViewModel());
         }
 

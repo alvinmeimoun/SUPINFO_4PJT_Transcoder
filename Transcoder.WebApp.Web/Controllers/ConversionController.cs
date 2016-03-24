@@ -92,7 +92,7 @@ namespace Transcoder.WebApp.Web.Controllers
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             if (!ModelState.IsValid)
-                return View(model);
+                return View("Panier", model);
 
             Session["Panier"] = model;
 
@@ -212,7 +212,6 @@ namespace Transcoder.WebApp.Web.Controllers
 
         public ActionResult OrderPaidConfirm()
         {
-            Debug.WriteLine("Post Payment Result: Success");
             PanierViewModel cart = (PanierViewModel)Session["Panier"];
             ViewBag.TrackingReference = cart.TransactionId;
             ViewBag.Description = "Transcoder";

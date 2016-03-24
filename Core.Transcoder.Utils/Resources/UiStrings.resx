@@ -219,11 +219,20 @@
   <data name="login_button_valid" xml:space="preserve">
     <value>Connexion</value>
   </data>
+  <data name="login_error_auth" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'authentification</value>
+  </data>
+  <data name="login_error_invalid_connexion" xml:space="preserve">
+    <value>Tentative de connexion non valide</value>
+  </data>
   <data name="login_form_password" xml:space="preserve">
     <value>Mot de passe</value>
   </data>
   <data name="login_form_username" xml:space="preserve">
     <value>Nom d'utilisateur</value>
+  </data>
+  <data name="login_message_disconnected" xml:space="preserve">
+    <value>Vous avez été déconnecté</value>
   </data>
   <data name="login_page_title" xml:space="preserve">
     <value>Connexion</value>
@@ -263,6 +272,9 @@
   </data>
   <data name="register_button_valid" xml:space="preserve">
     <value>S'inscrire</value>
+  </data>
+  <data name="register_error_user_already_exists" xml:space="preserve">
+    <value>Le pseudo ou l'email existe déjà, veuillez en choisir un autre.</value>
   </data>
   <data name="register_form_email" xml:space="preserve">
     <value>Email</value>

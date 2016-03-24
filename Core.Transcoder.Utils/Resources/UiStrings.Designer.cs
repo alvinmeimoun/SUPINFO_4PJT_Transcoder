@@ -367,6 +367,24 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Une erreur est survenue lors de l&apos;authentification.
+        /// </summary>
+        public static string login_error_auth {
+            get {
+                return ResourceManager.GetString("login_error_auth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tentative de connexion non valide.
+        /// </summary>
+        public static string login_error_invalid_connexion {
+            get {
+                return ResourceManager.GetString("login_error_invalid_connexion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Mot de passe.
         /// </summary>
         public static string login_form_password {
@@ -381,6 +399,15 @@ namespace Core.Transcoder.Utils.Resources {
         public static string login_form_username {
             get {
                 return ResourceManager.GetString("login_form_username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vous avez été déconnecté.
+        /// </summary>
+        public static string login_message_disconnected {
+            get {
+                return ResourceManager.GetString("login_message_disconnected", resourceCulture);
             }
         }
         
@@ -498,6 +525,15 @@ namespace Core.Transcoder.Utils.Resources {
         public static string register_button_valid {
             get {
                 return ResourceManager.GetString("register_button_valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le pseudo ou l&apos;email existe déjà, veuillez en choisir un autre..
+        /// </summary>
+        public static string register_error_user_already_exists {
+            get {
+                return ResourceManager.GetString("register_error_user_already_exists", resourceCulture);
             }
         }
         
