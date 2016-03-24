@@ -14,7 +14,7 @@ namespace Transcoder.WebApp.Web.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Edit");
         }
 
         public ActionResult Edit()

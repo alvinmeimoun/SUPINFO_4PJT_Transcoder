@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transcoder.WebApp.Web.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Transcoder.PayPalMvc", "PayPalMvc\Core.Transcoder.PayPalMvc.csproj", "{9C870B1F-9794-4738-9BA3-1ED045C62636}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Transcoder.Utils", "Core.Transcoder.Utils\Core.Transcoder.Utils.csproj", "{E451E928-9908-41B6-B899-6CCC3A6DEEDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{9C870B1F-9794-4738-9BA3-1ED045C62636}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C870B1F-9794-4738-9BA3-1ED045C62636}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C870B1F-9794-4738-9BA3-1ED045C62636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E451E928-9908-41B6-B899-6CCC3A6DEEDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E451E928-9908-41B6-B899-6CCC3A6DEEDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E451E928-9908-41B6-B899-6CCC3A6DEEDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E451E928-9908-41B6-B899-6CCC3A6DEEDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

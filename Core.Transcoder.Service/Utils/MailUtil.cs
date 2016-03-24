@@ -86,11 +86,12 @@ namespace Core.Transcoder.Service.Utils
                 case Enums.StringManager.PAIEMENT_ACCEPTE:
                     {
                         message.Subject = "Votre commande n° " + panier.TransactionId;
+                        message.Body = "<style>table tr td { border: solid 1px gray;} thead tr { background: #CCC; }</style>";
                         message.Body = "<p>Bonjour " + user.FIRSTNAME + " " + user.LASTNAME + ",</p> <br/>";
                         message.Body += "Votre paiement pour la commande n° " + panier.TransactionId + " a été accepté et est en cours de traitement par nos services. <br/><br/>";
                         message.Body += "Vous recevrez un mail lorsque votre commande sera terminée et prête a être téléchargée. <br/><br/>";
                         message.Body += "<h3> Récapitulatif de votre commande </h3><hr/>";
-                        message.Body += "<table style='border: solid 1px gray;'>";
+                        message.Body += "<table>";
                         message.Body += "<thead>";
                         message.Body += "<tr><td><strong>Nom du fichier</strong></td><td><strong>Format de base</strong></td><td><strong>Format de conversion</strong></td><td><strong>Statut</strong></td><td><strong>Prix</strong></td><tr></thead>";
                         foreach (var item in panier.ListOfConversions)

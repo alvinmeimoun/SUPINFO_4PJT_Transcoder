@@ -253,7 +253,9 @@ namespace Core.Transcoder.WindowsService
 
         public static bool VerifyTaskLengthAndSplitTask(TASK Task)
         {
-           
+            // Si c'est une sous tache on ne split pas 
+            if (Task.FK_ID_PARENT_TASK != null)
+                return false;
             //On récupère la taille maximum sans split
             var listParamLength = new PARAM_LENGTH_Service().GetAll().ToList();
             //int.TryParse(MaxLengthString, out MaxLength);
@@ -294,8 +296,10 @@ namespace Core.Transcoder.WindowsService
                 }
                 else
                 {
-                    long stopSpan = new TimeSpan(timeSpan.Ticks + (durationTotal - timeSpan.Ticks)).Ticks;
-                    paramSplit = new PARAM_SPLIT() { BEGIN_PARAM_SPLIT = timeSpan.Ticks.ToString(), END_PARAM_SPLIT = stopSpan.ToString() };
+                    long beginSpan = timeSpan.Ticks * (SplitsTotal - Splits);
+                    long stopSpan = (durationTotal / SplitsTotal) + beginSpan;
+                    
+                    paramSplit = new PARAM_SPLIT() { BEGIN_PARAM_SPLIT = beginSpan.ToString(), END_PARAM_SPLIT = stopSpan.ToString() };
                 }
 
                 new PARAM_SPLIT_Service().AddOrUpdateParamSplit(paramSplit);
