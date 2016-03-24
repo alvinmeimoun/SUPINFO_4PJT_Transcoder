@@ -1,12 +1,13 @@
-﻿@model Core.Transcoder.DataAccess.ViewModels.ListCommandesViewModel
+﻿@using Core.Transcoder.Utils.Resources
+@model Core.Transcoder.DataAccess.ViewModels.ListCommandesViewModel
 
 @{
-    ViewBag.Title = "Mes conversions";
+    ViewBag.Title = @UiStrings.listconversion_page_title;
 }
 
 <div class="header content_summary_green" style="height:150px; color:white; text-align:left;">
     <div class="container">
-        <h2 class="title" style="color:white;">Mes conversions</h2>
+        <h2 class="title" style="color:white;">@UiStrings.listconversion_page_title</h2>
     </div>
 </div>
 

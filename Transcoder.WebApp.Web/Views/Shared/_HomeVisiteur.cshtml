@@ -1,17 +1,18 @@
 ﻿@Scripts.Render("~/Scripts/jquery.AshAlom.gaugeMeter-2.0.0.min.js")
+@using Core.Transcoder.Utils.Resources
 @model Core.Transcoder.DataAccess.ViewModels.HomeViewModel
 
 
 <div id="content_banner" role="main" tabindex="-1" style="height:460px;">
     <div class="container">
         <div class="row">
-            <h2 id="transcoder_title">Transcoder</h2>
+            <h2 id="transcoder_title">@UiStrings.app_name</h2>
         </div>
         <div class="row">
-            <p class="transcoder_summary_white">Convertir vos médias n'a jamais été aussi facile</p>
+            <p class="transcoder_summary_white">@UiStrings.app_summary</p>
         </div>
         <div class="row" style="text-align:left">
-            @Html.ActionLink("C'est parti !", "Register","Account",null, new { @id="bt_get_started" , @class="btn btn-primary"})
+            @Html.ActionLink(@UiStrings.home_button_get_started, "Register","Account",null, new { @id="bt_get_started" , @class="btn btn-primary"})
         </div>
     </div>
 </div>
@@ -27,7 +28,7 @@
                      data-size="200"
                      data-text="@(Model.UsersCount)"
                      data-label_color="White"
-                     data-label="Utilisateurs">
+                     data-label="@UiStrings.home_gauge_users_datalabel">
                 </div>
             </div>
         </div>
@@ -41,7 +42,7 @@
                      data-size="200"
                      data-text="@(Model.UsersCount)"
                      data-label_color="White"
-                     data-label="Formats">
+                     data-label="@UiStrings.home_gauge_formats_datalabel">
                 </div>
             </div>
         </div>
@@ -55,7 +56,7 @@
                      data-label_color="White"
                      data-size="200"
                      data-percent="100"
-                     data-label="Conversions">
+                     data-label="@UiStrings.home_gauge_conversions_datalabel">
                 </div>
             </div>
         </div>
@@ -75,8 +76,8 @@
                 </table>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 col-centered">
-                <h2 id="transcoder_title">Restez connecté</h2>
-                <p class="transcoder_summary_black" style="font-size:20px; text-align:left">Connectez-vous grâce à vos comptes Google ou Facebook, et accédez depuis n'importe quel périphérique à vos conversions. </p>
+                <h2 id="transcoder_title">@UiStrings.home_guest_social_title</h2>
+                <p class="transcoder_summary_black" style="font-size:20px; text-align:left">@UiStrings.home_guest_social_text</p>
             </div>
         </div>
     </div>
@@ -86,7 +87,7 @@
 <div class="content_summary_blue row row-centered" style="margin-right: 0px;">
     <div class="col-md-12 col-sm-12 col-xs-12 col-centered text-center">
         <div class="row row-centered text-center">
-            <p id="transcoder_title" style="margin-bottom: 10px; margin-top: 10px; color:white;text-align:center;">Communauté</p>
+            <p id="transcoder_title" style="margin-bottom: 10px; margin-top: 10px; color:white;text-align:center;">@UiStrings.home_guest_community_title</p>
         </div>
         <div class="row row-centered text-center">
             <a href="https://github.com/alvinmeimoun" target="_blank"><img style="max-height: 80px; margin: 5px; margin-top: 30px; margin-bottom: 30px;" src="~/Content/Images/btn-github.png"  /></a>

@@ -1,4 +1,5 @@
-﻿@model Core.Transcoder.DataAccess.ViewModels.CreateTaskViewModel
+﻿@using Core.Transcoder.Utils.Resources
+@model Core.Transcoder.DataAccess.ViewModels.CreateTaskViewModel
 @*@{
         ViewBag.Title = "AddConversion";
     }*@
@@ -24,15 +25,15 @@
                 <div style="height:320px;">
                     <div class="head-1">
                         <img class="img-heading" src="~/Content/Images/download-2.png" />
-                        <h4 class="head-1-title" style="">Selectionner un fichier</h4>
+                        <h4 class="head-1-title" style="">@UiStrings.addconversion_select_file</h4>
                     </div>
 
                     <div class="contentWrap" style="text-align:center; padding:5px;">
                         <p id="fileName" style="font-weight:bold; color:#5cb85c;overflow: hidden;-o-text-overflow: ellipsis; text-overflow: ellipsis;"></p>
-                        <span class="text-danger" id="fileError" style="display:none;">L'élément téléchargé ne peut pas être converti, veuillez en choisir un autre.</span>
+                        <span class="text-danger" id="fileError" style="display:none;">@UiStrings.addconversion_error_source_file</span>
                         <div class="fileUpload btn btn-info">
 
-                            <span>Choisir votre fichier</span>
+                            <span>@UiStrings.addconversion_choice_file</span>
                             <input type="file" name="file" class="upload" id="FileToUpload" />
                         </div>
 
@@ -74,11 +75,11 @@
                 </div>
                 <div class="contentWrap">
                     <div class="form-group">
-                        @Html.DropDownListFor(m => m.FK_ID_FORMAT_TYPE, Model.slAvailableFormatsTypes, "Selectionner un type de conversion :", new { @id = "ddlFormatTypes", @class = "form-control", @style = "display:none; width:87%;" })
+                        @Html.DropDownListFor(m => m.FK_ID_FORMAT_TYPE, Model.slAvailableFormatsTypes, @UiStrings.addconversion_select_conversion_type, new { @id = "ddlFormatTypes", @class = "form-control", @style = "display:none; width:87%;" })
                         @Html.ValidationMessageFor(m => m.FK_ID_FORMAT_TYPE)
                     </div>
                     <div class="form-group">
-                        @Html.DropDownListFor(m => m.FK_ID_FORMAT_TO_CONVERT, Model.slAvailableFormats, "Selectionner un format :", new { @id = "ddlFormats", @class = "form-control", @style = "display:none;width:87%;" })
+                        @Html.DropDownListFor(m => m.FK_ID_FORMAT_TO_CONVERT, Model.slAvailableFormats, @UiStrings.addconversion_select_format, new { @id = "ddlFormats", @class = "form-control", @style = "display:none;width:87%;" })
                         @Html.ValidationMessageFor(m => m.FK_ID_FORMAT_TO_CONVERT)
                     </div>
                 </div>
@@ -101,13 +102,13 @@
                     <div style="height:320px;">
                         <div class="head-3">
                             <img class="img-heading" src="~/Content/Images/validate.ico" />
-                            <h4 class="head-1-title" style="">Valider votre commande</h4>
+                            <h4 class="head-1-title" style="">@UiStrings.addconversion_page_title_valid_command</h4>
                         </div>
                         <div class="contentWrap" style="text-align:center; margin-top:8%;">
                            
                             <div style="" id="priceAnnounced">
                                 <div class="form-group" style="color:green;">
-                                    @Html.LabelFor(m => m.PRICE)
+                                    @UiStrings.addconversion_form_price
                                 </div>
                                 <div class="clearfix container" style="width:56%">
                                     <div class="c100 p100 green">
@@ -118,7 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               <button type="button" id="btnCommander" class="btn btn-success">Commander Maintenant !</button>
+                                <button type="button" id="btnCommander" class="btn btn-success">@UiStrings.addconversion_button_order_now</button>
                             </div>
                             <div id="userInformations" style="display:none;">
                                 @Html.Partial("_ShortUserEdit", Model.ShortEditUserViewModel)
@@ -130,7 +131,7 @@
       
     </div>
     <p style="text-align:right; display:none;" id="btnSection">
-        <button type="submit"  id="AddConversion" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Ajouter la conversion</button>
+        <button type="submit"  id="AddConversion" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>@UiStrings.addconversion_button_add_conversion</button>
     </p>
 }
 </div>
@@ -189,7 +190,7 @@
                         $("#filePrice").val(data.filePrice);
                         $('#ddlFormatTypes').empty();
 
-                        $("#ddlFormatTypes").append('<option value="0">Type de conversion :</option>');
+                        $("#ddlFormatTypes").append('<option value="0">@UiStrings.addconversion_type_conversion</option>');
                         for (var x = 0; x < data.listFormatType.length; x++) {
                             $("#ddlFormatTypes").append('<option value="' + data.listFormatType[x].Value + '">' +
                                     data.listFormatType[x].Text + '</option>');
@@ -241,7 +242,7 @@
                     },
                     success: function (result) {
                         $('#ddlFormats').empty();
-                        $("#ddlFormats").append('<option value="0">Format de conversion :</option>');
+                        $("#ddlFormats").append('<option value="0">@UiStrings.addconversion_format_conversion</option>');
                         for (var x = 0; x < result.listFormats.length; x++) {
                             $("#ddlFormats").append('<option value="' + result.listFormats[x].Value + '">' +
                                     result.listFormats[x].Text + '</option>');
@@ -255,7 +256,7 @@
                     },
                     error: function (request, status, error) {
                         console.log(error);
-                        alert('Une erreur est survenue lors de l\'envoi');
+                        alert('@UiStrings.addconversion_error_sending');
                     }
                 });
 

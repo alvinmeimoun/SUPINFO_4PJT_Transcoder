@@ -229,14 +229,6 @@ namespace Transcoder.WebApp.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
-        {
-            return View();
-        }
-
 
         #region Applications auxiliaires
         // Utilisé(e) pour la protection XSRF lors de l'ajout de connexions externes

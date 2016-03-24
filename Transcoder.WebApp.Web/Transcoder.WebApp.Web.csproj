@@ -289,7 +289,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -331,6 +330,10 @@
     <ProjectReference Include="..\Core.Transcoder.Service\Core.Transcoder.Service.csproj">
       <Project>{25b43747-b65c-46bb-8ebf-0b12546480c9}</Project>
       <Name>Core.Transcoder.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Transcoder.Utils\Core.Transcoder.Utils.csproj">
+      <Project>{e451e928-9908-41b6-b899-6ccc3a6deeda}</Project>
+      <Name>Core.Transcoder.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\PayPalMvc\Core.Transcoder.PayPalMvc.csproj">
       <Project>{9c870b1f-9794-4738-9ba3-1ed045c62636}</Project>

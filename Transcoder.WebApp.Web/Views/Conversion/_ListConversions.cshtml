@@ -1,6 +1,8 @@
-﻿@model List<Core.Transcoder.DataAccess.ViewModels.ListTaskViewModel>
+﻿@using Core.Transcoder.Utils.Resources
+@using Microsoft.SqlServer.Server
+@model List<Core.Transcoder.DataAccess.ViewModels.ListTaskViewModel>
 <p>
-    @Html.ActionLink("Nouvelle Conversion", "AddConversion",null, new { @class = "btn btn-primary" })
+    @Html.ActionLink(@UiStrings.listconversion_button_add_conversion, "AddConversion",null, new { @class = "btn btn-primary" })
 </p>
 
 <table class="table table-striped table-condensed table-no-bordered" data-toggle="table" data-pagination="true" data-filter-control="true">
@@ -10,26 +12,26 @@
                Id
             </th>*@
             <th data-field="FILE_URL_ACCESS" data-sortable="true" data-filter-control="input" width="10%" data-width="20%">
-                Nom du fichier
+                @UiStrings.addconversion_form_filename
             </th>
             @*<th data-field="FORMAT_TYPE" data-sortable="true" data-filter-control="input">
                     @Html.DisplayNameFor(model => model.FORMAT_TYPE)
                 </th>*@
             <th data-field="FORMAT_BASE" data-sortable="true" data-filter-control="input">
-               Format de base
+               @UiStrings.addconversion_form_originformat
             </th>
             <th data-field="FORMAT_CONVERT" data-sortable="true" data-filter-control="input">
-               Format de conversion
+               @UiStrings.addconversion_form_convertedformat
             </th>
             <th data-field="DURATION" data-sortable="true" data-filter-control="input">
-                Durée(minutes)
+                @UiStrings.addconversion_form_length
             </th>
             <th data-field="STATUS" data-sortable="true" data-filter-control="input">
-                Statut
+                @UiStrings.addconversion_form_status
             </th>
 
             <th data-field="PRICE" data-sortable="true" data-filter-control="input"> 
-                Prix
+                @UiStrings.addconversion_form_price
             </th>
             <th data-width="1px"></th>
         </tr>
@@ -67,7 +69,7 @@
                     else
                     {
                         @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
-                       @Html.Raw("Ajouté au panier")
+                       @Html.Raw(@UiStrings.addconversion_cart_added)
                     }
                 </td>
                 <td style="color:greenyellow;">
@@ -77,11 +79,11 @@
                 <td>
                     @if (Model.ToList()[i].IS_PAID == false)
                     {
-                        @Html.ActionLink("Supprimer", "DeleteConversion", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink(@UiStrings.conversion_button_delete, "DeleteConversion", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-danger" })
                     }
                     else if(Model.ToList()[i].STATUS == "Effectue")
                     {
-                        @Html.ActionLink("Télécharger", "Telecharger", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink(@UiStrings.conversion_button_download, "Telecharger", new { id = Model.ToList()[i].PK_ID_TASK }, new { @class = "btn btn-warning" })
                     }
                 </td>
             </tr>
