@@ -61,30 +61,18 @@
         @Html.RenderFlashMessages()
         @RenderBody()
 
-        @if (Request.Cookies["User"] != null)
-        {
-            <footer class="bs-docs-footer" role="contentinfo">
-                <div class="transcoder-footer-bottom" style="position: fixed;">
-                    <div class="row-stat">
-                        <div class="columns-stat">
-                            <p class="copyright">&copy; @DateTime.Now.Year - Transcoder</p>
-                        </div>
+
+        <footer class="bs-docs-footer" role="contentinfo">
+            <div class="transcoder-footer-bottom">
+                <div class="row-stat">
+                    <div class="columns-stat">
+                        <p class="copyright">&copy; @DateTime.Now.Year - Transcoder</p>
                     </div>
                 </div>
-            </footer>
-        }
-        else
-        {
-            <footer class="bs-docs-footer" role="contentinfo">
-                <div class="transcoder-footer-bottom" style="position: relative;">
-                    <div class="row-stat">
-                        <div class="columns-stat">
-                            <p class="copyright">&copy; @DateTime.Now.Year - Transcoder</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        }
+            </div>
+        </footer>
+
+
 
 
     </div>

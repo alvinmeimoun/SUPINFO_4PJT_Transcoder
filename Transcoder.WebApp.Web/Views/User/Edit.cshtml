@@ -8,8 +8,11 @@
     <div class="container">
         <h2 class="title" style="color:white;">@ViewBag.Title</h2>
     </div>
-</div><div class="container">
-    @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+
+</div>
+
+<div class="container">
+    @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal form-wall form-edit", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
