@@ -234,6 +234,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Images\medias.jpg" />
+    <Content Include="Content\Images\Tcoder.png" />
+    <Content Include="Content\Images\Transcoder.png" />
     <Content Include="Content\Images\validate.ico" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
