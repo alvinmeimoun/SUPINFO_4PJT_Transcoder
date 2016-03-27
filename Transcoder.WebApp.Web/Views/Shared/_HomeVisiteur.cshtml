@@ -3,21 +3,19 @@
 @model Core.Transcoder.DataAccess.ViewModels.HomeViewModel
 
 
-<div id="content_banner" role="main" tabindex="-1" style="height:460px;">
+<div id="content_banner" role="main" tabindex="-1" style="height:510px;">
     <div class="container">
         <div class="row">
-            <h2 id="transcoder_title">@UiStrings.app_name</h2>
+            <div id="transcoder_title"><img src="~/Content/Images/Transcoder.png" style="width:40%; height:auto;"/></div>
         </div>
-        <div class="row">
+        <div class="row" style="padding-left:0.75%">
             <p class="transcoder_summary_white">@UiStrings.app_summary</p>
-        </div>
-        <div class="row" style="text-align:left">
             @Html.ActionLink(@UiStrings.home_button_get_started, "Register","Account",null, new { @id="bt_get_started" , @class="btn btn-primary"})
         </div>
     </div>
 </div>
 
-<div class="content_summary_teal row row-centered" style="margin-right: 0px; height:250px; padding-top:25px;">
+<div class="content_summary_gray row row-centered" style="margin-right: 0px; height:250px; padding-top:25px;">
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-centered">
         <div class="item">

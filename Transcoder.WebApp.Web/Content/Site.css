@@ -150,6 +150,11 @@ textarea {
     background-color: #006595;
 }
 
+.content_summary_gray {
+    background-color: #94948E;
+    /*#393a3d;*/
+}
+
 .content_summary_purple {
     background-color: #394166;
 }
@@ -176,13 +181,13 @@ body {
 
 #content_banner {
     /*background: url(@Url.Content("~/Content/Images/home_main_bg.jpg"));*/
-    background: url('Images/medias.jpg');
+    background: url('Images/medias.png');
     background-position: 0% 30%;
 }
 
 #transcoder_title {
     text-align: left;
-    margin-top: 75px;
+    margin-top: 3%;
     font-size: 40px;
     font-weight: bold;
     color: #55539c;
@@ -542,8 +547,7 @@ C .transcoder-footer-bottom {
 }
 
 
-.form-wall
-{
+.form-wall {
     margin-top: 20px;
     padding: 40px 0px 20px 0px;
     background-color: #f7f7f7;
@@ -552,27 +556,96 @@ C .transcoder-footer-bottom {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
-.text-left{
+.text-left {
     text-align: left;
 }
 
-.form-edit
-{
+.form-edit {
     max-width: 100%;
     padding: 15px;
     margin: 0 auto;
 }
 
-@media screen and (min-width: 20em) {
+.gauge-meter-home-1 SPAN, .gauge-meter-home-1 B {
+    opacity: 1;
+    color: white;
+}
 
-    
+.grid-conversion {
+    height: 320px;
+}
+
+.arrow-conversion {
+    height: 320px;
+}
+
+.conversion-btn {
+    text-align: right;
+    display: none;
+}
+
+@media screen and (min-width: 1em) {
+    .grid-conversion {
+        height: 320px;
+    }
+
+    .arrow-conversion {
+        height: 109px;
+    }
+
+    .conversion-btn {
+        text-align: center;
+        display: none;
+    }
+}
+
+@media screen and (min-width: 20em) {
+    .grid-conversion {
+        height: 320px;
+    }
+
+    .arrow-conversion {
+        height: 109px;
+    }
+
+    .conversion-btn {
+        text-align: center;
+        display: none;
+    }
 }
 
 @media screen and (min-width: 46.8em) {
 
-    
+    .grid-conversion {
+        height: 360px;
+    }
+
+    .arrow-conversion {
+        height: 109px;
+    }
+
+    .conversion-btn {
+        text-align: center;
+        display: none;
+    }
+}
+
+@media screen and (min-width: 50em) {
+
+    .grid-conversion {
+        height: 360px;
+    }
+
+    .arrow-conversion {
+        height: 109px;
+    }
+
+    .conversion-btn {
+        text-align: right;
+        display: none;
+    }
 }
