@@ -583,7 +583,7 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Ou crée u compte standard.
+        ///   Recherche une chaîne localisée semblable à Ou crée un compte standard.
         /// </summary>
         public static string register_section_title_standard_account {
             get {
