@@ -294,4 +294,7 @@
   <data name="register_section_title_standard_account" xml:space="preserve">
     <value>Ou crée un compte standard</value>
   </data>
+  <data name="home_guest_community_text" xml:space="preserve">
+    <value>Contribuez aux nouveautés et améliorations de Transcoder</value>
+  </data>
 </root>

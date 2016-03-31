@@ -313,6 +313,15 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Contribuez aux nouveautés et améliorations de Transcoder.
+        /// </summary>
+        public static string home_guest_community_text {
+            get {
+                return ResourceManager.GetString("home_guest_community_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Communauté.
         /// </summary>
         public static string home_guest_community_title {
