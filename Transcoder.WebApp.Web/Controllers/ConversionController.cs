@@ -108,7 +108,52 @@ namespace Transcoder.WebApp.Web.Controllers
             return Redirect(string.Format(Configuration.Current.PayPalRedirectUrl, transactionResponse.TOKEN));
         }
 
+        [HttpPost]
+        public ActionResult UploadFromUrl(string url)
+        {
+            var client = new System.Net.WebClient();
+            try
+            {
+                string path = Server.MapPath("~/UploadedFiles/") + url.Substring(url.LastIndexOf('/') + 1);
+                client.DownloadFile(url, path);
+                FileInfo fileInfo = new FileInfo(path);
+                VideoFile videoFile = new VideoFile(path);
 
+                double VideoDuration = videoFile.Duration.TotalMinutes;
+                // On génére le prix en fonction de la durée
+                double price = PriceGeneratorUtil.GetPriceByDuration(VideoDuration);
+                // On recupere le format de base de la video
+                string format = fileInfo.Extension.Substring(fileInfo.Extension.LastIndexOf('.') + 1);
+                var formatBase = new FORMAT_Service().GetFormatByName(format);
+
+
+                // Si le format a été trouvé dans nos bases on va proposer les conversions liées possibles.
+                if (formatBase != null)
+                {
+                    var listFormatTypes = new FORMAT_TYPE_Service().GetSelectListFormatTypeByFormat((int)formatBase.FK_ID_FORMAT_TYPE);
+
+                    return Json(new
+                    {
+                        success = "true",
+                        fileUrl = path,
+                        fileLength = fileInfo.Length,
+                        fileName = fileInfo.Name,
+                        fileFormatBase = formatBase.PK_ID_FORMAT,
+                        listFormatType = new SelectList(listFormatTypes, "Value", "Text"),
+                        fileDuration = VideoDuration.ToString(),
+                        filePrice = price.ToString()
+                    });
+                }
+                else
+                {
+                    return Json(new { success = "false" });
+                }
+            }
+            catch(Exception e)
+            {
+                return Json(new { success = "false" });
+            }
+        }
         [HttpPost]
         public ActionResult Upload()
         {
@@ -123,6 +168,7 @@ namespace Transcoder.WebApp.Web.Controllers
                 var formatBase = new FORMAT_Service().GetFormatByName(format);
                 // On recupere les infos de la video
                 VideoFile videoFile = new VideoFile(path);
+                
                 double VideoDuration = videoFile.Duration.TotalMinutes;
                 // On génére le prix en fonction de la durée
                 double price = PriceGeneratorUtil.GetPriceByDuration(VideoDuration);
