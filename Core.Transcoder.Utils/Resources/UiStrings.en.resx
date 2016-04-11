@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="addconversion_button_add_conversion" xml:space="preserve">
+    <value>Add conversion</value>
+  </data>
+  <data name="addconversion_button_order_now" xml:space="preserve">
+    <value>Order now !</value>
+  </data>
+  <data name="addconversion_cart_added" xml:space="preserve">
+    <value>Add to cart</value>
+  </data>
+  <data name="addconversion_choice_file" xml:space="preserve">
+    <value>Choose a file</value>
+  </data>
+  <data name="addconversion_error_sending" xml:space="preserve">
+    <value>An error has occured while sending</value>
+  </data>
+  <data name="addconversion_error_source_file" xml:space="preserve">
+    <value>The downloaded item can not be converted, please choose another one.</value>
+  </data>
+  <data name="addconversion_format_conversion" xml:space="preserve">
+    <value>Conversion format : </value>
+  </data>
+  <data name="addconversion_form_convertedformat" xml:space="preserve">
+    <value>Destination format</value>
+  </data>
+  <data name="addconversion_form_filename" xml:space="preserve">
+    <value>File name</value>
+  </data>
+  <data name="addconversion_form_length" xml:space="preserve">
+    <value>Lenght (minutes)</value>
+  </data>
+  <data name="addconversion_form_originformat" xml:space="preserve">
+    <value>Original format</value>
+  </data>
+  <data name="addconversion_form_price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="addconversion_form_status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="addconversion_page_title_valid_command" xml:space="preserve">
+    <value>Confirm your order</value>
+  </data>
+  <data name="addconversion_select_conversion_type" xml:space="preserve">
+    <value>Select a conversion type :</value>
+  </data>
+  <data name="addconversion_select_file" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="addconversion_select_format" xml:space="preserve">
+    <value>Select format :</value>
+  </data>
+  <data name="addconversion_type_conversion" xml:space="preserve">
+    <value>Conversion type : </value>
+  </data>
+  <data name="app_name" xml:space="preserve">
+    <value>Transcoder</value>
+  </data>
+  <data name="app_summary" xml:space="preserve">
+    <value>Converting your media has never been so easy</value>
+  </data>
+  <data name="cart_page_title" xml:space="preserve">
+    <value>My cart</value>
+  </data>
+  <data name="conversion_button_delete" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="conversion_button_download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="editprofile_page_title" xml:space="preserve">
+    <value>Edit your profile</value>
+  </data>
+  <data name="home_button_get_started" xml:space="preserve">
+    <value>Let's go _</value>
+  </data>
+  <data name="home_gauge_conversions_datalabel" xml:space="preserve">
+    <value>Conversions</value>
+  </data>
+  <data name="home_gauge_formats_datalabel" xml:space="preserve">
+    <value>Formats</value>
+  </data>
+  <data name="home_gauge_users_datalabel" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="home_guest_community_title" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="home_guest_social_text" xml:space="preserve">
+    <value>Sign in with your Google or Facebook, and access from any device to your conversions.</value>
+  </data>
+  <data name="home_guest_social_title" xml:space="preserve">
+    <value>Stay connected</value>
+  </data>
+  <data name="listconversion_button_add_conversion" xml:space="preserve">
+    <value>New conversion</value>
+  </data>
+  <data name="listconversion_page_title" xml:space="preserve">
+    <value>My conversions</value>
+  </data>
+  <data name="login_button_valid" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="login_error_auth" xml:space="preserve">
+    <value>An error occurred during authentication</value>
+  </data>
+  <data name="login_error_invalid_connexion" xml:space="preserve">
+    <value>Attempted invalid connection</value>
+  </data>
+  <data name="login_form_password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="login_form_username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="login_message_disconnected" xml:space="preserve">
+    <value>You have been disconnected</value>
+  </data>
+  <data name="login_page_title" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="login_remember_me" xml:space="preserve">
+    <value>Remember password ?</value>
+  </data>
+  <data name="login_section_social_title" xml:space="preserve">
+    <value>Log in with</value>
+  </data>
+  <data name="login_section_title_standard_account" xml:space="preserve">
+    <value>Or use a standard account</value>
+  </data>
+  <data name="navbar_button_cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="navbar_button_conversion" xml:space="preserve">
+    <value>Conversion</value>
+  </data>
+  <data name="navbar_button_edit_profile" xml:space="preserve">
+    <value>Edit profile</value>
+  </data>
+  <data name="navbar_button_login" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="navbar_button_logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="navbar_button_myconversions" xml:space="preserve">
+    <value>My conversions</value>
+  </data>
+  <data name="navbar_button_register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="navbar_hello_user" xml:space="preserve">
+    <value>Hello {0} !</value>
+  </data>
+  <data name="register_button_valid" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="register_error_user_already_exists" xml:space="preserve">
+    <value>The username or email already exists, please choose another one.</value>
+  </data>
+  <data name="register_form_email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="register_form_password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="register_form_password_confirm" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="register_form_username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="register_page_title" xml:space="preserve">
+    <value>Regoster</value>
+  </data>
+  <data name="register_section_title_standard_account" xml:space="preserve">
+    <value>Or create a standard account</value>
+  </data>
+  <data name="home_guest_community_text" xml:space="preserve">
+    <value>Contribute to the new and improved Transcoder</value>
+  </data>
+</root>
