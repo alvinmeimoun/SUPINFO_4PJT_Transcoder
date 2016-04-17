@@ -62,7 +62,21 @@
         </div>
     </nav>
     <div class="container-fluid body-content" style="padding-right: 0; padding-left: 0;">
-        @Html.RenderFlashMessages()
+        @if (ViewBag.Title != null)
+        {
+        <div class="header content_summary_green" style="height:150px; margin-bottom:50px; color:white; text-align:left;">
+            <div class="container">
+                <h2 class="title" style="color:white;">@ViewBag.Title</h2>
+            </div>
+        </div>
+
+        }
+        @if (!String.IsNullOrEmpty(Html.RenderFlashMessages().ToString()))
+        {   
+            <div class="container">
+                @Html.RenderFlashMessages()
+            </div>
+        }
         @RenderBody()
 
         <!--

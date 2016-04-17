@@ -214,6 +214,15 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajouter une conversion.
+        /// </summary>
+        public static string addconversion_title {
+            get {
+                return ResourceManager.GetString("addconversion_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Type de conversion : .
         /// </summary>
         public static string addconversion_type_conversion {
@@ -273,6 +282,24 @@ namespace Core.Transcoder.Utils.Resources {
         public static string editprofile_page_title {
             get {
                 return ResourceManager.GetString("editprofile_page_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bienvenue sur Transcoder.
+        /// </summary>
+        public static string home_auth_title {
+            get {
+                return ResourceManager.GetString("home_auth_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ma derniere demande de conversion  :.
+        /// </summary>
+        public static string home_auth_title_task {
+            get {
+                return ResourceManager.GetString("home_auth_title_task", resourceCulture);
             }
         }
         

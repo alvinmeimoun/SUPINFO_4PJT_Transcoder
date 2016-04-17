@@ -297,4 +297,13 @@
   <data name="home_guest_community_text" xml:space="preserve">
     <value>Contribuez aux nouveautés et améliorations de Transcoder</value>
   </data>
+  <data name="addconversion_title" xml:space="preserve">
+    <value>Ajouter une conversion</value>
+  </data>
+  <data name="home_auth_title" xml:space="preserve">
+    <value>Bienvenue sur Transcoder</value>
+  </data>
+  <data name="home_auth_title_task" xml:space="preserve">
+    <value>Ma derniere demande de conversion  :</value>
+  </data>
 </root>

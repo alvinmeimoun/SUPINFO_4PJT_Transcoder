@@ -19,6 +19,7 @@ namespace Core.Transcoder.Service.Enums
             A_REASSEMBLER = 6,
             SPLIT_EN_COURS = 7
         }
+
         public enum CONFIG
         {
             MAXLENGTHWITHOUTSPLIT = 1

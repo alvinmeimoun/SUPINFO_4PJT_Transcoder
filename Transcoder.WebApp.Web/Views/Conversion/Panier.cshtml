@@ -5,11 +5,6 @@
     ViewBag.Title = @UiStrings.cart_page_title;
 }
 
-<div class="header content_summary_green" style="height:150px; color:white; text-align:left;">
-    <div class="container">
-        <h2 class="title" style="color:white;">Mon panier</h2>
-    </div>
-</div>
 @using (Html.BeginForm("ValiderPanier", "Conversion", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
