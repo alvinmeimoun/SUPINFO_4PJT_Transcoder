@@ -5,12 +5,6 @@
     ViewBag.Title = @UiStrings.editprofile_page_title;
 }
 
-<div class="header content_summary_green" style="height:150px; margin-bottom:50px; color:white; text-align:left;">
-    <div class="container">
-        <h2 class="title" style="color:white;">@ViewBag.Title</h2>
-    </div>
-
-</div>
 
 <div class="container">
     @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal form-wall form-edit", role = "form" }))

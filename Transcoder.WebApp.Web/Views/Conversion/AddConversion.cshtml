@@ -1,14 +1,8 @@
 ﻿@using Core.Transcoder.Utils.Resources
 @model Core.Transcoder.DataAccess.ViewModels.CreateTaskViewModel
-@*@{
-        ViewBag.Title = "AddConversion";
-    }*@
-<div class="header content_summary_green" style="height:150px; margin-bottom:50px; color:white; text-align:left;">
-    <div class="container">
-        <h2 class="title" style="color:white;">Commander une conversion</h2>
-    </div>
-</div>
-
+@{
+    ViewBag.Title = UiStrings.addconversion_title;
+}
 
 <div class="container">
 
@@ -29,12 +23,24 @@
                     </div>
 
                     <div class="contentWrap" style="text-align:center; padding:5px;">
+                        <div style="display:inline">
+                            <input type="radio" class="sourceFile" name="sourceFile" value="local"> Fichier Local &nbsp;
+                            <input type="radio" class="sourceFile" name="sourceFile" value="url"> Url du fichier 
+                            <br>
+                        </div>
+
                         <p id="fileName" style="font-weight:bold; color:#5cb85c;overflow: hidden;-o-text-overflow: ellipsis; text-overflow: ellipsis;"></p>
                         <span class="text-danger" id="fileError" style="display:none;">@UiStrings.addconversion_error_source_file</span>
-                        <div class="fileUpload btn btn-info">
 
+
+                        <div class="fileUpload btn btn-info" id="localUpload" style="display:none;">
                             <span>@UiStrings.addconversion_choice_file</span>
                             <input type="file" name="file" class="upload" id="FileToUpload" />
+                        </div>
+
+                        <div  id="urlUpload"  style="display:none;">
+                            <input type="text" placeholder="Url du fichier"  class="form-control" id="FileUrlAccess" />
+                            <button type="button" class="fileUpload btn btn-info" id="btnFileUrlAccess">Charger le fichier</button>
                         </div>
 
 
@@ -148,7 +154,96 @@
             }
         });
         ShowSaveButton();
+        $('input:radio[name="sourceFile"]').change(
+        function () {
+            if ($(this).is(':checked') && $(this).val() == 'local') {
+                $('#localUpload').css('display', 'block');
+                $('#urlUpload').css('display', 'none');
+            }
+            else 
+            {
+                $('#localUpload').css('display', 'none');
+                $('#urlUpload').css('display', 'block');
+            }
+        });
 
+        $('#btnFileUrlAccess').click(function () {
+
+            var url = $('#FileUrlAccess').val();
+            setProgressBarValue("5%");
+            $("#progress").css("display", "block");
+            $.ajax({
+                url: "@Url.Action("UploadFromUrl")",
+                type: 'POST',
+                data: JSON.stringify({ url : url }),
+            async: true,
+            cache: false,
+            contentType: 'application/json; charset=utf-8',
+            processData: false,
+            beforeSend: function () {
+                
+                $("#separator-1").css("display","none");
+                $("#ddlFormatTypes").css("display", "none");
+                $("#FormatConversion").css("display", "none");
+                $("#separator-2").css("display", "none");
+
+                $("#finalPart").css("display", "none");
+                $("#priceAnnounced").css("display", "block");
+                $("#userInformations").css("display", "none");
+                   
+                setProgressBarValue("20%");
+            },
+            success: function (data) {
+
+                setProgressBarValue("60%");
+                if (data.success == "true") {
+
+                    $("#fileUrl").val(data.fileUrl);
+                    $("#fileLength").val(data.fileLength);
+                    $("#fileFormatBase").val(data.fileFormatBase);
+                    $("#fileDuration").val(data.fileDuration);
+                    $("#filePrice").val(data.filePrice);
+                    $('#ddlFormatTypes').empty();
+
+                    $("#ddlFormatTypes").append('<option value="0">@UiStrings.addconversion_type_conversion</option>');
+                    for (var x = 0; x < data.listFormatType.length; x++) {
+                        $("#ddlFormatTypes").append('<option value="' + data.listFormatType[x].Value + '">' +
+                                data.listFormatType[x].Text + '</option>');
+                    }
+
+                    setProgressBarValue("80%");
+
+                    setTimeout(function () {
+                        setProgressBarValue("100%");
+                        $("#progressBar").addClass("progress-bar-success");
+                        $("#fileName").html(data.fileName);
+                    }, 2000);
+                    setTimeout(function () {
+                        $("#progress").hide();
+                        $("#separator-1").show();
+                           
+                        $("#ddlFormatTypes").val(0);
+                        $("#ddlFormatTypes").css("display", "inline-block");
+                        $("#FormatConversion").show("slow");
+                    }, 3000);
+
+                }
+                else {
+                    $("#progress").css("display", "none");
+                    $("#fileError").css("display", "block");
+                    $('#FileToUpload').val('');
+
+                }
+
+                RefreshJQueryValidator('form');
+                ShowSaveButton();
+            },
+            error: function(response) {
+                console.log(response);
+            }
+        });
+
+        });
         $('#FileToUpload').on("change", function () {
             setProgressBarValue("5%");
             console.log($('#FileToUpload').val())
@@ -182,7 +277,6 @@
                     setProgressBarValue("60%");
                     if (data.success == "true") {
 
-                        console.log(data)
                         $("#fileUrl").val(data.fileUrl);
                         $("#fileLength").val(data.fileLength);
                         $("#fileFormatBase").val(data.fileFormatBase);
@@ -281,9 +375,8 @@
         });
 
         function ShowSaveButton() {
-            if ($('#FileToUpload').val() != "" && $("#ddlFormatTypes").val() != "undefined" && $("#ddlFormats").val() != "undefined") {
-                if ($('#FileToUpload').val() != "" && $("#ddlFormatTypes").val() != "0" && $("#ddlFormats").val() != "0") {
-                    console.log($('#FileToUpload').val() + " - " + $('#ddlFormatTypes').val() + " - " + $('#ddlFormats').val());
+            if (($('#FileToUpload').val() != "" || $('#FileUrlAccess').val() != "") && $("#ddlFormatTypes").val() != "undefined" && $("#ddlFormats").val() != "undefined") {
+                if (($('#FileToUpload').val() != "" || $('#FileUrlAccess').val() != "") && $("#ddlFormatTypes").val() != "0" && $("#ddlFormats").val() != "0") {
                     $("#btnSection").show();
                 }
                 else {

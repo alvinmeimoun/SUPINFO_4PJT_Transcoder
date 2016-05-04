@@ -214,6 +214,15 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajouter une conversion.
+        /// </summary>
+        public static string addconversion_title {
+            get {
+                return ResourceManager.GetString("addconversion_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Type de conversion : .
         /// </summary>
         public static string addconversion_type_conversion {
@@ -277,6 +286,24 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bienvenue sur Transcoder.
+        /// </summary>
+        public static string home_auth_title {
+            get {
+                return ResourceManager.GetString("home_auth_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ma derniere demande de conversion  :.
+        /// </summary>
+        public static string home_auth_title_task {
+            get {
+                return ResourceManager.GetString("home_auth_title_task", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à C&apos;est parti !.
         /// </summary>
         public static string home_button_get_started {
@@ -309,6 +336,15 @@ namespace Core.Transcoder.Utils.Resources {
         public static string home_gauge_users_datalabel {
             get {
                 return ResourceManager.GetString("home_gauge_users_datalabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Contribuez aux nouveautés et améliorations de Transcoder.
+        /// </summary>
+        public static string home_guest_community_text {
+            get {
+                return ResourceManager.GetString("home_guest_community_text", resourceCulture);
             }
         }
         
@@ -583,7 +619,7 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Ou crée u compte standard.
+        ///   Recherche une chaîne localisée semblable à Ou crée un compte standard.
         /// </summary>
         public static string register_section_title_standard_account {
             get {

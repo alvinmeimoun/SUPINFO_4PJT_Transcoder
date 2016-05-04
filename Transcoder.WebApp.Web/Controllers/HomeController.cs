@@ -12,11 +12,20 @@ namespace Transcoder.WebApp.Web.Controllers
         public ActionResult Index()
         {
             var homeService = new HomeService();
-            var isLogged = (System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
-
-            return View(homeService.GenerateHomeViewModel(isLogged));
+            var isLogged = Request.Cookies["User"] != null  && Request.Cookies["UserID"] != null;
+            if (!isLogged)
+            {
+                return View(homeService.GenerateHomeViewModel(isLogged));
+            }
+            else
+            {
+                int userId = int.Parse(Request.Cookies["UserID"].Value);
+                return View(homeService.GetDataFromUserId(userId));
+            }
+            
         }
 
+     
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Transcoder.DataAccess.ViewModels;
+using Core.Transcoder.Service.Enums;
 
 namespace Core.Transcoder.Service.Services
 {
@@ -14,14 +15,31 @@ namespace Core.Transcoder.Service.Services
         {
             var statsService = new StatsService();
 
-            var vm = new HomeViewModel
-            {
-                IsLogged = isLogged,
-                UsersCount = statsService.GetUsersCount(),
-                TaskCount = statsService.GetTasksCount(),
-                CombinationCount = statsService.GetFormatCount()
-            };
+                var vm = new HomeViewModel
+                {
+                    IsLogged = isLogged,
+                    UsersCount = statsService.GetUsersCount(),
+                    TaskCount = statsService.GetTasksCount(),
+                    CombinationCount = statsService.GetFormatCount()
+                };
+               return vm;
+        }
 
+        public HomeAuthViewModel GetDataFromUserId(int userId)
+        {
+            var taskService = new TASK_Service();
+            var lastTask = taskService.GetLastTaskByUserId(userId);
+            var vm = new HomeAuthViewModel();
+            if (lastTask != null)
+            {
+                string fileName = lastTask.FILE_URL.Substring(lastTask.FILE_URL.LastIndexOf(@"\") + 1);
+                vm = new HomeAuthViewModel()
+                {
+                    DateDemande = lastTask.TRANSACTION.DATE_TRANSACTION,
+                    LastTranscode = fileName,
+                    Status = lastTask.PARAM_TASK_STATUS.LIBELLE
+                };
+            }
             return vm;
         }
 

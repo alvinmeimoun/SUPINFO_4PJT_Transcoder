@@ -32,6 +32,7 @@ namespace Core.Transcoder.Service
             }
         }
 
+
         public bool DeleteTaskById(int id)
         {
             try
@@ -55,6 +56,7 @@ namespace Core.Transcoder.Service
                 return false;
             }
         }
+
         public List<TASK> GetListOfTaskByStatus(EnumManager.PARAM_TASK_STATUS Status)
         {
             int statut = ((int)Status);
@@ -84,7 +86,10 @@ namespace Core.Transcoder.Service
             return UoW.TASK_Repository.GetByID(Id);
         }
 
-
+        public TASK GetLastTaskByUserId(int userId)
+        {
+            return GetListOfTaskByUserId(userId).OrderByDescending(x => x.PK_ID_TASK).Where(x => x.FK_ID_PARENT_TASK == null && x.FK_ID_TRANSACTION != null).FirstOrDefault();
+        }
 
         public CreateTaskViewModel InitCreateTaskViewModel(int userId)
         {
@@ -123,7 +128,6 @@ namespace Core.Transcoder.Service
             };
         }
 
-       
         public bool AddTaskByViewModel(CreateTaskViewModel model)
         {
             // On update les infos user

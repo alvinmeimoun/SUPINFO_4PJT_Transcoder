@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Vereyon.Web;
 
 namespace Transcoder.WebApp.Web.Controllers
 {
@@ -43,10 +44,12 @@ namespace Transcoder.WebApp.Web.Controllers
 
                 if (isEdited)
                 {
-                    return RedirectToAction("Index", "Home");
+                    FlashMessage.Confirmation("Votre profil a été modifié.");
+                    return RedirectToAction("Edit");
                 }
             }
-            return View(model);
+            FlashMessage.Danger("Une erreur est survenue lors de la modification de votre profil.");
+            return RedirectToAction("Edit");
         }
     }
 }

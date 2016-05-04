@@ -1,10 +1,12 @@
-﻿@model Core.Transcoder.DataAccess.ViewModels.HomeViewModel
-@{
-    ViewBag.Title = "Transcoder";
-}
+﻿
+@using Core.Transcoder.Utils.Resources
 
 @if (Request.Cookies["User"] != null)
 {
+   
+
+    //ViewBag.Title = UiStrings.home_auth_title;
+
     @Html.Partial("_HomeAuth")
     
 }

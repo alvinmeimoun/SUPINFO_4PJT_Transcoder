@@ -1,39 +1,60 @@
-﻿
-<div class="header content_summary_green" style="height:150px; margin-bottom:50px; color:white; text-align:left;">
-    <div class="container">
-        <h1 class="title" style="color:white;">Bienvenue sur Transcoder</h1>
-    </div>
+﻿@model Core.Transcoder.DataAccess.ViewModels.HomeAuthViewModel
+@using Core.Transcoder.Utils.Resources
 
+@if (!String.IsNullOrEmpty(Model.LastTranscode))
+{
+<div class="header content_summary_green" style="height:250px; margin-bottom:50px; background-color:#06c6bf; color:white; text-align:left;">
+    <div class="container" style="text-align:center;">
+        <h3 class="title" style="color:white;"> @UiStrings.home_auth_title_task </h3>
+        <br />
+        <h4 class="title" style="color:white;"> @Model.LastTranscode </h4>
+        <p> Date de la demande : @Model.DateDemande.ToShortDateString()</p>
+        <p> Statut de la demande : @Model.Status</p>
+    </div>
 </div>
+}
+else
+{
+    <div class="header content_summary_green" style="height:250px; margin-bottom:50px; background-color:#06c6bf; color:white; text-align:left;">
+        <div class="container" style="">
+            <h2 class="title" style="color:white;"> @UiStrings.home_auth_title </h2>
+
+        </div>
+    </div>
+}
 <div class="row-stat grid-stat">
 
-    <div class="medium-4 columns-stat container-hover grid-stat">
+
+
+    <div class="medium-4 columns-stat container-hover grid-stat" style="background-color:#2992d7;border: solid 10px white;">
         <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("AddConversion","Conversion")">
             <img style="display: block; margin: 0 auto;" src="/Content/Images/conversion.png">
-            <h6 class="text-h6">Ajouter une</h6>
-            <h2>Conversion</h2>
-            <p>Foundation for Sites is jam-packed with features to help people rapidly build content-focused websites.</p>
-            <p class="link">Learn more about Foundation for Sites</p>
+            <h6 class="text-h6" style="color:white;">Ajouter une</h6>
+            <h2 style="color:white;">Conversion</h2>
+            <p></p>
+            <p class="link"></p>
         </a>
     </div>
 
-    <div class="medium-4 columns-stat container-hover grid-stat">
+    <div class="medium-4 columns-stat container-hover grid-stat" style="background-color: #1b951e;
+    border: solid 10px white;">
         <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("Panier","Conversion")">
             <img style="display: block; margin: 0 auto;" src="/Content/Images/cart_full.png">
-            <h6 class="text-h6">Voir mon</h6>
-            <h2>Panier</h2>
-            <p>Foundation for Sites is jam-packed with features to help people rapidly build content-focused websites.</p>
-            <p class="link">Learn more about Foundation for Sites</p>
+            <h6 class="text-h6" style="color:white;">Voir mon</h6>
+            <h2 style="color:white;">Panier</h2>
+            <p></p>
+            <p class="link"></p>
         </a>
     </div>
 
-    <div class="medium-4 columns-stat container-hover grid-stat">
+    <div class="medium-4 columns-stat container-hover grid-stat" style="background-color: #FF8700;
+    border: solid 10px white">
         <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("MesConversions","Conversion")">
             <img style="display: block; margin: 0 auto;" src="/Content/Images/last_order.jpg">
-            <h6 class="text-h6">Ma dernière</h6>
-            <h2>Commande</h2>
-            <p>Foundation for Sites is jam-packed with features to help people rapidly build content-focused websites.</p>
-            <p class="link">Learn more about Foundation for Sites</p>
+            <h6 class="text-h6"style="color:white;">Ma dernière</h6>
+            <h2 style="color:white;">Commande</h2>
+            <p></p>
+            <p class="link"></p>
         </a>
     </div>
 
