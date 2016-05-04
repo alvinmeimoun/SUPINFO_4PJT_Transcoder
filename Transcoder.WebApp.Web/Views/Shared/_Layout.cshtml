@@ -53,6 +53,7 @@
                 else
                 {
                     <ul class="nav navbar-nav navbar-right">
+                        <li style="">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li style="">@Html.ActionLink(UiStrings.navbar_button_register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                         <li style="">@Html.ActionLink(UiStrings.navbar_button_login, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
                     </ul>

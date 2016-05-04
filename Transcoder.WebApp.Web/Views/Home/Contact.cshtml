@@ -1,17 +1,33 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<!-- <h2>@ViewBag.Title.</h2> // <h3>@ViewBag.Message</h3>-->
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="sitecontent">
+    <div class="wrapper">
+        <form class="contact-form styled-form" action="" method="post" accept-charset="utf-8">
+            <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="8ece95d139633656ad0371bf53c45b2d"></div>
+            <h2 class="pagetitle">Contactez-nous</h2>
+            <br />
+            <p class="row-message half first">
+                <label for="id_name">Nom: <span class="required">*</span></label>
+                <span class="field"><input class="message-area" type="text" name="name" id="id_name"></span>
+            </p>
+            <p class="row-message half">
+                <label for="id_email">Email: <span class="required">*</span></label>
+                <span class="field"><input class="message-area" type="text" name="email" id="id_email"></span>
+            </p>
+            <p class="row-message">
+                <label for="id_message">Message: <span class="required">*</span></label>
+                <span class="field"><textarea class="message-area" cols="40" rows="5" name="message" id="id_message"></textarea></span>
+            </p>
+           
+            <p class="submit-row-message">
+                <button class="button-contact" type="submit">Envoyer</button>
+            </p>
+        </form>
+       
+    </div>
+
+</div>

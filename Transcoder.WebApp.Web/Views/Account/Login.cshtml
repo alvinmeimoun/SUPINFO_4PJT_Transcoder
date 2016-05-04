@@ -5,59 +5,65 @@
     ViewBag.Title = @UiStrings.login_page_title;
 }
 
-<div class="container">
-    <h2>@ViewBag.Title.</h2>
-    <div class="row">
-        <div class="col-md-6">
-            @Html.Partial("_LoginExternalPartial")
-        </div>
-        <div class="col-md-6">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>@UiStrings.login_section_title_standard_account</h4>
-                    <hr/>
-                    @Html.ValidationSummary(false, "", new {@class = "text-danger"})
-                    <div class="form-group">
-                        <p class="col-md-2 control-label">@UiStrings.login_form_username</p>
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Username, new {@class = "form-control"})
-                            @Html.ValidationMessageFor(m => m.Username, "", new {@class = "text-danger"})
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <p class="col-md-2 control-label">@UiStrings.login_form_password</p>
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
-                            @Html.ValidationMessageFor(m => m.Password, "", new {@class = "text-danger"})
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                <p class="col-md-2 control-label">@UiStrings.login_remember_me</p>
+<div class="sitecontent-login">
+    <div class="wrapper-login form-login">
+        <h1 class="pagetitle">@ViewBag.Title</h1>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.Partial("_LoginExternalPartial")
+            </div>
+            <div class="col-md-6">
+                <section id="loginForm">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal styled-form-login", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h4>@UiStrings.login_section_title_standard_account</h4>
+                        <hr />
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @*<p class="col-md-2 control-label" style="text-align: center;">@UiStrings.login_form_username</p>*@
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @style= "text-align: center; max-width: none; font-family:Arial;", @placeholder = @UiStrings.login_form_username })
+                                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="@UiStrings.login_button_valid" class="btn btn-default"/>
+                        <div class="form-group">
+                            @*<p class="col-md-2 control-label" style="text-align: center;">@UiStrings.login_form_password</p>*@
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "text-align: center; max-width: none; font-family:Arial;", @placeholder = @UiStrings.login_form_password })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    @*<p>
-                        @Html.ActionLink("S'inscrire comme nouvel utilisateur", "Register")
-                    </p>*@
-                    @* Activer ceci une fois que la confirmation de votre compte est activée pour la fonctionnalité de réinitialisation du mot de passe
-                        <p>
-                            @Html.ActionLink("Vous avez oublié votre mot de passe ?", "ForgotPassword")
-                        </p>*@
-                }
-            </section>
+                        
+                        @*<div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    <p>@UiStrings.login_remember_me</p>
+
+
+                                </div>
+                            </div>
+                        </div>*@
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input class="button-contact-login button-col" type="submit" value="@UiStrings.login_button_valid" />
+                            </div>
+                        </div>
+                        @*<p>
+                                @Html.ActionLink("S'inscrire comme nouvel utilisateur", "Register")
+                            </p>*@
+                        @* Activer ceci une fois que la confirmation de votre compte est activée pour la fonctionnalité de réinitialisation du mot de passe
+                            <p>
+                                @Html.ActionLink("Vous avez oublié votre mot de passe ?", "ForgotPassword")
+                            </p>*@
+                    }
+                </section>
+            </div>
         </div>
     </div>
-</div>
-@section Scripts {
-   @* @Scripts.Render("~/bundles/jqueryval")*@
-}
+    </div>
+    @section Scripts {
+        @* @Scripts.Render("~/bundles/jqueryval")*@
+    }
