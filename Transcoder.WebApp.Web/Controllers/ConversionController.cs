@@ -14,6 +14,7 @@ using Core.Transcoder.Service.Services;
 using Core.Transcoder.PayPalMvc;
 using Core.Transcoder.PayPalMvc.Enums;
 using Core.Transcoder.DataAccess;
+using Core.Transcoder.Utils.Resources;
 using Vereyon.Web;
 
 namespace Transcoder.WebApp.Web.Controllers
@@ -75,7 +76,7 @@ namespace Transcoder.WebApp.Web.Controllers
 
 
             bool isEdited =  new TASK_Service().AddTaskByViewModel(model);
-            FlashMessage.Confirmation("Votre demande de conversion a été ajouté au panier.");
+            FlashMessage.Confirmation(@UiStrings.add_conversion_message_added_to_cart);
             if (model.ShortEditUserViewModel.PK_ID_USER == 0)
             {
                 return LoginAuto(model.ShortEditUserViewModel);
@@ -145,7 +146,7 @@ namespace Transcoder.WebApp.Web.Controllers
                 Debug.WriteLine("Error initiating PayPal SetExpressCheckout transaction. Error: " + errorMessage);
                 return RedirectToAction("Panier", model);
             }
-            FlashMessage.Confirmation("Votre panier a été validé, vous allez recevoir un mail de confirmation.");
+            FlashMessage.Confirmation(UiStrings.add_conversion_message_cart_validated);
             return Redirect(string.Format(Configuration.Current.PayPalRedirectUrl, transactionResponse.TOKEN));
         }
 

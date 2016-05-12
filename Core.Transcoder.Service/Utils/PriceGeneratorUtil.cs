@@ -12,6 +12,9 @@ namespace Core.Transcoder.Service.Utils
         {
             double price = duration / 60;
             price =  Math.Round(price,2);
+
+            if (price == 0) price = 0.01;
+
             return price;
         }
 
