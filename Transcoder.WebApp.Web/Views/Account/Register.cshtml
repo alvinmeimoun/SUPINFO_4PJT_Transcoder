@@ -23,28 +23,28 @@
                     @Html.ValidationSummary(false)
                     <div class="form-group">
                         @*<p class="col-md-2 control-label" style="text-align: center;">@UiStrings.register_form_username</p>*@
-                        <div class="col-md-10">
+                        <div class="col-md-10" style="width: 100%;">
                             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @style = "text-align: center; max-width: none; font-family:Arial;", @placeholder = @UiStrings.register_form_username })
                             @Html.ValidationMessageFor(m => m.Username)
                         </div>
                     </div>
                     <div class="form-group">
                         @*<p class="col-md-2 control-label" style="text-align: center;">@UiStrings.register_form_email</p>*@
-                        <div class="col-md-10">
+                        <div class="col-md-10"  style="width: 100%;">
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @style = "text-align: center; max-width: none; font-family:Arial;", @placeholder = @UiStrings.register_form_email })
                             @Html.ValidationMessageFor(m => m.Email)
                         </div>
                     </div>
                     <div class="form-group">
                         @*<p class="col-md-2 control-label" style="text-align: center;">@UiStrings.register_form_password</p>*@
-                        <div class="col-md-10">
+                        <div class="col-md-10" style="width: 100%;">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "text-align: center; max-width: none; font-family:Arial;", @placeholder = @UiStrings.register_form_password })
                             @Html.ValidationMessageFor(m => m.Password)
                         </div>
                     </div>
                     <div class="form-group">
                         @*<p class="col-md-2 control-label" style="text-align: center;">@UiStrings.register_form_password_confirm</p>*@
-                        <div class="col-md-10">
+                        <div class="col-md-10" style="width: 100%;">
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @style = "text-align: center; max-width: none; font-family:Arial;", @placeholder = @UiStrings.register_form_password_confirm })
                             @Html.ValidationMessageFor(m => m.ConfirmPassword)
                         </div>
