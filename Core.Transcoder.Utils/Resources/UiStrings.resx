@@ -306,4 +306,16 @@
   <data name="home_auth_title_task" xml:space="preserve">
     <value>Ma derniere demande de conversion  :</value>
   </data>
+  <data name="add_conversion_load_file" xml:space="preserve">
+    <value>Charger le fichier</value>
+  </data>
+  <data name="add_conversion_choose_destination_format" xml:space="preserve">
+    <value>Choisir le format de conversion</value>
+  </data>
+  <data name="add_conversion_file_url" xml:space="preserve">
+    <value> Url du fichier</value>
+  </data>
+  <data name="add_conversion_local_file" xml:space="preserve">
+    <value> Fichier local</value>
+  </data>
 </root>

@@ -61,6 +61,42 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Choisir le format de conversion.
+        /// </summary>
+        public static string add_conversion_choose_destination_format {
+            get {
+                return ResourceManager.GetString("add_conversion_choose_destination_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à  Url du fichier.
+        /// </summary>
+        public static string add_conversion_file_url {
+            get {
+                return ResourceManager.GetString("add_conversion_file_url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Charger le fichier.
+        /// </summary>
+        public static string add_conversion_load_file {
+            get {
+                return ResourceManager.GetString("add_conversion_load_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à  Fichier local.
+        /// </summary>
+        public static string add_conversion_local_file {
+            get {
+                return ResourceManager.GetString("add_conversion_local_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Ajouter la conversion.
         /// </summary>
         public static string addconversion_button_add_conversion {

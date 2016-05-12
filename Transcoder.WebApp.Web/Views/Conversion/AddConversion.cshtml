@@ -19,13 +19,13 @@
                 <div class="grid-conversion">
                     <div class="head-1">
                         <img class="img-heading" src="~/Content/Images/download-2.png" />
-                        <h4 class="head-1-title" style="">@UiStrings.addconversion_select_file</h4>
+                        <h4 class="head-1-title">@UiStrings.addconversion_select_file</h4>
                     </div>
 
                     <div class="contentWrap" style="text-align:center; padding:5px;">
                         <div style="display:inline">
-                            <input type="radio" class="sourceFile" name="sourceFile" value="local"> Fichier Local &nbsp;
-                            <input type="radio" class="sourceFile" name="sourceFile" value="url"> Url du fichier 
+                            <input type="radio" class="sourceFile" name="sourceFile" value="local"/>@UiStrings.add_conversion_local_file
+                            <input type="radio" class="sourceFile" name="sourceFile" value="url" style="margin-left: 10px;"/>@UiStrings.add_conversion_file_url
                             <br>
                         </div>
 
@@ -40,7 +40,7 @@
 
                         <div  id="urlUpload"  style="display:none;">
                             <input type="text" placeholder="Url du fichier"  class="form-control" id="FileUrlAccess" />
-                            <button type="button" class="fileUpload btn btn-info" id="btnFileUrlAccess">Charger le fichier</button>
+                            <button type="button" class="fileUpload btn btn-info" id="btnFileUrlAccess">@UiStrings.add_conversion_load_file</button>
                         </div>
 
 
@@ -77,7 +77,7 @@
             <div class="grid-conversion">
                 <div class="head-2">
                     <img class="img-heading" src="~/Content/Images/choose.png" />
-                    <h4 class="head-1-title" style="">Choisir le format de conversion</h4>
+                    <h4 class="head-1-title" style="">@UiStrings.add_conversion_choose_destination_format</h4>
                 </div>
                 <div class="contentWrap">
                     <div class="form-group">

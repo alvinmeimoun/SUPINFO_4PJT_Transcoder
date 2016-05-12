@@ -306,4 +306,16 @@
   <data name="home_auth_title_task" xml:space="preserve">
     <value>My last Transcode request : </value>
   </data>
+  <data name="add_conversion_load_file" xml:space="preserve">
+    <value>Load file</value>
+  </data>
+  <data name="add_conversion_choose_destination_format" xml:space="preserve">
+    <value>Choose destination format</value>
+  </data>
+  <data name="add_conversion_local_file" xml:space="preserve">
+    <value> Local file</value>
+  </data>
+  <data name="add_conversion_url_file" xml:space="preserve">
+    <value> File url</value>
+  </data>
 </root>
