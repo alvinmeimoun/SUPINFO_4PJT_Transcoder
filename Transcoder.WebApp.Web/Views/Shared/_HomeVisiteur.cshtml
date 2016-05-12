@@ -10,7 +10,7 @@
         </div>
         <div class="row" style="padding-left:0.75%">
             <p class="transcoder_summary_white">@UiStrings.app_summary</p>
-            @Html.ActionLink(@UiStrings.home_button_get_started, "Register","Account",null, new { @id="bt_get_started" , @class="btn btn-primary"})
+            @Html.ActionLink(@UiStrings.home_button_get_started, "AddConversion","Conversion",null, new { @id="bt_get_started" , @class="btn btn-primary"})
         </div>
     </div>
 </div>
@@ -38,7 +38,7 @@
                      data-percent="100"
                      data-theme="Red-Gold-Green"
                      data-size="200"
-                     data-text="@(Model.UsersCount)"
+                     data-text="@(Model.CombinationCount)"
                      data-label_color="White"
                      data-label="@UiStrings.home_gauge_formats_datalabel">
                 </div>

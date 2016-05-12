@@ -49,10 +49,8 @@ namespace Transcoder.WebApp.Web.Controllers
         {
             if (Request.Cookies["User"] != null)
             {
-                var c = new HttpCookie("User");
-                c.Value = null;
-                c.Expires = DateTime.Now.AddDays(-1);
-                Response.Cookies.Add(c);
+                Response.Cookies["User"].Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies["UserID"].Expires = DateTime.Now.AddDays(-1);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -80,6 +78,22 @@ namespace Transcoder.WebApp.Web.Controllers
             else
             {
                 ModelState.AddModelError("", UiStrings.login_error_invalid_connexion);
+                return View(model);
+            }
+        }
+
+        public ActionResult LoginAuto(ShortEditUserViewModel model)
+        {
+            model.Password = string.IsNullOrWhiteSpace(model.Password) ? "" : EncryptionUtil.Encrypt(model.Password);
+            var user = new USER_Service().LoginUser(model.Username, model.Password);
+            if (user != null)
+            {
+                SetCurrentUser(user.USERNAME, user.PK_ID_USER);
+               
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
                 return View(model);
             }
         }
@@ -220,11 +234,16 @@ namespace Transcoder.WebApp.Web.Controllers
         // POST: /Account/LogOff
         public ActionResult LogOff()
         {
-            if (Request.Cookies["User"] != null)
+            if (Request.Cookies["User"].Value != null)
             {
-                var c = new HttpCookie("User");
-                c.Expires = DateTime.Now.AddDays(-1);
-                Response.Cookies.Add(c);
+                Response.Cookies["User"].Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies["UserID"].Expires = DateTime.Now.AddDays(-1);
+                //var c = new HttpCookie("User");
+                //c.Expires = DateTime.Now.AddDays(-1);
+                //Response.Cookies.Add(c);
+                //var c2 = new HttpCookie("UserID");
+                // c2.Expires = DateTime.Now.AddDays(-1);
+                //Response.Cookies.Add(c2);
             }
             //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");

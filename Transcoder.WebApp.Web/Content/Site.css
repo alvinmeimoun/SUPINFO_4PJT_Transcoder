@@ -1433,3 +1433,36 @@ C .transcoder-footer-bottom {
         padding-left: 4px;
     }
 }
+.one:hover
+    {
+    background-color:#2992d7;
+    opacity:1;
+        
+    }
+.two:hover
+    {
+    background-color:#1b951e;
+    opacity:1;
+        
+    }
+.three:hover
+    {
+    background-color:#FF8700;
+    opacity:1;
+        
+    }
+
+.one {
+    background-color:#2992d7;
+    opacity:0.9;
+}
+
+.two{
+    background-color: #1b951e;
+    opacity:0.9;
+
+}
+.three{
+        background-color: #FF8700;
+        opacity:0.9;
+}

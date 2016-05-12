@@ -25,6 +25,14 @@ namespace Core.Transcoder.DataAccess.ViewModels
         [Display(Name = "Nom de famille")]
         public string Lastname { get; set; }
 
+        [Required]
+        [Display(Name = "Nom d'utilisateur")]
+        public string Username { get; set; }
+
+        [Required]
+        [Display(Name = "Mot de passe")]
+        public string Password { get; set; }
+
         public ShortEditUserViewModel()
         {
 
