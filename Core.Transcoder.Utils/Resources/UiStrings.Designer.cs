@@ -97,6 +97,24 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Votre demande de conversion a été ajouté au panier..
+        /// </summary>
+        public static string add_conversion_message_added_to_cart {
+            get {
+                return ResourceManager.GetString("add_conversion_message_added_to_cart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Votre panier a été validé, vous allez recevoir un mail de confirmation..
+        /// </summary>
+        public static string add_conversion_message_cart_validated {
+            get {
+                return ResourceManager.GetString("add_conversion_message_cart_validated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Ajouter la conversion.
         /// </summary>
         public static string addconversion_button_add_conversion {
@@ -282,6 +300,15 @@ namespace Core.Transcoder.Utils.Resources {
         public static string app_summary {
             get {
                 return ResourceManager.GetString("app_summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Montant total de votre commande : .
+        /// </summary>
+        public static string cart_order_amount {
+            get {
+                return ResourceManager.GetString("cart_order_amount", resourceCulture);
             }
         }
         
