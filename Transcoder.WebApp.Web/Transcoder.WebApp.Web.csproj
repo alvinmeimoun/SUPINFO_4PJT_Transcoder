@@ -225,15 +225,23 @@
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Images\btn-github.png" />
     <Content Include="Content\Images\choose.png" />
+    <Content Include="Content\Images\Commande.png" />
+    <Content Include="Content\Images\conversion.png" />
     <Content Include="Content\Images\download-2.png" />
     <Content Include="Content\Images\download.png" />
     <Content Include="Content\Images\fb-logo_icon.jpg" />
     <Content Include="Content\Images\google_logo.png" />
+    <Content Include="Content\Images\Guitar.jpg" />
     <Content Include="Content\Images\home_main_bg.jpg" />
     <Content Include="Content\Images\loader.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Images\medias.jpg" />
+    <Content Include="Content\Images\medias.png" />
+    <Content Include="Content\Images\Mix.jpg" />
+    <Content Include="Content\Images\Panier.png" />
+    <Content Include="Content\Images\Partition-Blur.png" />
+    <Content Include="Content\Images\Partition.png" />
     <Content Include="Content\Images\Tcoder.png" />
     <Content Include="Content\Images\Transcoder.png" />
     <Content Include="Content\Images\validate.ico" />
