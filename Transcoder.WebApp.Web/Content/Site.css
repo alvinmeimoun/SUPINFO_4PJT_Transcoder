@@ -291,6 +291,13 @@ body {
     text-align: center;
 }
 
+@media (min-width: 992px){
+.col-md-offset-2 {
+    margin-left: 8%;
+}
+}
+
+
 .homepage {
     text-align: left !important;
 }
@@ -1339,7 +1346,7 @@ C .transcoder-footer-bottom {
     zoom: 1;
     *display: inline;
     font-family: "brandon-grotesque", Helvetica, Arial, sans-serif;
-    font-weight: 700;
+    font-weight: bold;
     letter-spacing: 2px;
     font-size: 14px;
     line-height: 14px;
