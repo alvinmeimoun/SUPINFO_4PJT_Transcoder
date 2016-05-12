@@ -3,6 +3,7 @@ using Core.Transcoder.DataAccess.ViewModels;
 using Core.Transcoder.Repository;
 using Core.Transcoder.Service.Enums;
 using Core.Transcoder.Service.Services;
+using Core.Transcoder.Service.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -90,7 +91,21 @@ namespace Core.Transcoder.Service
         {
             return GetListOfTaskByUserId(userId).OrderByDescending(x => x.PK_ID_TASK).Where(x => x.FK_ID_PARENT_TASK == null && x.FK_ID_TRANSACTION != null).FirstOrDefault();
         }
+        public CreateTaskViewModel InitCreateTaskViewModelFromAnonymous()
+        {
+            var listFormatTypes = UoW.FORMAT_TYPE_Repository.Get(null, q => q.OrderBy(s => s.PK_ID_FORMAT_TYPE), "").ToList();
 
+            var listFormat = new FORMAT_Service().GetAll();         
+            var shortEditUserViewModel = new ShortEditUserViewModel();
+
+            return new CreateTaskViewModel
+            {
+                FK_ID_USER = 0,
+                ListAvailableFormatTypes = listFormatTypes,
+                ListAvailableFormats = listFormat,
+                ShortEditUserViewModel = shortEditUserViewModel
+            };
+        }
         public CreateTaskViewModel InitCreateTaskViewModel(int userId)
         {
             var listFormatTypes = UoW.FORMAT_TYPE_Repository.Get(null, q => q.OrderBy(s => s.PK_ID_FORMAT_TYPE), "").ToList();
@@ -130,29 +145,54 @@ namespace Core.Transcoder.Service
 
         public bool AddTaskByViewModel(CreateTaskViewModel model)
         {
-            // On update les infos user
-            var user = UoW.USER_Repository.GetByID(model.FK_ID_USER);
-            user.LASTNAME = model.ShortEditUserViewModel.Lastname;
-            user.FIRSTNAME = model.ShortEditUserViewModel.Firstname;
-            user.EMAIL = model.ShortEditUserViewModel.Email;
+            var user = new USER();
+            if (model.FK_ID_USER == 0)
+            {
+                user.EMAIL = model.ShortEditUserViewModel.Email;
+                user.FIRSTNAME = model.ShortEditUserViewModel.Firstname;
+                user.LASTNAME = model.ShortEditUserViewModel.Lastname;
+                user.USERNAME = model.ShortEditUserViewModel.Username;
+                user.PASSWORD = EncryptionUtil.Encrypt(model.ShortEditUserViewModel.Password);
+            }
+            else
+            {
+                // On update les infos user
+                UoW.USER_Repository.GetByID(model.FK_ID_USER);
+                user.LASTNAME = model.ShortEditUserViewModel.Lastname;
+                user.FIRSTNAME = model.ShortEditUserViewModel.Firstname;
+                user.EMAIL = model.ShortEditUserViewModel.Email;
+            }
 
             bool userEdited = new USER_Service().AddOrUpdateUser(user);
-            // on créé la tache
 
+            // on créé la tache
             var task = new TASK();
             task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE;
-            task.FK_ID_TRANSACTION = model.TransactionId;
+            
             task.IS_PAID = false;
 
             task.CreateFromModel(model);
             
             //Mise à jour du montant de la transaction
             var transaction = UoW.TRANSACTION_Repository.GetByID(model.TransactionId);
+            // si l'utilisateur est nouveau on en crée une
+            if(transaction == null)
+            {
+                transaction = new TRANSACTION
+                {
+                    DATE_TRANSACTION = DateTime.Now,
+                    FK_ID_USER = user.PK_ID_USER,
+                    PAYPAL_TRANSACTION_ID = DateTime.Now.Ticks
+                };
+            }
+
             transaction.PRICE += task.PRICE ?? 0;
-            UoW.TRANSACTION_Repository.Update(transaction);
+            new TRANSACTION_Service().AddOrUpdateTransaction(transaction);
 
+            task.FK_ID_TRANSACTION = model.TransactionId != 0 ? model.TransactionId : transaction.PK_ID_TRANSACTION;
+            task.FK_ID_USER = model.FK_ID_USER != 0 ? model.FK_ID_USER : user.PK_ID_USER;
 
-            return AddOrUpdateTask(task);
+           return AddOrUpdateTask(task);
         }
 
         public PanierViewModel GetPanierViewModel(int userId)

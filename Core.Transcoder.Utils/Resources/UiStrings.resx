@@ -306,4 +306,25 @@
   <data name="home_auth_title_task" xml:space="preserve">
     <value>Ma derniere demande de conversion  :</value>
   </data>
+  <data name="add_conversion_load_file" xml:space="preserve">
+    <value>Charger le fichier</value>
+  </data>
+  <data name="add_conversion_choose_destination_format" xml:space="preserve">
+    <value>Choisir le format de conversion</value>
+  </data>
+  <data name="add_conversion_file_url" xml:space="preserve">
+    <value> Url du fichier</value>
+  </data>
+  <data name="add_conversion_local_file" xml:space="preserve">
+    <value> Fichier local</value>
+  </data>
+  <data name="add_conversion_message_added_to_cart" xml:space="preserve">
+    <value>Votre demande de conversion a été ajouté au panier.</value>
+  </data>
+  <data name="add_conversion_message_cart_validated" xml:space="preserve">
+    <value>Votre panier a été validé, vous allez recevoir un mail de confirmation.</value>
+  </data>
+  <data name="cart_order_amount" xml:space="preserve">
+    <value>Montant total de votre commande : </value>
+  </data>
 </root>

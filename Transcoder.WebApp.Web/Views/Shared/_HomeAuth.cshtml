@@ -1,61 +1,68 @@
 ﻿@model Core.Transcoder.DataAccess.ViewModels.HomeAuthViewModel
 @using Core.Transcoder.Utils.Resources
 
-@if (!String.IsNullOrEmpty(Model.LastTranscode))
-{
-<div class="header content_summary_green" style="height:250px; margin-bottom:50px; background-color:#06c6bf; color:white; text-align:left;">
-    <div class="container" style="text-align:center;">
-        <h3 class="title" style="color:white;"> @UiStrings.home_auth_title_task </h3>
-        <br />
-        <h4 class="title" style="color:white;"> @Model.LastTranscode </h4>
-        <p> Date de la demande : @Model.DateDemande.ToShortDateString()</p>
-        <p> Statut de la demande : @Model.Status</p>
-    </div>
-</div>
-}
-else
-{
-    <div class="header content_summary_green" style="height:250px; margin-bottom:50px; background-color:#06c6bf; color:white; text-align:left;">
-        <div class="container" style="">
-            <h2 class="title" style="color:white;"> @UiStrings.home_auth_title </h2>
 
+<script>
+    $(function () {
+        $(".container-fluid").css("background-image", "url('http://pic.1fotonin.com//data/wallpapers/188/WDF_2268218.jpg')").css("min-height", "720px");
+        
+    });
+</script>
+    @if (!String.IsNullOrEmpty(Model.LastTranscode))
+    {
+        <div class="header content_summary_green" style="height:250px; border-bottom:none; margin-bottom:50px; background-color:#06c6bf; color:white; text-align:left;">
+            <div class="container" style="text-align:center;">
+                <h3 class="title" style="color:white;"> @UiStrings.home_auth_title_task </h3>
+                <br />
+                <h4 class="title" style="color:white;"> @Model.LastTranscode </h4>
+                <p> Date de la demande : @Model.DateDemande.ToShortDateString()</p>
+                <p> Statut de la demande : @Model.Status</p>
+            </div>
         </div>
+    }
+    else
+    {
+        <div class="header content_summary_green" style="height:250px;  border-bottom:none; margin-bottom:50px; background-color:#06c6bf; color:white; text-align:left;">
+            <div class="container" style="">
+                <h4 class="title" style="color:white;"> @UiStrings.home_auth_title </h4>
+
+            </div>
+        </div>
+    }
+    <div class="row-stat grid-stat">
+
+
+
+        <div class="medium-4 one columns-stat container-hover grid-stat" style="border: solid 10px transparent; border-radius:0;  width:32.3333%; margin-right:10px; ">
+            <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("AddConversion","Conversion")">
+                <img style="display: block; margin: 0 auto;" src="/Content/Images/conversion.png">
+                <h6 class="text-h6" style="color:white;">Ajouter une</h6>
+                <h2 style="color:white;">Conversion</h2>
+                <p></p>
+                <p class="link"></p>
+            </a>
+        </div>
+
+        <div class="medium-4 two columns-stat container-hover grid-stat" style="
+    border: solid 10px transparent; border-radius:0; width:32.3333%;  margin-right:10px; ">
+            <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("Panier","Conversion")">
+                <img style="display: block; margin: 0 auto;" src="/Content/Images/cart_full.png">
+                <h6 class="text-h6" style="color:white;">Voir mon</h6>
+                <h2 style="color:white;">Panier</h2>
+                <p></p>
+                <p class="link"></p>
+            </a>
+        </div>
+
+        <div class="medium-4 three columns-stat container-hover grid-stat" style="
+    border: solid 10px transparent; border-radius:0; width:32.3333%;  margin-right:10px; ">
+            <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("MesConversions","Conversion")">
+                <img style="display: block; margin: 0 auto;" src="/Content/Images/last_order.jpg">
+                <h6 class="text-h6" style="color:white;">Ma dernière</h6>
+                <h2 style="color:white;">Commande</h2>
+                <p></p>
+                <p class="link"></p>
+            </a>
+        </div>
+
     </div>
-}
-<div class="row-stat grid-stat">
-
-
-
-    <div class="medium-4 columns-stat container-hover grid-stat" style="background-color:#2992d7;border: solid 10px white;">
-        <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("AddConversion","Conversion")">
-            <img style="display: block; margin: 0 auto;" src="/Content/Images/conversion.png">
-            <h6 class="text-h6" style="color:white;">Ajouter une</h6>
-            <h2 style="color:white;">Conversion</h2>
-            <p></p>
-            <p class="link"></p>
-        </a>
-    </div>
-
-    <div class="medium-4 columns-stat container-hover grid-stat" style="background-color: #1b951e;
-    border: solid 10px white;">
-        <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("Panier","Conversion")">
-            <img style="display: block; margin: 0 auto;" src="/Content/Images/cart_full.png">
-            <h6 class="text-h6" style="color:white;">Voir mon</h6>
-            <h2 style="color:white;">Panier</h2>
-            <p></p>
-            <p class="link"></p>
-        </a>
-    </div>
-
-    <div class="medium-4 columns-stat container-hover grid-stat" style="background-color: #FF8700;
-    border: solid 10px white">
-        <a style="text-decoration: none; line-height: inherit; cursor: pointer; text-align: center;" href="@Url.Action("MesConversions","Conversion")">
-            <img style="display: block; margin: 0 auto;" src="/Content/Images/last_order.jpg">
-            <h6 class="text-h6"style="color:white;">Ma dernière</h6>
-            <h2 style="color:white;">Commande</h2>
-            <p></p>
-            <p class="link"></p>
-        </a>
-    </div>
-
-</div>

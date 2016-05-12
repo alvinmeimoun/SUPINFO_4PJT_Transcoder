@@ -306,4 +306,25 @@
   <data name="home_auth_title_task" xml:space="preserve">
     <value>My last Transcode request : </value>
   </data>
+  <data name="add_conversion_load_file" xml:space="preserve">
+    <value>Load file</value>
+  </data>
+  <data name="add_conversion_choose_destination_format" xml:space="preserve">
+    <value>Choose destination format</value>
+  </data>
+  <data name="add_conversion_local_file" xml:space="preserve">
+    <value> Local file</value>
+  </data>
+  <data name="add_conversion_message_added_to_cart" xml:space="preserve">
+    <value>Your conversion has been added to cart.</value>
+  </data>
+  <data name="add_conversion_url_file" xml:space="preserve">
+    <value> File url</value>
+  </data>
+  <data name="add_conversion_message_cart_validated" xml:space="preserve">
+    <value>Your cart had been validated.</value>
+  </data>
+  <data name="cart_order_amount" xml:space="preserve">
+    <value>Order amount : </value>
+  </data>
 </root>

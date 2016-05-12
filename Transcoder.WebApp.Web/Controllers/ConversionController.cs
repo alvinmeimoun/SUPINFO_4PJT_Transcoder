@@ -14,6 +14,7 @@ using Core.Transcoder.Service.Services;
 using Core.Transcoder.PayPalMvc;
 using Core.Transcoder.PayPalMvc.Enums;
 using Core.Transcoder.DataAccess;
+using Core.Transcoder.Utils.Resources;
 using Vereyon.Web;
 
 namespace Transcoder.WebApp.Web.Controllers
@@ -57,23 +58,61 @@ namespace Transcoder.WebApp.Web.Controllers
         {
             int UserId = CookieUtil.GetUserId(this);
             if (UserId == 0)
-                return RedirectToAction("Index", "Home");
-            CreateTaskViewModel model = new TASK_Service().InitCreateTaskViewModel(UserId);
-            return View(model);
+            {
+                CreateTaskViewModel model = new TASK_Service().InitCreateTaskViewModelFromAnonymous();
+                return View(model);
+            }
+            {
+                CreateTaskViewModel model = new TASK_Service().InitCreateTaskViewModel(UserId);
+                return View(model);
+            }
         }
 
         [HttpPost]
         public ActionResult AddConversion(CreateTaskViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
+            //if (!ModelState.IsValid)
+            //    return View(model);
+
 
             bool isEdited =  new TASK_Service().AddTaskByViewModel(model);
-            FlashMessage.Confirmation("Votre demande de conversion a été ajouté au panier.");
-            return RedirectToAction("Index");
+            FlashMessage.Confirmation(@UiStrings.add_conversion_message_added_to_cart);
+            if (model.ShortEditUserViewModel.PK_ID_USER == 0)
+            {
+                return LoginAuto(model.ShortEditUserViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
+        public ActionResult LoginAuto(ShortEditUserViewModel model)
+        {
+            model.Password = string.IsNullOrWhiteSpace(model.Password) ? "" : EncryptionUtil.Encrypt(model.Password);
+            var user = new USER_Service().LoginUser(model.Username, model.Password);
+            if (user != null)
+            {
+                SetCurrentUser(user.USERNAME, user.PK_ID_USER);
 
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+        public void SetCurrentUser(string Username, int Pk_id_user)
+        {
+            HttpCookie Cookie = Request.Cookies["User"] ?? new HttpCookie("User");
+            Cookie.Value = Username;
 
+            Response.SetCookie(Cookie);
+
+            HttpCookie CookieID = Request.Cookies["UserID"] ?? new HttpCookie("UserID");
+            CookieID.Value = Pk_id_user.ToString();
+
+            Response.SetCookie(CookieID);
+        }
         [HttpGet]
         public ActionResult DeleteConversion(int id)
         {
@@ -107,7 +146,7 @@ namespace Transcoder.WebApp.Web.Controllers
                 Debug.WriteLine("Error initiating PayPal SetExpressCheckout transaction. Error: " + errorMessage);
                 return RedirectToAction("Panier", model);
             }
-            FlashMessage.Confirmation("Votre panier a été validé, vous allez recevoir un mail de confirmation.");
+            FlashMessage.Confirmation(UiStrings.add_conversion_message_cart_validated);
             return Redirect(string.Format(Configuration.Current.PayPalRedirectUrl, transactionResponse.TOKEN));
         }
 

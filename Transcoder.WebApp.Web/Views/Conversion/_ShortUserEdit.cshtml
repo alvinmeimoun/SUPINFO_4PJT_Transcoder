@@ -1,15 +1,17 @@
 ﻿@model Core.Transcoder.DataAccess.ViewModels.ShortEditUserViewModel
 
         <div class="contentWrap" style="margin-top:8%">
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.PK_ID_USER, new { Name = "ShortEditUserViewModel.PK_ID_USER" })
 
             <div class="form-group">
                     @Html.LabelFor(model => model.Email, new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", Name = "ShortEditUserViewModel.Email" , @style= "width: 80%; display: inline-block;"})
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", Name = "ShortEditUserViewModel.Email", @style = "width: 80%; display: inline-block;" })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
-
+            @if (Model.PK_ID_USER != 0)
+            {
             <div class="form-group">
                     @Html.LabelFor(model => model.Firstname, new { @class = "form-label" })<br />
                     @Html.TextBoxFor(model => model.Firstname, new { @class = "form-control", Name = "ShortEditUserViewModel.Firstname", @style = "width: 80%; display: inline-block;" })
@@ -21,4 +23,19 @@
                     @Html.TextBoxFor(model => model.Lastname, new { @class = "form-control", Name = "ShortEditUserViewModel.Lastname", @style = "width: 80%; display: inline-block;" })
                     @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
             </div>
-        </div>
+            }
+            else
+            {
+                @Html.HiddenFor(model => model.Firstname, new { Name = "ShortEditUserViewModel.Firstname" })
+                @Html.HiddenFor(model => model.Lastname , new { Name = "ShortEditUserViewModel.Lastname" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username, new { @class = "form-label" })<br />
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control", Name = "ShortEditUserViewModel.Username", @style = "width: 80%; display: inline-block;" })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "form-label" })<br />
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", Name = "ShortEditUserViewModel.Password", @style = "width: 80%; display: inline-block;" })
+                </div> 
+            }
+           </div>

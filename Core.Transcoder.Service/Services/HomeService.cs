@@ -29,15 +29,17 @@ namespace Core.Transcoder.Service.Services
         {
             var taskService = new TASK_Service();
             var lastTask = taskService.GetLastTaskByUserId(userId);
+         
             var vm = new HomeAuthViewModel();
             if (lastTask != null)
             {
+                var status = new PARAM_TASK_STATUS_Service().GetAll().Where(x => x.PK_ID_STATUS == lastTask.STATUS).FirstOrDefault();
                 string fileName = lastTask.FILE_URL.Substring(lastTask.FILE_URL.LastIndexOf(@"\") + 1);
                 vm = new HomeAuthViewModel()
                 {
                     DateDemande = lastTask.TRANSACTION.DATE_TRANSACTION,
                     LastTranscode = fileName,
-                    Status = lastTask.PARAM_TASK_STATUS.LIBELLE
+                    Status = status.LIBELLE
                 };
             }
             return vm;
