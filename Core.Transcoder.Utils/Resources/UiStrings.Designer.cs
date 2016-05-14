@@ -349,6 +349,15 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Profitez pleinement des fonctionnalités ! .
+        /// </summary>
+        public static string home_auth_subtitle {
+            get {
+                return ResourceManager.GetString("home_auth_subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Bienvenue sur Transcoder.
         /// </summary>
         public static string home_auth_title {
@@ -367,7 +376,7 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à C&apos;est parti !.
+        ///   Recherche une chaîne localisée semblable à Essayez dès maintenant !.
         /// </summary>
         public static string home_button_get_started {
             get {

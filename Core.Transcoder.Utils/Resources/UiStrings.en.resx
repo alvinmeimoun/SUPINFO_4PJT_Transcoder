@@ -190,7 +190,7 @@
     <value>Edit your profile</value>
   </data>
   <data name="home_button_get_started" xml:space="preserve">
-    <value>Let's go _</value>
+    <value>Try now ! </value>
   </data>
   <data name="home_gauge_conversions_datalabel" xml:space="preserve">
     <value>Conversions</value>
@@ -289,7 +289,7 @@
     <value>Username</value>
   </data>
   <data name="register_page_title" xml:space="preserve">
-    <value>Regoster</value>
+    <value>Register</value>
   </data>
   <data name="register_section_title_standard_account" xml:space="preserve">
     <value>Or create a standard account</value>
@@ -326,5 +326,8 @@
   </data>
   <data name="cart_order_amount" xml:space="preserve">
     <value>Order amount : </value>
+  </data>
+  <data name="home_auth_subtitle" xml:space="preserve">
+    <value>Enjoy and go with Transcode !</value>
   </data>
 </root>

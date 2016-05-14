@@ -190,7 +190,7 @@
     <value>Modifier votre compte</value>
   </data>
   <data name="home_button_get_started" xml:space="preserve">
-    <value>C'est parti !</value>
+    <value>Essayez dès maintenant !</value>
   </data>
   <data name="home_gauge_conversions_datalabel" xml:space="preserve">
     <value>Conversions</value>
@@ -326,5 +326,8 @@
   </data>
   <data name="cart_order_amount" xml:space="preserve">
     <value>Montant total de votre commande : </value>
+  </data>
+  <data name="home_auth_subtitle" xml:space="preserve">
+    <value>Profitez pleinement des fonctionnalités ! </value>
   </data>
 </root>

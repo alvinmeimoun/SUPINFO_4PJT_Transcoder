@@ -28,7 +28,7 @@
                             <input type="radio" class="sourceFile" name="sourceFile" value="url" style="margin-left: 10px;"/>@UiStrings.add_conversion_file_url
                             <br>
                         </div>
-
+                        <br/>
                         <p id="fileName" style="font-weight:bold; color:#5cb85c;overflow: hidden;-o-text-overflow: ellipsis; text-overflow: ellipsis;"></p>
                         <span class="text-danger" id="fileError" style="display:none;">@UiStrings.addconversion_error_source_file</span>
 
@@ -52,8 +52,8 @@
                         @Html.HiddenFor(m => m.PRICE, new { @id = "filePrice" })
                         @Html.HiddenFor(m => m.DURATION, new { @id = "fileDuration" })
 
-                        <div class="progress" id="progress" style="display:none; width:100%; ">
-                            <div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; ">
+                        <div class="progress" id="progress" style="display:none; width:100%;">
+                            <div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style=" width:95%; ">
                                 <span id="progressValue"></span>
                             </div>
                         </div>
@@ -80,6 +80,7 @@
                     <h4 class="head-1-title" style="">@UiStrings.add_conversion_choose_destination_format</h4>
                 </div>
                 <div class="contentWrap">
+                    <br />
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.FK_ID_FORMAT_TYPE, Model.slAvailableFormatsTypes, @UiStrings.addconversion_select_conversion_type, new { @id = "ddlFormatTypes", @class = "form-control", @style = "display:none; width:87%;" })
                         @Html.ValidationMessageFor(m => m.FK_ID_FORMAT_TYPE)
@@ -261,7 +262,8 @@
                 processData: false,
                 beforeSend: function () {
                 
-                    $("#separator-1").css("display","none");
+                    $("#separator-1").css("display", "none");
+                    $("#ddlFormatTypes").val(0);
                     $("#ddlFormatTypes").css("display", "none");
                     $("#FormatConversion").css("display", "none");
                     $("#separator-2").css("display", "none");
@@ -269,7 +271,8 @@
                     $("#finalPart").css("display", "none");
                     $("#priceAnnounced").css("display", "block");
                     $("#userInformations").css("display", "none");
-                   
+                    $("#btnSection").css("display", "none");
+                    $("#ddlFormats").css("display", "none");
                     setProgressBarValue("20%");
                 },
                 success: function (data) {

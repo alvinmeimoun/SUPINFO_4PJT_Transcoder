@@ -4,7 +4,7 @@
 
 <script>
     $(function () {
-        $(".container-fluid").css("background-image", "url('Content/Images/Partition-Blur.png')").css("min-height", "720px");
+        $(".container-fluid").css("background-image", "url('/Content/Images/Partition-Blur.png')").css("min-height", "720px");
         
     });
 </script>
@@ -23,9 +23,10 @@
     else
     {
         <div class="header content_summary_green" style="height:250px;  border-bottom:none; margin-bottom:50px; background-color:#06c6bf; color:white; text-align:left;">
-            <div class="container" style="">
-                <h4 class="title" style="color:white;"> @UiStrings.home_auth_title </h4>
-
+            <div class="container" style="text-align:center;">
+                <h3 class="title" style="color:white;"> @UiStrings.home_auth_title </h3>
+                <br />
+                <h4 class="title" style="color:white;"> @UiStrings.home_auth_subtitle</h4>
             </div>
         </div>
     }
