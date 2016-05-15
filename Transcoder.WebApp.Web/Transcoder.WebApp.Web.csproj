@@ -222,8 +222,21 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\circle.css" />
+    <Content Include="Content\Images\a22.png" />
     <Content Include="Content\Images\arrow.png" />
+    <Content Include="Content\Images\b05.png" />
+    <Content Include="Content\Images\blue.jpg" />
     <Content Include="Content\Images\btn-github.png" />
+    <Content Include="Content\Images\c-finger-pointing.png" />
+    <Content Include="Content\Images\c-fruit.png" />
+    <Content Include="Content\Images\c-jssor-slider.png" />
+    <Content Include="Content\Images\c-navigator-horizontal.png" />
+    <Content Include="Content\Images\c-navigator.png" />
+    <Content Include="Content\Images\c-phone-horizontal.png" />
+    <Content Include="Content\Images\c-phone.png" />
+    <Content Include="Content\Images\c-slide-1.jpg" />
+    <Content Include="Content\Images\c-slide-3.jpg" />
+    <Content Include="Content\Images\c-text.png" />
     <Content Include="Content\Images\choose.png" />
     <Content Include="Content\Images\Commande.png" />
     <Content Include="Content\Images\conversion.png" />
@@ -236,12 +249,19 @@
     <Content Include="Content\Images\loader.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\medias.jpg" />
     <Content Include="Content\Images\medias.png" />
+    <Content Include="Content\Images\medias_zoom.png" />
     <Content Include="Content\Images\Mix.jpg" />
     <Content Include="Content\Images\Panier.png" />
     <Content Include="Content\Images\Partition-Blur.png" />
     <Content Include="Content\Images\Partition.png" />
+    <Content Include="Content\Images\pic1.png" />
+    <Content Include="Content\Images\pic2.PNG" />
+    <Content Include="Content\Images\pic3.PNG" />
+    <Content Include="Content\Images\purple.jpg" />
+    <Content Include="Content\Images\red.jpg" />
     <Content Include="Content\Images\Tcoder.png" />
     <Content Include="Content\Images\Transcoder.png" />
     <Content Include="Content\Images\validate.ico" />
@@ -283,6 +303,10 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Slider\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\Slider\jssor.slider.debug.js" />
+    <Content Include="Scripts\Slider\jssor.slider.min.js" />
+    <Content Include="Scripts\Slider\jssor.slider.mini.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
