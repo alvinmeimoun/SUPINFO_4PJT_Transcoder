@@ -74,6 +74,11 @@ namespace Core.Transcoder.WindowsService
                             new TASK_Service().AddOrUpdateTask(MotherTask);
                         }
                     }
+                    if(Task.STATUS == (int)EnumManager.PARAM_TASK_STATUS.EFFECTUE && Task.FK_ID_PARENT_TASK == null)
+                    {
+                        // On envoie la notification par mail
+                        MailUtil.SendMail(StringManager.CONVERSION_TERMINEE, Task);
+                    }
                 }
                 new TASK_Service().AddOrUpdateTask(Task);
                 return true;
@@ -150,7 +155,7 @@ namespace Core.Transcoder.WindowsService
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
                 new TASK_Service().AddOrUpdateTask(Task);
 
-                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message, METHOD = "Conversion FFMPEG Convert Task", TYPE = "ERROR" };
+                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message + " " + e.InnerException, METHOD = "Conversion FFMPEG Convert Task", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
             }
 

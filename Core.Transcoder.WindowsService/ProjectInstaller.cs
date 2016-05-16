@@ -12,13 +12,12 @@ namespace Core.Transcoder.WindowsService
     [RunInstaller(true)]
     public partial class ProjectInstaller : System.Configuration.Install.Installer
     {
-        private ServiceInstaller serviceInstaller;
-        private ServiceProcessInstaller processInstaller;
+        public ServiceProcessInstaller processInstaller;
+        public ServiceInstaller serviceInstaller;
 
         public ProjectInstaller()
         {
             //InitializeComponent();
-            // Instantiate installers for process and services.
             processInstaller = new ServiceProcessInstaller();
             serviceInstaller = new ServiceInstaller();
 
@@ -34,6 +33,7 @@ namespace Core.Transcoder.WindowsService
             // Add installers to collection. Order is not important.
             Installers.Add(serviceInstaller);
             Installers.Add(processInstaller);
+ 
         }
     }
 }
