@@ -330,4 +330,7 @@
   <data name="home_auth_subtitle" xml:space="preserve">
     <value>Enjoy and go with Transcode !</value>
   </data>
+  <data name="home_guest_subtitle" xml:space="preserve">
+    <value>Easy to use and Transcode everything</value>
+  </data>
 </root>

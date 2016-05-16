@@ -198,7 +198,7 @@
 
                 setProgressBarValue("60%");
                 if (data.success == "true") {
-
+                    $("#fileError").css("display", "none");
                     $("#fileUrl").val(data.fileUrl);
                     $("#fileLength").val(data.fileLength);
                     $("#fileFormatBase").val(data.fileFormatBase);
@@ -218,6 +218,7 @@
                         setProgressBarValue("100%");
                         $("#progressBar").addClass("progress-bar-success");
                         $("#fileName").html(data.fileName);
+                        $('#fileName').css("display", "block");
                     }, 2000);
                     setTimeout(function () {
                         $("#progress").hide();
@@ -233,6 +234,7 @@
                     $("#progress").css("display", "none");
                     $("#fileError").css("display", "block");
                     $('#FileToUpload').val('');
+                    $('#fileName').css("display", "none");
 
                 }
 
@@ -279,7 +281,7 @@
 
                     setProgressBarValue("60%");
                     if (data.success == "true") {
-
+                        $("#fileError").css("display", "none");
                         $("#fileUrl").val(data.fileUrl);
                         $("#fileLength").val(data.fileLength);
                         $("#fileFormatBase").val(data.fileFormatBase);
@@ -299,6 +301,7 @@
                             setProgressBarValue("100%");
                             $("#progressBar").addClass("progress-bar-success");
                             $("#fileName").html(data.fileName);
+                            $('#fileName').css("display", "block");
                         }, 2000);
                         setTimeout(function () {
                             $("#progress").hide();
@@ -314,6 +317,7 @@
                         $("#progress").css("display", "none");
                         $("#fileError").css("display", "block");
                         $('#FileToUpload').val('');
+                        $('#fileName').css("display", "none");
 
                     }
 

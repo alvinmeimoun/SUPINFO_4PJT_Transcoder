@@ -448,6 +448,15 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Transcoder associe simplicité et tranquilité.
+        /// </summary>
+        public static string home_guest_subtitle {
+            get {
+                return ResourceManager.GetString("home_guest_subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Nouvelle conversion.
         /// </summary>
         public static string listconversion_button_add_conversion {

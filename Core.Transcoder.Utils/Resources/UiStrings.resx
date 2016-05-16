@@ -330,4 +330,7 @@
   <data name="home_auth_subtitle" xml:space="preserve">
     <value>Profitez pleinement des fonctionnalités ! </value>
   </data>
+  <data name="home_guest_subtitle" xml:space="preserve">
+    <value>Transcoder associe simplicité et tranquilité</value>
+  </data>
 </root>
