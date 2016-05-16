@@ -250,7 +250,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Images\loading.gif" />
-    <Content Include="Content\Images\medias.jpg" />
     <Content Include="Content\Images\medias.png" />
     <Content Include="Content\Images\medias_zoom.png" />
     <Content Include="Content\Images\Mix.jpg" />
@@ -282,6 +281,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\Publish Local.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap-table.js" />
     <Content Include="Scripts\bootstrap-table.min.js" />

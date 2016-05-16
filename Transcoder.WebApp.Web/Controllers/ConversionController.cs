@@ -156,7 +156,8 @@ namespace Transcoder.WebApp.Web.Controllers
             var client = new System.Net.WebClient();
             try
             {
-                string path = Server.MapPath("~/UploadedFiles/") + url.Substring(url.LastIndexOf('/') + 1);
+                var localPath = new CONFIG_Service().GetConfigValueByName("FilesFromClientPath");
+                string path = localPath + url.Substring(url.LastIndexOf('/') + 1);
                 client.DownloadFile(url, path);
                 FileInfo fileInfo = new FileInfo(path);
                 VideoFile videoFile = new VideoFile(path);
@@ -317,7 +318,9 @@ namespace Transcoder.WebApp.Web.Controllers
             if (file != null && file.ContentLength > 0)
             {
                 var fileName = Path.GetFileName(file.FileName);
-                path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
+                var localPath = new CONFIG_Service().GetConfigValueByName("FilesFromClientPath");
+                path = localPath + fileName;
+                //path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
                 file.SaveAs(path);
                 
             }

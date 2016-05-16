@@ -89,7 +89,7 @@ namespace Core.Transcoder.Service
 
         public TASK GetLastTaskByUserId(int userId)
         {
-            return GetListOfTaskByUserId(userId).OrderByDescending(x => x.PK_ID_TASK).Where(x => x.FK_ID_PARENT_TASK == null && x.FK_ID_TRANSACTION != null).FirstOrDefault();
+            return GetListOfTaskByUserId(userId).OrderByDescending(x => x.PK_ID_TASK).Where(x => x.FK_ID_PARENT_TASK == null && x.FK_ID_TRANSACTION != null && x.IS_PAID == true).FirstOrDefault();
         }
         public CreateTaskViewModel InitCreateTaskViewModelFromAnonymous()
         {

@@ -15,9 +15,12 @@ namespace Core.Transcoder.WindowsService
 {
     public static class TranscoderService
     {
-        private static string rootFolder = ConfigurationManager.AppSettings["TranscoderTempRoot"];
-        private static string sourceFolder = ConfigurationManager.AppSettings["TranscoderTempRootSource"];
-        private static string destinationFolder = ConfigurationManager.AppSettings["TranscoderTempRootDestination"];
+        private static string rootFolder = new CONFIG_Service().GetConfigValueByName("TranscoderTempRoot");
+        //ConfigurationManager.AppSettings["TranscoderTempRoot"];
+        private static string sourceFolder = new CONFIG_Service().GetConfigValueByName("TranscoderTempRootSource");
+        //ConfigurationManager.AppSettings["TranscoderTempRootSource"];
+        private static string destinationFolder = new CONFIG_Service().GetConfigValueByName("TranscoderTempRootDestination");
+        //ConfigurationManager.AppSettings["TranscoderTempRootDestination"];
 
         public static bool DoFFmpegConversion(TASK Task)
         {
@@ -90,7 +93,7 @@ namespace Core.Transcoder.WindowsService
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
                 new TASK_Service().AddOrUpdateTask(Task);
 
-                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, DATE_TRACE=DateTime.Now, NOM_SERVER= System.Environment.MachineName, FK_ID_SERVER = 1, DESCRIPTION = e.Message, METHOD = "CONVERSION FFMPEG", TYPE = "ERROR" };
+                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, DATE_TRACE=DateTime.Now, NOM_SERVER= System.Environment.MachineName, FK_ID_SERVER = 1, DESCRIPTION = e.Message +  " " + e.InnerException, METHOD = "CONVERSION FFMPEG", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
                 return false;
             }
@@ -128,7 +131,7 @@ namespace Core.Transcoder.WindowsService
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
                 Task.DATE_END_CONVERSION = DateTime.Now;
                 new TASK_Service().AddOrUpdateTask(Task);
-                var trace = new TRACE() { FK_ID_TASK = Task.PK_ID_TASK, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message, METHOD = "Erreur lors de l'extraction audio", TYPE = "ERROR" };
+                var trace = new TRACE() { FK_ID_TASK = Task.PK_ID_TASK, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message +  " " + e.InnerException, METHOD = "Erreur lors de l'extraction audio", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(trace);
                 return false;
             }
@@ -155,7 +158,7 @@ namespace Core.Transcoder.WindowsService
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
                 new TASK_Service().AddOrUpdateTask(Task);
 
-                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message + " " + e.InnerException, METHOD = "Conversion FFMPEG Convert Task", TYPE = "ERROR" };
+                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message +  " " + e.InnerException + " " + e.InnerException, METHOD = "Conversion FFMPEG Convert Task", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
             }
 
@@ -173,7 +176,7 @@ namespace Core.Transcoder.WindowsService
             bool result = false;
             try
             {
-                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, METHOD = "CREATION DES SPLIT TEMPORAIRES", TYPE = "INFO" };
+                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, NOM_SERVER = System.Environment.MachineName, DATE_TRACE = DateTime.Now, METHOD = "GetTaskAndSetIfTaskIsSplitted", TYPE = "INFO" };
                 new TRACE_Service().AddTrace(Trace);
 
                 string fileName = GetFileName(Task);
@@ -201,7 +204,7 @@ namespace Core.Transcoder.WindowsService
             }
             catch (Exception e)
             {
-                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message, METHOD = "CREATION DES FICHIERS TEMPORAIRES", TYPE = "ERROR" };
+                TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message +  " " + e.InnerException +  " " + e.InnerException, METHOD = "CREATION DES FICHIERS TEMPORAIRES", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
                 return false;
             }
@@ -251,7 +254,7 @@ namespace Core.Transcoder.WindowsService
             }
             catch (Exception e)
             {
-                TRACE Trace = new TRACE { FK_ID_SERVER = 1, DESCRIPTION = e.Message, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, METHOD = "CREATION DES REPERTOIRES " + folder, TYPE = "ERROR" };
+                TRACE Trace = new TRACE { FK_ID_SERVER = 1, DESCRIPTION = e.Message +  " " + e.InnerException, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, METHOD = "CREATION DES REPERTOIRES " + folder, TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
             }
         }
@@ -365,7 +368,7 @@ namespace Core.Transcoder.WindowsService
                     FK_ID_SERVER = 1,
                     METHOD = "FFMPEG Split",
                     TYPE = "ERROR",
-                    DESCRIPTION = e.Message ,
+                    DESCRIPTION = e.Message +  " " + e.InnerException ,
                     DATE_TRACE = DateTime.Now,
                     NOM_SERVER = System.Environment.MachineName
 
@@ -401,7 +404,7 @@ namespace Core.Transcoder.WindowsService
                     FK_ID_SERVER = 1,
                     METHOD = "GetNumberOfSplits problème lors de la recupération de la length",
                     TYPE = "ERROR",
-                    DESCRIPTION = e.Message,
+                    DESCRIPTION = e.Message +  " " + e.InnerException,
                     DATE_TRACE = DateTime.Now,
                     NOM_SERVER = System.Environment.MachineName
 
@@ -447,7 +450,7 @@ namespace Core.Transcoder.WindowsService
                     NOM_SERVER = System.Environment.MachineName,
                     METHOD = "FFMPEG Merge Split",
                     TYPE = "ERROR",
-                    DESCRIPTION = e.Message 
+                    DESCRIPTION = e.Message +  " " + e.InnerException 
 
                 };
                 new TRACE_Service().AddTrace(trace);

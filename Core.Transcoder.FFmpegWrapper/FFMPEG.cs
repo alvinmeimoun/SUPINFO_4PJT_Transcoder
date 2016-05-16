@@ -17,7 +17,7 @@ namespace Core.Transcoder.FFmpegWrapper
     public static class FFMpegService
     {
         public static string FFMPEGExecutableFilePath;
-        public static string FullPath = ConfigurationManager.AppSettings["FullFFMPEGExecutableFilePath"];
+        //public static string FullPath = ConfigurationManager.AppSettings["FullFFMPEGExecutableFilePath"];
         //@"D:\Projets\TestsAssetsTranscoder\FFmpeg\bin\ffmpeg.exe";
         private const int MaximumBuffers = 25;
 
