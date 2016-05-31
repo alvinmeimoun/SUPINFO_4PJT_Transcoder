@@ -1,6 +1,8 @@
 ﻿@model Core.Transcoder.DataAccess.ViewModels.HomeAuthViewModel
 @using Core.Transcoder.Utils.Resources
-
+<head>
+    <title>@UiStrings.homeCo_title</title>
+</head>
 
 <script>
     $(function () {
@@ -16,7 +18,7 @@
                 <br />
                 <h4 class="title" style="color:white;"> @Model.LastTranscode </h4>
                 <p> Date de la demande : @Model.DateDemande.ToShortDateString()</p>
-                <p> Statut de la demande : @Model.Status</p>
+                <p> Statut de la demande : @if (Model.Status == "En cours") { @UiStrings.encours_title } else if(Model.Status == "Effectue"){@UiStrings.termine_title}</p>
             </div>
         </div>
     }

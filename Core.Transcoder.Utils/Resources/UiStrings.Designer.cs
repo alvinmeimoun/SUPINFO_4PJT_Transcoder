@@ -340,11 +340,38 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajouter une conversion - Transcoder.
+        /// </summary>
+        public static string conversion_title {
+            get {
+                return ResourceManager.GetString("conversion_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modifier mes informations - Transcoder.
+        /// </summary>
+        public static string edit_title {
+            get {
+                return ResourceManager.GetString("edit_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Modifier votre compte.
         /// </summary>
         public static string editprofile_page_title {
             get {
                 return ResourceManager.GetString("editprofile_page_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à En cours.
+        /// </summary>
+        public static string encours_title {
+            get {
+                return ResourceManager.GetString("encours_title", resourceCulture);
             }
         }
         
@@ -457,6 +484,24 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bienvenue sur Transcoder.
+        /// </summary>
+        public static string home_title {
+            get {
+                return ResourceManager.GetString("home_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mon espace - Transcoder.
+        /// </summary>
+        public static string homeCo_title {
+            get {
+                return ResourceManager.GetString("homeCo_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Nouvelle conversion.
         /// </summary>
         public static string listconversion_button_add_conversion {
@@ -565,6 +610,24 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Se connecter - Transcoder.
+        /// </summary>
+        public static string login_title {
+            get {
+                return ResourceManager.GetString("login_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mes conversions - Transcoder.
+        /// </summary>
+        public static string myconversions_title {
+            get {
+                return ResourceManager.GetString("myconversions_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Panier.
         /// </summary>
         public static string navbar_button_cart {
@@ -637,6 +700,15 @@ namespace Core.Transcoder.Utils.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mon panier - Transcoder.
+        /// </summary>
+        public static string panier_title {
+            get {
+                return ResourceManager.GetString("panier_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à S&apos;inscrire.
         /// </summary>
         public static string register_button_valid {
@@ -705,6 +777,24 @@ namespace Core.Transcoder.Utils.Resources {
         public static string register_section_title_standard_account {
             get {
                 return ResourceManager.GetString("register_section_title_standard_account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à S&apos;enregistrer - Transcoder.
+        /// </summary>
+        public static string register_title {
+            get {
+                return ResourceManager.GetString("register_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Terminée.
+        /// </summary>
+        public static string termine_title {
+            get {
+                return ResourceManager.GetString("termine_title", resourceCulture);
             }
         }
     }

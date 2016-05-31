@@ -1,20 +1,9 @@
 ﻿@Scripts.Render("~/Scripts/jquery.AshAlom.gaugeMeter-2.0.0.min.js")
 @using Core.Transcoder.Utils.Resources
 @model Core.Transcoder.DataAccess.ViewModels.HomeViewModel
-
-
-@*<div id="content_banner" role="main" tabindex="-1" style="height:510px;">
-    <div class="container">
-        <div class="row">
-            <div id="transcoder_title"><img src="~/Content/Images/Transcoder.png" style="width:40%; height:auto;"/></div>
-        </div>
-        <div class="row" style="padding-left:0.75%">
-            <p class="transcoder_summary_white">@UiStrings.app_summary</p>
-            @Html.ActionLink(@UiStrings.home_button_get_started, "AddConversion","Conversion",null, new { @id="bt_get_started" , @class="btn btn-primary"})
-        </div>
-    </div>
-</div>*@
-
+<head>
+    <title>@UiStrings.home_title</title>
+</head>
 
 <script type="text/javascript" src="~/Scripts/Slider/jssor.slider.mini.js"></script>
 <!-- use jssor.slider.debug.js instead for debug -->

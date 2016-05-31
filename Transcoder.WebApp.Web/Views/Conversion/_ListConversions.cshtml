@@ -1,6 +1,9 @@
 ﻿@using Core.Transcoder.Utils.Resources
 @using Microsoft.SqlServer.Server
 @model List<Core.Transcoder.DataAccess.ViewModels.ListTaskViewModel>
+<head>
+    <title>@UiStrings.myconversions_title</title>
+</head>
 <p>
     @Html.ActionLink(@UiStrings.listconversion_button_add_conversion, "AddConversion",null, new { @class = "btn btn-primary" })
 </p>
@@ -64,12 +67,14 @@
                     @if (Model.ToList()[i].IS_PAID != false)
                     {
                         @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
-                        @Html.DisplayFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
+                        @*@Html.DisplayFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })*@
+                        <span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     }
                     else
                     {
-                        @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
-                       @Html.Raw(@UiStrings.addconversion_cart_added)
+                        <span style="color:orange;" class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                       @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
+                       @*@Html.Raw(@UiStrings.addconversion_cart_added)*@
                     }
                 </td>
                 <td style="color:greenyellow;">

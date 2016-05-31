@@ -333,4 +333,34 @@
   <data name="home_guest_subtitle" xml:space="preserve">
     <value>Transcoder associe simplicité et tranquilité</value>
   </data>
+  <data name="conversion_title" xml:space="preserve">
+    <value>Ajouter une conversion - Transcoder</value>
+  </data>
+  <data name="edit_title" xml:space="preserve">
+    <value>Modifier mes informations - Transcoder</value>
+  </data>
+  <data name="encours_title" xml:space="preserve">
+    <value>En cours</value>
+  </data>
+  <data name="homeCo_title" xml:space="preserve">
+    <value>Mon espace - Transcoder</value>
+  </data>
+  <data name="home_title" xml:space="preserve">
+    <value>Bienvenue sur Transcoder</value>
+  </data>
+  <data name="login_title" xml:space="preserve">
+    <value>Se connecter - Transcoder</value>
+  </data>
+  <data name="myconversions_title" xml:space="preserve">
+    <value>Mes conversions - Transcoder</value>
+  </data>
+  <data name="panier_title" xml:space="preserve">
+    <value>Mon panier - Transcoder</value>
+  </data>
+  <data name="register_title" xml:space="preserve">
+    <value>S'enregistrer - Transcoder</value>
+  </data>
+  <data name="termine_title" xml:space="preserve">
+    <value>Terminée</value>
+  </data>
 </root>
