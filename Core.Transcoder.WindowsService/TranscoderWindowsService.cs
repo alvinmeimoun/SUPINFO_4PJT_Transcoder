@@ -124,11 +124,12 @@ namespace Core.Transcoder.WindowsService
                     oStreamWriter.WriteLine(f.StackTrace);
                     oStreamWriter.Close();
                     oStreamWriter = null;
+                    serviceStarted = false;
                 }
                 // yield
                 if (serviceStarted)
                 {
-                    Thread.Sleep(new TimeSpan(10000));
+                    Thread.Sleep(10000);
                 }
             }
             // time to end the thread
