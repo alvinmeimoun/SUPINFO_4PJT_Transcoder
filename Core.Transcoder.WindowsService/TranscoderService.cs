@@ -42,7 +42,7 @@ namespace Core.Transcoder.WindowsService
                 {
                     // On met le statut en cours
                     Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EN_COURS;
-                    new TASK_Service().AddOrUpdateTask(Task);
+                    new TASK_Service().UpdateTask(Task);
 
                     // On liste les sous taches
                     List<TASK> listOfSubTaskByParent = new TASK_Service().GetSubTaskByMotherTask(Task.PK_ID_TASK);
@@ -74,7 +74,7 @@ namespace Core.Transcoder.WindowsService
                         {
                             TASK MotherTask = new TASK_Service().GetTaskById((int)Task.FK_ID_PARENT_TASK);
                             MotherTask.STATUS = (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER;
-                            new TASK_Service().AddOrUpdateTask(MotherTask);
+                            new TASK_Service().UpdateTask(MotherTask);
                         }
                     }
                     if(Task.STATUS == (int)EnumManager.PARAM_TASK_STATUS.EFFECTUE && Task.FK_ID_PARENT_TASK == null)
@@ -83,7 +83,7 @@ namespace Core.Transcoder.WindowsService
                         MailUtil.SendMail(StringManager.CONVERSION_TERMINEE, Task);
                     }
                 }
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
                 return true;
             }
             catch (Exception e)
@@ -91,7 +91,7 @@ namespace Core.Transcoder.WindowsService
 
                 Task.DATE_END_CONVERSION = DateTime.Now;
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
 
                 TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, DATE_TRACE=DateTime.Now, NOM_SERVER= System.Environment.MachineName, FK_ID_SERVER = 1, DESCRIPTION = e.Message +  " " + e.InnerException, METHOD = "CONVERSION FFMPEG", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
@@ -108,7 +108,7 @@ namespace Core.Transcoder.WindowsService
                 string fileName = GetFileName(Task);
 
                 CopyFileInTempFolder(fileName, Task);
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
 
                 VideoFile VideoFile = new VideoFile(Task.FILE_URL_TEMP);
                 VideoFile.GetVideoInfo();
@@ -123,14 +123,14 @@ namespace Core.Transcoder.WindowsService
                 VideoFile.ExtractAudioSegment(begin.Ticks, durationTotal, Task.FORMAT.FORMAT_NAME, Task.FILE_URL_DESTINATION);
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EFFECTUE;
                 Task.DATE_END_CONVERSION = DateTime.Now;
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
                 return true;
             }
             catch(Exception e)
             {
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
                 Task.DATE_END_CONVERSION = DateTime.Now;
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
                 var trace = new TRACE() { FK_ID_TASK = Task.PK_ID_TASK, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message +  " " + e.InnerException, METHOD = "Erreur lors de l'extraction audio", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(trace);
                 return false;
@@ -142,7 +142,7 @@ namespace Core.Transcoder.WindowsService
             try
             {
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.EN_COURS;
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
                 FFMpegService.Execute(Task.FILE_URL_TEMP, formatToConvert.FORMAT_FFMPEG_VALUE, Task.FILE_URL_DESTINATION);
                 bool fileIsAvailable = CheckFileIsAvailable(Task.FILE_URL_DESTINATION);
 
@@ -156,7 +156,7 @@ namespace Core.Transcoder.WindowsService
             {
                 Task.DATE_END_CONVERSION = DateTime.Now;
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
 
                 TRACE Trace = new TRACE { FK_ID_TASK = Task.PK_ID_TASK, FK_ID_SERVER = 1, DATE_TRACE = DateTime.Now, NOM_SERVER = System.Environment.MachineName, DESCRIPTION = e.Message +  " " + e.InnerException + " " + e.InnerException, METHOD = "Conversion FFMPEG Convert Task", TYPE = "ERROR" };
                 new TRACE_Service().AddTrace(Trace);
@@ -198,7 +198,7 @@ namespace Core.Transcoder.WindowsService
                     Task.FILE_URL_DESTINATION = destinationFolder + @"\" + fileName + Format.FORMAT_NAME;
                     result = false;
                 }
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
 
                 return result;
             }
@@ -274,7 +274,7 @@ namespace Core.Transcoder.WindowsService
                 VideoFile VideoFile = new VideoFile(Task.FILE_URL);
                 VideoFile.GetVideoInfo();
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.SPLIT_EN_COURS;
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
                 CreateSplits(Task, VideoFile);
                 return true;
             }
@@ -351,16 +351,16 @@ namespace Core.Transcoder.WindowsService
                 SubTask.FILE_URL_TEMP = fullName;
                 // On met un statut temporaire a 0 pour initialiser la tache
                 SubTask.STATUS = (int)EnumManager.PARAM_TASK_STATUS.SPLIT_EN_COURS;
-                new TASK_Service().AddOrUpdateTask(SubTask);
+                new TASK_Service().UpdateTask(SubTask);
                 // on extrait notre split
                 split.ExtractVideoSegment(fullName, Convert.ToInt64(ParamSplit.BEGIN_PARAM_SPLIT), Convert.ToInt64(ParamSplit.END_PARAM_SPLIT), Core.Transcoder.FFmpegWrapper.Videos.VideoFormat.avi);
                 SubTask.STATUS = (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE;
-                new TASK_Service().AddOrUpdateTask(SubTask);
+                new TASK_Service().UpdateTask(SubTask);
             }
             catch (Exception e)
             {
                 SubTask.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
-                new TASK_Service().AddOrUpdateTask(SubTask);
+                new TASK_Service().UpdateTask(SubTask);
 
                 TRACE trace = new TRACE()
                 {
@@ -396,7 +396,7 @@ namespace Core.Transcoder.WindowsService
             catch (Exception e)
             {
                 task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
-                new TASK_Service().AddOrUpdateTask(task);
+                new TASK_Service().UpdateTask(task);
 
                 TRACE trace = new TRACE()
                 {
@@ -440,7 +440,7 @@ namespace Core.Transcoder.WindowsService
             catch (Exception e)
             {
                 Task.STATUS = (int)EnumManager.PARAM_TASK_STATUS.ERREUR;
-                new TASK_Service().AddOrUpdateTask(Task);
+                new TASK_Service().UpdateTask(Task);
 
                 TRACE trace = new TRACE()
                 {

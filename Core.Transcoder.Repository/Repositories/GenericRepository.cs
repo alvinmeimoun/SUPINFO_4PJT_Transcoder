@@ -23,7 +23,7 @@ namespace Core.Transcoder.Repository
             this.dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "" , bool asNoTracking = false)
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -40,11 +40,25 @@ namespace Core.Transcoder.Repository
 
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                if (asNoTracking)
+                {
+                    return orderBy(query).AsNoTracking().ToList();
+                }
+                else
+                {
+                    return orderBy(query).ToList();
+                }
             }
             else
             {
-                return query.ToList();
+                if (asNoTracking)
+                {
+                    return query.AsNoTracking().ToList();
+                }
+                else
+                {
+                    return query.ToList();
+                }
             }
         }
 
@@ -87,9 +101,23 @@ namespace Core.Transcoder.Repository
 
         public virtual void Update(TEntity entityToUpdate)
         {
+            
+            
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
-        }
 
+
+        }
+        public virtual void UpdateOnlyTask(TASK entityToUpdate)
+        {
+            var local = context.Set<TASK>().Local.FirstOrDefault(f => f.PK_ID_TASK == entityToUpdate.PK_ID_TASK);
+            if(local != null)
+            {
+                context.Entry(local).State = EntityState.Detached;
+            }
+            context.Entry(entityToUpdate).State = EntityState.Modified;
+
+
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace Transcoder.WebApp.Web.Controllers
 
             return View("Panier", panier);
         }
-
+        [OutputCache(NoStore = true, Duration = 0)]
         public ActionResult MesConversions()
         {
             int UserId = CookieUtil.GetUserId(this);
