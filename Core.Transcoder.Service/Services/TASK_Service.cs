@@ -33,6 +33,19 @@ namespace Core.Transcoder.Service
             }
         }
 
+        public bool UpdateTask(TASK task)
+        {
+
+           // var original = UoW.TASK_Repository.GetByID(task.PK_ID_TASK);
+            if (task.PK_ID_TASK != 0)
+            {
+
+                UoW.TASK_Repository.UpdateOnlyTask(task);
+                UoW.Save();
+                return true;
+            }
+            return false;
+        }
 
         public bool DeleteTaskById(int id)
         {
@@ -67,14 +80,25 @@ namespace Core.Transcoder.Service
 
         public List<TASK> GetListOfTaskByStatusToDoOrToMerge()
         {
+            
+                List<TASK> listTasks = UoW.TASK_Repository
+                    .Get(x => x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE ||
+                    x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER,
+                    q => q.OrderBy(s => s.PK_ID_TASK), "")
+                    .Where(x => x.IS_PAID == true).ToList();
 
-            List<TASK> listTasks = UoW.TASK_Repository
-                .Get(x => x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE || 
-                x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER, 
-                q => q.OrderBy(s => s.PK_ID_TASK), "")
-                .Where(x => x.IS_PAID == true).ToList();
+                return listTasks;
+            
+        }
+        public TASK GetLastTaskToConvert()
+        {
 
-            return listTasks;
+                TASK task = UoW.TASK_Repository
+                    .Get(x => x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_FAIRE ||
+                    x.STATUS == (int)EnumManager.PARAM_TASK_STATUS.A_REASSEMBLER,
+                    q => q.OrderBy(s => s.PK_ID_TASK), "", true)
+                    .Where(x => x.IS_PAID == true).FirstOrDefault();
+                return task;
         }
 
         public List<TASK> GetSubTaskByMotherTask(int motherTaskId)
@@ -84,12 +108,12 @@ namespace Core.Transcoder.Service
 
         public TASK GetTaskById(int Id)
         {
-            return UoW.TASK_Repository.GetByID(Id);
+            return UoW.TASK_Repository.Get( x=> x.PK_ID_TASK == Id,null,"",true).FirstOrDefault();
         }
 
         public TASK GetLastTaskByUserId(int userId)
         {
-            return GetListOfTaskByUserId(userId).OrderByDescending(x => x.PK_ID_TASK).Where(x => x.FK_ID_PARENT_TASK == null && x.FK_ID_TRANSACTION != null && x.IS_PAID == true).FirstOrDefault();
+            return GetListOfTaskByUserId(userId,false).OrderByDescending(x => x.PK_ID_TASK).Where(x => x.FK_ID_PARENT_TASK == null && x.FK_ID_TRANSACTION != null && x.IS_PAID == true).FirstOrDefault();
         }
         public CreateTaskViewModel InitCreateTaskViewModelFromAnonymous()
         {
@@ -114,7 +138,7 @@ namespace Core.Transcoder.Service
             var user = UoW.USER_Repository.GetByID(userId);
             var shortEditUserViewModel = new ShortEditUserViewModel(user);
 
-            var userTasks = GetListOfTaskByUserId(userId).Where(x => x.IS_PAID == false);
+            var userTasks = GetListOfTaskByUserId(userId, false).Where(x => x.IS_PAID == false);
             TRANSACTION transaction;
             if (userTasks.Any())
             {
@@ -157,7 +181,8 @@ namespace Core.Transcoder.Service
             else
             {
                 // On update les infos user
-                UoW.USER_Repository.GetByID(model.FK_ID_USER);
+                user = UoW.USER_Repository.GetByID(model.FK_ID_USER);
+                
                 user.LASTNAME = model.ShortEditUserViewModel.Lastname;
                 user.FIRSTNAME = model.ShortEditUserViewModel.Firstname;
                 user.EMAIL = model.ShortEditUserViewModel.Email;
@@ -220,16 +245,20 @@ namespace Core.Transcoder.Service
         }
 
 
-        public List<TASK> GetListOfTaskByUserId(int userId)
+        public List<TASK> GetListOfTaskByUserId(int userId, bool isMesConvertions)
         {
-            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId && x.FK_ID_PARENT_TASK == null, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
+            if (isMesConvertions)
+            {
+                return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId && x.FK_ID_PARENT_TASK == null, q => q.OrderBy(s => s.PK_ID_TASK), "", true).ToList();
+            }
+            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId && x.FK_ID_PARENT_TASK == null, q => q.OrderBy(s => s.PK_ID_TASK), "",true).ToList();
         }
 
         public List<ListTaskViewModel> GetListTaskViewModelByUserId(int userId)
         {
             var listOfFormat = new FORMAT_Service().GetAll();
 
-            var query = (from task in GetListOfTaskByUserId(userId)
+            var query = (from task in GetListOfTaskByUserId(userId, true)
                          join status in new PARAM_TASK_STATUS_Service().GetAll() on task.STATUS equals status.PK_ID_STATUS
                          select new ListTaskViewModel
                          {

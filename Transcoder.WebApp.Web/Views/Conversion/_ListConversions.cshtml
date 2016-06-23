@@ -3,6 +3,7 @@
 @model List<Core.Transcoder.DataAccess.ViewModels.ListTaskViewModel>
 <head>
     <title>@UiStrings.myconversions_title</title>
+
 </head>
 <p>
     @Html.ActionLink(@UiStrings.listconversion_button_add_conversion, "AddConversion",null, new { @class = "btn btn-primary" })
@@ -64,7 +65,7 @@
                     @Html.DisplayFor(modelItem => Model.ToList()[i].DURATION, new { Name = "ListOfConversions[" + i + "].DURATION" }) minutes
                 </td>
                 <td>
-                    @if (Model.ToList()[i].IS_PAID != false)
+                    @if (Model.ToList()[i].STATUS == "Effectue")
                     {
                         @Html.HiddenFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })
                         @*@Html.DisplayFor(modelItem => Model.ToList()[i].STATUS, new { Name = "ListOfConversions[" + i + "].STATUS" })*@
