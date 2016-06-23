@@ -251,7 +251,7 @@ namespace Core.Transcoder.Service
             {
                 return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId && x.FK_ID_PARENT_TASK == null, q => q.OrderBy(s => s.PK_ID_TASK), "", true).ToList();
             }
-            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId && x.FK_ID_PARENT_TASK == null, q => q.OrderBy(s => s.PK_ID_TASK), "").ToList();
+            return UoW.TASK_Repository.Get(x => x.FK_ID_USER == userId && x.FK_ID_PARENT_TASK == null, q => q.OrderBy(s => s.PK_ID_TASK), "",true).ToList();
         }
 
         public List<ListTaskViewModel> GetListTaskViewModelByUserId(int userId)
